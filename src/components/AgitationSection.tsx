@@ -1,28 +1,13 @@
-const agitations = [
-  "Another website won't fix confusion.",
-  "Another strategy deck won't build traction.",
-  "Without ownership, nothing compounds.",
-];
-
 const AgitationSection = () => {
   return (
-    <section className="section-padding bg-card">
+    <section className="py-24 md:py-32">
       <div className="content-container">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="section-headline text-foreground mb-12">
-            More deliverables won't create momentum.
-          </h2>
-
-          <div className="space-y-4">
-            {agitations.map((text, index) => (
-              <p
-                key={index}
-                className="body-large text-muted-foreground"
-              >
-                {text}
-              </p>
-            ))}
-          </div>
+        <div className="max-w-2xl">
+          <p className="text-2xl md:text-3xl lg:text-4xl font-medium leading-snug text-foreground/80">
+            Another website won't create clarity.<br />
+            Another deck won't build traction.<br />
+            <span className="text-foreground">Without ownership, nothing compounds.</span>
+          </p>
         </div>
       </div>
     </section>

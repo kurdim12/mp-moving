@@ -3,26 +3,32 @@ import { cn } from "@/lib/utils";
 interface VisualBreakProps {
   image: string;
   alt: string;
-  size?: "small" | "medium" | "large";
   className?: string;
 }
 
-const VisualBreak = ({ image, alt, size = "medium", className }: VisualBreakProps) => {
-  const sizeClasses = {
-    small: "h-48 md:h-64",
-    medium: "h-64 md:h-80 lg:h-96",
-    large: "h-80 md:h-[28rem] lg:h-[32rem]",
-  };
-
+const VisualBreak = ({ image, alt, className }: VisualBreakProps) => {
   return (
-    <div className={cn("w-full overflow-hidden", className)}>
+    <div className={cn("w-full my-8 md:my-16", className)}>
+      <div className="content-container">
+        <img
+          src={image}
+          alt={alt}
+          className="w-full h-64 md:h-80 lg:h-[28rem] object-cover"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  );
+};
+
+// Full-bleed variant for key moments
+export const VisualBreakFull = ({ image, alt, className }: VisualBreakProps) => {
+  return (
+    <div className={cn("w-full", className)}>
       <img
         src={image}
         alt={alt}
-        className={cn(
-          "w-full object-cover transition-transform duration-1000 ease-out",
-          sizeClasses[size]
-        )}
+        className="w-full h-72 md:h-96 lg:h-[32rem] object-cover"
         loading="lazy"
       />
     </div>
