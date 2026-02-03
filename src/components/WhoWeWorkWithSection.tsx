@@ -1,63 +1,50 @@
 const forList = [
-  "Founders building something they believe in",
-  "Operators who need execution, not just advice",
-  "Teams ready to move, not just plan",
-  "People who value ownership over outsourcing",
+  "Founders building something real",
+  "Teams ready to execute",
+  "People who value ownership",
 ];
 
 const notForList = [
-  "Those looking for a vendor to execute a spec",
-  "Projects needing 'just a website'",
-  "Short-term campaigns without long-term thinking",
-  "Anyone prioritizing speed over alignment",
+  "Vendors to execute a spec",
+  "Quick campaigns",
+  "Speed over alignment",
 ];
 
 const WhoWeWorkWithSection = () => {
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-card">
       <div className="content-container">
-        <div className="section-divider mb-section" />
-        
-        <div className="mb-16 md:mb-20">
-          <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-4">
-            Alignment
-          </p>
-          <h2 className="section-headline text-foreground max-w-2xl">
-            We work with people, not projects.
+        <div className="mb-16 md:mb-24">
+          <h2 className="section-headline text-foreground max-w-xl">
+            We choose who we work with.
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24">
+        <div className="grid md:grid-cols-2 gap-16 md:gap-32">
           {/* For */}
           <div>
-            <h3 className="text-lg font-medium text-foreground mb-8">
-              MP is for
-            </h3>
-            <div className="space-y-5">
+            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-8">
+              We work with
+            </p>
+            <div className="space-y-4">
               {forList.map((item, index) => (
-                <div key={index} className="flex items-start gap-4 group">
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground mt-2.5 shrink-0" />
-                  <p className="body-medium text-foreground/80 group-hover:text-foreground transition-colors duration-300">
-                    {item}
-                  </p>
-                </div>
+                <p key={index} className="text-lg text-foreground">
+                  {item}
+                </p>
               ))}
             </div>
           </div>
 
           {/* Not for */}
           <div>
-            <h3 className="text-lg font-medium text-muted-foreground mb-8">
-              MP is not for
-            </h3>
-            <div className="space-y-5">
+            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground/60 mb-8">
+              Not looking for
+            </p>
+            <div className="space-y-4">
               {notForList.map((item, index) => (
-                <div key={index} className="flex items-start gap-4 group">
-                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50 mt-2.5 shrink-0" />
-                  <p className="body-medium text-muted-foreground">
-                    {item}
-                  </p>
-                </div>
+                <p key={index} className="text-lg text-muted-foreground">
+                  {item}
+                </p>
               ))}
             </div>
           </div>

@@ -4,24 +4,22 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-12 md:py-16 border-t border-border">
+    <footer className="py-16 md:py-20">
       <div className="content-container">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+          <div>
             <img 
               src={mpLogo} 
               alt="MP" 
-              className="h-6 w-auto opacity-60"
+              className="h-8 w-auto mb-3 opacity-80"
             />
-            <span className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Moving People
-            </span>
+            </p>
           </div>
 
-          {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {currentYear} MP Studio. All rights reserved.
+            © {currentYear}
           </p>
         </div>
       </div>

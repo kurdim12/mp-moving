@@ -1,19 +1,19 @@
 const solutions = [
   {
-    title: "Partnership, not vendor",
-    description: "We work as true partners invested in your outcome.",
+    title: "Partnership",
+    description: "We work as partners, not vendors.",
   },
   {
-    title: "Ownership mindset",
-    description: "We think and act like we have skin in the game.",
+    title: "Ownership",
+    description: "We think like we have skin in the game.",
   },
   {
-    title: "Build alongside you",
-    description: "Embedded collaboration, not external delivery.",
+    title: "Embedded",
+    description: "We build alongside you, not around you.",
   },
   {
-    title: "Momentum that lasts",
-    description: "Systems and strategies designed to compound over time.",
+    title: "Compounding",
+    description: "Every system connects to what comes next.",
   },
 ];
 
@@ -21,22 +21,19 @@ const SolutionSection = () => {
   return (
     <section className="section-padding">
       <div className="content-container">
-        <div className="section-divider mb-section" />
-        
-        <div className="mb-16 md:mb-20">
-          <h2 className="section-headline text-foreground max-w-2xl">
+        <div className="mb-20 md:mb-28">
+          <h2 className="section-headline text-foreground max-w-lg">
             That's where MP comes in.
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
           {solutions.map((item, index) => (
-            <div key={index} className="group">
-              <div className="h-px bg-border mb-6 group-hover:bg-foreground transition-colors duration-500" />
+            <div key={index} className="bg-background p-8 md:p-10">
               <h3 className="text-lg font-medium text-foreground mb-3">
                 {item.title}
               </h3>
-              <p className="body-medium">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 {item.description}
               </p>
             </div>
