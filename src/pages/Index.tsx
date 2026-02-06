@@ -1,20 +1,14 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import { VisualBreakFull } from "@/components/VisualBreak";
-import ProblemSection from "@/components/ProblemSection";
-import AgitationSection from "@/components/AgitationSection";
-import SolutionSection from "@/components/SolutionSection";
-import WhoWeWorkWithSection from "@/components/WhoWeWorkWithSection";
-import ServicesSection from "@/components/ServicesSection";
-import DigitalPresenceSection from "@/components/DigitalPresenceSection";
-import EngagementSection from "@/components/EngagementSection";
+import WhatMPIsSection from "@/components/WhatMPIsSection";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
+import ServicesSection from "@/components/ServicesSection";
 import VenturesSection from "@/components/VenturesSection";
-import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-// Visual assets - reduced to two key images
+// Visual assets
 import visualArchitecture from "@/assets/visual-architecture-1.jpg";
 import visualStructure from "@/assets/visual-structure-4.jpg";
 
@@ -25,32 +19,23 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* First visual: after hero, before the problem */}
+        {/* First visual: after hero */}
         <VisualBreakFull 
           image={visualArchitecture} 
           alt="Architectural structure with geometric lines and natural light" 
         />
         
-        <ProblemSection />
-        <AgitationSection />
-        <SolutionSection />
+        <WhatMPIsSection />
+        <HowWeWorkSection />
         
-        <WhoWeWorkWithSection />
-        
-        <ServicesSection />
-        
-        {/* Second visual: before engagement/process */}
+        {/* Second visual: before what we build */}
         <VisualBreakFull 
           image={visualStructure} 
           alt="Diagonal beams suggesting momentum and direction" 
         />
         
-        <DigitalPresenceSection />
-        <EngagementSection />
-        <HowWeWorkSection />
-        
+        <ServicesSection />
         <VenturesSection />
-        <FAQSection />
         <ContactSection />
       </main>
       <Footer />
