@@ -8,11 +8,11 @@ import VenturesSection from "@/components/VenturesSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-// Visual assets
-import visualArchitecture from "@/assets/visual-architecture-1.jpg";
-import visualLightSpace from "@/assets/visual-light-space.jpg";
-import visualFramework from "@/assets/visual-framework.jpg";
-import visualThreshold from "@/assets/visual-threshold.jpg";
+// Visual assets - flowing water/nature imagery
+import visualFlow1 from "@/assets/visual-flow-1.jpg";
+import visualFlow2 from "@/assets/visual-flow-2.jpg";
+import visualFlow3 from "@/assets/visual-flow-3.jpg";
+import visualFlow4 from "@/assets/visual-flow-4.jpg";
 
 const Index = () => {
   return (
@@ -21,35 +21,35 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* After hero: architectural structure */}
+        {/* After hero: ocean waves meeting coast - momentum */}
         <VisualBreakFull 
-          image={visualArchitecture} 
-          alt="Architectural structure with geometric lines and natural light" 
+          image={visualFlow1} 
+          alt="Ocean waves flowing against dark coastal rocks" 
         />
         
         <WhatMPIsSection />
         
-        {/* After what MP is: light and clarity */}
+        {/* After what MP is: smooth water flow - clarity */}
         <VisualBreakFull 
-          image={visualLightSpace} 
-          alt="Concrete interior space with dramatic natural light" 
+          image={visualFlow2} 
+          alt="Silky flowing water over dark rocks" 
         />
         
         <HowWeWorkSection />
         
-        {/* Before what we build: framework/scaffolding */}
+        {/* Before what we build: glacial landscape - possibility */}
         <VisualBreakFull 
-          image={visualFramework} 
-          alt="Steel scaffolding structure suggesting building and systems" 
+          image={visualFlow3} 
+          alt="Glacial ice and water landscape with soft mist" 
         />
         
         <ServicesSection />
         <VenturesSection />
         
-        {/* Before contact: threshold/doorway */}
+        {/* Before contact: path through rocks - direction */}
         <VisualBreakFull 
-          image={visualThreshold} 
-          alt="Open doorway with soft light suggesting conversation" 
+          image={visualFlow4} 
+          alt="Flowing water carving a path through volcanic rock" 
         />
         
         <ContactSection />
