@@ -1,8 +1,6 @@
 import mpLogo from "@/assets/mp-logo.png";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="py-16 md:py-20">
       <div className="content-container">
@@ -11,15 +9,21 @@ const Footer = () => {
             <img 
               src={mpLogo} 
               alt="MP" 
-              className="h-8 w-auto mb-3 opacity-80"
+              className="h-8 w-auto mb-4 opacity-80"
             />
-            <p className="text-sm text-muted-foreground">
-              Moving People
+            <p className="text-sm text-muted-foreground mb-2">
+              Globally connected
             </p>
+            <a 
+              href="mailto:hello@movingpeople.studio" 
+              className="text-sm text-foreground hover:text-muted-foreground transition-colors"
+            >
+              hello@movingpeople.studio
+            </a>
           </div>
 
           <p className="text-sm text-muted-foreground">
-            © {currentYear}
+            Moving People © 2026 MP Studio. All rights reserved.
           </p>
         </div>
       </div>

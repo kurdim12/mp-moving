@@ -8,11 +8,14 @@ const ContactSection = () => {
           <h2 className="section-headline text-foreground mb-6">
             Start with alignment.
           </h2>
-          <p className="body-large mb-10">
-            If there's fit, we'll know quickly.
+          <p className="body-large mb-4">
+            MP works selectively. If alignment exists, conversations start naturally.
+          </p>
+          <p className="body-medium mb-10">
+            We'll know quickly if it makes sense.
           </p>
           <Button variant="contact" size="xl" asChild>
-            <a href="mailto:hello@movingpeople.studio">Get in Touch</a>
+            <a href="mailto:hello@movingpeople.studio">hello@movingpeople.studio</a>
           </Button>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import mpLogo from "@/assets/mp-logo.png";
 
 const HeroSection = () => {
@@ -15,23 +14,20 @@ const HeroSection = () => {
             />
           </div>
 
-          {/* Main headline - more decisive */}
-          <h1 className="fade-up fade-up-delay-1 display-headline mb-8 text-foreground">
-            Ideas become momentum.
-          </h1>
-
-          {/* Subtext - tighter, no repetition */}
-          <p className="fade-up fade-up-delay-2 body-large max-w-xl mb-14">
-            MP partners with founders and teams to build what matters. 
-            Strategy, systems, and execution — designed to compound.
+          {/* Tagline */}
+          <p className="fade-up fade-up-delay-1 text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6">
+            Moving People
           </p>
 
-          {/* CTA */}
-          <div className="fade-up fade-up-delay-3">
-            <Button variant="hero" size="xl" asChild>
-              <a href="#contact">Start a Conversation</a>
-            </Button>
-          </div>
+          {/* Main headline */}
+          <h1 className="fade-up fade-up-delay-1 display-headline mb-8 text-foreground">
+            MP exists to move people forward.
+          </h1>
+
+          {/* Subtext */}
+          <p className="fade-up fade-up-delay-2 body-large max-w-xl">
+            We partner with people to build products, systems, and companies that create momentum.
+          </p>
         </div>
       </div>
     </section>
