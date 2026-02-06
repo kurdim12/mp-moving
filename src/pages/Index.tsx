@@ -10,7 +10,9 @@ import Footer from "@/components/Footer";
 
 // Visual assets
 import visualArchitecture from "@/assets/visual-architecture-1.jpg";
-import visualStructure from "@/assets/visual-structure-4.jpg";
+import visualLightSpace from "@/assets/visual-light-space.jpg";
+import visualFramework from "@/assets/visual-framework.jpg";
+import visualThreshold from "@/assets/visual-threshold.jpg";
 
 const Index = () => {
   return (
@@ -19,23 +21,37 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* First visual: after hero */}
+        {/* After hero: architectural structure */}
         <VisualBreakFull 
           image={visualArchitecture} 
           alt="Architectural structure with geometric lines and natural light" 
         />
         
         <WhatMPIsSection />
+        
+        {/* After what MP is: light and clarity */}
+        <VisualBreakFull 
+          image={visualLightSpace} 
+          alt="Concrete interior space with dramatic natural light" 
+        />
+        
         <HowWeWorkSection />
         
-        {/* Second visual: before what we build */}
+        {/* Before what we build: framework/scaffolding */}
         <VisualBreakFull 
-          image={visualStructure} 
-          alt="Diagonal beams suggesting momentum and direction" 
+          image={visualFramework} 
+          alt="Steel scaffolding structure suggesting building and systems" 
         />
         
         <ServicesSection />
         <VenturesSection />
+        
+        {/* Before contact: threshold/doorway */}
+        <VisualBreakFull 
+          image={visualThreshold} 
+          alt="Open doorway with soft light suggesting conversation" 
+        />
+        
         <ContactSection />
       </main>
       <Footer />
