@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-// Project visuals
 import brandMeridian from "@/assets/portfolio/brand-meridian.jpg";
 import brandTerravox from "@/assets/portfolio/brand-terravox.jpg";
 import productUrbanflow from "@/assets/portfolio/product-urbanflow.jpg";
@@ -10,237 +9,197 @@ import productVaultline from "@/assets/portfolio/product-vaultline.jpg";
 import aiPulseware from "@/assets/portfolio/ai-pulseware.jpg";
 import cobuildNomad from "@/assets/portfolio/cobuild-nomad.jpg";
 
-interface CaseStudy {
+interface Case {
   name: string;
-  context: string;
-  type: string;
+  descriptor: string;
+  metric: { value: string; label: string };
   image: string;
   challenge: string;
   approach: string;
-  impact: string;
-  variant: "hero" | "side" | "grid";
+  outcome: string;
+  hero?: boolean;
   tools?: string[];
-  impactNumbers?: { label: string; value: string }[];
+  impactNumbers?: { value: string; label: string }[];
 }
 
-interface Section {
+interface PillarSection {
   number: string;
-  category: string;
-  cases: CaseStudy[];
+  title: string;
+  cases: Case[];
+  bg: "white" | "neutral";
 }
 
-const sections: Section[] = [
+const pillars: PillarSection[] = [
   {
     number: "01",
-    category: "Brand & Positioning",
+    title: "Brand Systems",
+    bg: "white",
     cases: [
       {
         name: "Meridian Health",
-        context: "Series A health-tech company entering a crowded wellness market.",
-        type: "Brand Strategy · Identity System",
+        descriptor: "Brand strategy and identity system for a Series A health-tech company.",
+        metric: { value: "Series B", label: "closed with new narrative" },
         image: brandMeridian,
-        challenge: "Five different internal descriptions of what the company does. No positioning clarity.",
-        approach: "Focused positioning sprint. Core narrative, competitive frame, and messaging architecture — two weeks.",
-        impact: "Unified brand language across product, sales, and fundraising. Closed Series B with the new narrative.",
-        variant: "hero",
-        tools: ["Strategy", "Messaging", "Visual Identity", "Brand Guidelines"],
-        impactNumbers: [
-          { label: "Time to alignment", value: "2 weeks" },
-          { label: "Result", value: "Series B closed" },
-        ],
+        challenge: "Five competing internal narratives. No positioning clarity. Investors couldn't repeat the pitch.",
+        approach: "Two-week positioning sprint. Defined core narrative, competitive frame, and full messaging architecture.",
+        outcome: "Unified brand language adopted across product, sales, and fundraising. Series B closed on the new narrative.",
+        hero: true,
+        tools: ["Strategy", "Messaging Architecture", "Visual Identity", "Brand Guidelines"],
+        impactNumbers: [{ value: "2 wks", label: "To alignment" }, { value: "Series B", label: "Closed" }],
       },
       {
         name: "Terravox",
-        context: "Climate intelligence startup pivoting from B2C to B2B.",
-        type: "Rebrand · Enterprise Positioning",
+        descriptor: "Enterprise rebrand for a climate intelligence platform pivoting B2C to B2B.",
+        metric: { value: "3 contracts", label: "in 90 days" },
         image: brandTerravox,
-        challenge: "Consumer brand lacked credibility with enterprise buyers.",
-        approach: "Complete rebrand — positioning, visual identity, and website built for institutional trust.",
-        impact: "First three enterprise contracts signed within 90 days of launch.",
-        variant: "side",
-        tools: ["Positioning", "Identity", "Web Platform"],
-        impactNumbers: [
-          { label: "Enterprise contracts", value: "3 in 90 days" },
-        ],
+        challenge: "Consumer-facing brand lacked credibility with enterprise buyers.",
+        approach: "Complete rebrand — positioning, identity, and website built to signal institutional trust.",
+        outcome: "First three enterprise contracts signed within 90 days of rebrand launch.",
+        tools: ["Positioning", "Visual Identity", "Web Platform"],
+        impactNumbers: [{ value: "90 days", label: "To first contracts" }],
       },
     ],
   },
   {
     number: "02",
-    category: "Products, Platforms & Systems",
+    title: "Product Systems",
+    bg: "neutral",
     cases: [
       {
         name: "UrbanFlow",
-        context: "Urban mobility company with fragmented tools across three cities.",
-        type: "Operations Platform · System Design",
+        descriptor: "Unified operations platform for an urban mobility company across three cities.",
+        metric: { value: "–40%", label: "operational overhead" },
         image: productUrbanflow,
-        challenge: "Operations running on spreadsheets, email, and four disconnected dashboards.",
-        approach: "Unified operations platform — scheduling, routing, and reporting in one connected system.",
-        impact: "40% reduction in operational overhead. Scaled to two additional cities without adding headcount.",
-        variant: "side",
+        challenge: "Operations fragmented across spreadsheets, email, and four disconnected dashboards.",
+        approach: "Single connected system — scheduling, routing, and reporting designed as infrastructure, not features.",
+        outcome: "40% reduction in operational overhead. Scaled to two additional cities without adding headcount.",
         tools: ["React", "Node.js", "PostgreSQL", "Mapbox"],
-        impactNumbers: [
-          { label: "Overhead reduction", value: "40%" },
-          { label: "Cities scaled", value: "+2" },
-        ],
+        impactNumbers: [{ value: "–40%", label: "Overhead" }, { value: "+2", label: "Cities scaled" }],
       },
       {
         name: "Vaultline",
-        context: "Institutional fintech managing complex multi-asset portfolios.",
-        type: "Analytics Dashboard · Real-time Systems",
+        descriptor: "Real-time analytics platform for institutional multi-asset portfolio management.",
+        metric: { value: "2M+", label: "daily data points" },
         image: productVaultline,
-        challenge: "Legacy dashboard couldn't handle real-time data. Clients demanding modern interface.",
-        approach: "Real-time analytics platform with sub-second updates, designed for decision-making under pressure.",
-        impact: "Processing 2M+ data points daily. Client retention increased 25% in first quarter.",
-        variant: "hero",
+        challenge: "Legacy dashboard couldn't handle real-time data at scale. Clients demanding modern interface.",
+        approach: "Sub-second analytics platform designed for decision-making under pressure, not passive monitoring.",
+        outcome: "Processing 2M+ data points daily. Client retention increased 25% in first quarter after launch.",
+        hero: true,
         tools: ["TypeScript", "D3.js", "WebSocket", "AWS"],
-        impactNumbers: [
-          { label: "Daily data points", value: "2M+" },
-          { label: "Retention increase", value: "25%" },
-        ],
+        impactNumbers: [{ value: "2M+", label: "Data points/day" }, { value: "+25%", label: "Retention" }],
       },
     ],
   },
   {
     number: "03",
-    category: "AI & Automation",
+    title: "AI & Automation",
+    bg: "white",
     cases: [
       {
         name: "Pulseware",
-        context: "Clinical monitoring platform with manual alert triage.",
-        type: "ML Integration · Clinical UX",
+        descriptor: "ML-based alert prioritization for a clinical patient monitoring platform.",
+        metric: { value: "–60%", label: "alert fatigue" },
         image: aiPulseware,
-        challenge: "Nurses spending 30% of shift reviewing non-critical alerts.",
-        approach: "ML-based alert prioritization integrated into existing workflow. No new interfaces — smarter defaults.",
-        impact: "Alert fatigue reduced by 60%. Zero critical alerts missed in 12 months.",
-        variant: "grid",
-        tools: ["React", "TensorFlow", "FHIR API", "WebSocket"],
-        impactNumbers: [
-          { label: "Alert fatigue reduction", value: "60%" },
-          { label: "Critical alerts missed", value: "0" },
-          { label: "Deployment sites", value: "12" },
-        ],
+        challenge: "Nurses spending 30% of every shift reviewing non-critical alerts. Alert fatigue was a safety risk.",
+        approach: "Integrated ML prioritization into existing workflow. No new interfaces — just smarter defaults embedded into daily operations.",
+        outcome: "Alert fatigue reduced 60%. Zero critical alerts missed across 12 clinical sites in 12 months.",
+        hero: true,
+        tools: ["TensorFlow", "React", "FHIR API", "WebSocket"],
+        impactNumbers: [{ value: "–60%", label: "Alert fatigue" }, { value: "0", label: "Missed critical" }, { value: "12", label: "Sites deployed" }],
       },
     ],
   },
   {
     number: "04",
-    category: "Partnership & Co-Build",
+    title: "Co-Build Partnerships",
+    bg: "neutral",
     cases: [
       {
         name: "Nomad",
-        context: "Boutique travel operator with scaling ambitions and no technical partner.",
-        type: "Co-Build · Equity Partnership",
+        descriptor: "Equity co-build with a boutique travel operator scaling custom itinerary operations.",
+        metric: { value: "60%", label: "automation" },
         image: cobuildNomad,
-        challenge: "Domain expertise without technical capability. Two previous agency builds failed.",
-        approach: "Embedded as co-building partner. Shared product decisions, architecture, and strategy from day one.",
-        impact: "60% of booking operations automated. MP remains equity partner in the ongoing venture.",
-        variant: "hero",
+        challenge: "Founder had deep domain expertise but no technical partner. Two previous agency builds had failed.",
+        approach: "Embedded as co-building partner from day one. Shared product decisions, technical architecture, and operational strategy.",
+        outcome: "60% of booking operations automated. MP remains an equity partner in the ongoing venture.",
+        hero: true,
         tools: ["Next.js", "Prisma", "Stripe", "Vercel"],
-        impactNumbers: [
-          { label: "Automation", value: "60%" },
-          { label: "Partnership", value: "Equity" },
-        ],
+        impactNumbers: [{ value: "60%", label: "Automated" }, { value: "Equity", label: "Partnership" }],
       },
     ],
   },
 ];
 
-// Fade-in hook
-const useFadeIn = () => {
+// Scroll fade-in
+const useFade = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
+  const [vis, setVis] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold: 0.08 });
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
-
-  return { ref, style: { opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.7s ease, transform 0.7s ease" } };
+  return { ref, className: `transition-all duration-700 ease-out ${vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}` };
 };
 
-// Narrative row
-const NarrativeRow = ({ label, text }: { label: string; text: string }) => (
-  <div className="flex items-start gap-4 md:gap-6">
-    <span className="text-xs font-medium text-muted-foreground tracking-widest uppercase w-24 shrink-0 pt-0.5">
-      {label}
-    </span>
-    <span className="text-sm text-foreground/80 leading-relaxed">{text}</span>
+// Narrative block
+const Block = ({ label, text }: { label: string; text: string }) => (
+  <div>
+    <p className="text-[11px] font-semibold text-muted-foreground tracking-[0.15em] uppercase mb-2">{label}</p>
+    <p className="text-[15px] text-foreground/75 leading-relaxed">{text}</p>
   </div>
 );
 
-// Project detail modal
-const ProjectModal = ({ project, onClose }: { project: CaseStudy | null; onClose: () => void }) => {
+// Detail modal
+const DetailModal = ({ c, onClose }: { c: Case | null; onClose: () => void }) => {
   useEffect(() => {
-    if (project) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+    document.body.style.overflow = c ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [project]);
-
+  }, [c]);
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
+    const h = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
   }, [onClose]);
 
-  if (!project) return null;
-
+  if (!c) return null;
   return (
     <div className="fixed inset-0 z-[100] bg-background overflow-y-auto" style={{ animation: "fadeIn 0.3s ease-out" }}>
-      <button
-        onClick={onClose}
-        className="fixed top-6 right-6 md:top-8 md:right-10 z-[110] text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-      >
+      <button onClick={onClose} className="fixed top-6 right-6 md:top-8 md:right-10 z-[110] text-sm text-muted-foreground hover:text-foreground transition-colors">
         Close
       </button>
-
-      <img src={project.image} alt={project.name} className="w-full h-[55vh] md:h-[65vh] object-cover" />
-
+      <img src={c.image} alt={c.name} className="w-full h-[50vh] md:h-[60vh] object-cover" />
       <div className="max-w-3xl mx-auto px-6 md:px-10 py-16 md:py-24">
-        <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">{project.type}</p>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">{project.name}</h1>
-        <p className="text-lg text-muted-foreground mb-16">{project.context}</p>
-
-        <div className="space-y-6 mb-16">
-          <NarrativeRow label="Challenge" text={project.challenge} />
-          <div className="border-t border-border" />
-          <NarrativeRow label="Approach" text={project.approach} />
-          <div className="border-t border-border" />
-          <NarrativeRow label="Impact" text={project.impact} />
-        </div>
-
-        {project.impactNumbers && (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16">
-            {project.impactNumbers.map((n, i) => (
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-3">{c.name}</h1>
+        <p className="text-base text-muted-foreground mb-16">{c.descriptor}</p>
+        {c.impactNumbers && (
+          <div className="flex gap-12 mb-16">
+            {c.impactNumbers.map((n, i) => (
               <div key={i}>
-                <p className="text-3xl font-bold text-foreground mb-1">{n.value}</p>
-                <p className="text-xs text-muted-foreground tracking-widest uppercase">{n.label}</p>
+                <p className="text-3xl md:text-4xl font-bold text-foreground">{n.value}</p>
+                <p className="text-xs text-muted-foreground tracking-widest uppercase mt-1">{n.label}</p>
               </div>
             ))}
           </div>
         )}
-
-        {project.tools && (
+        <div className="space-y-8 mb-16">
+          <Block label="Challenge" text={c.challenge} />
+          <Block label="Approach" text={c.approach} />
+          <Block label="Outcome" text={c.outcome} />
+        </div>
+        {c.tools && (
           <div className="mb-16">
-            <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">Tools & Methods</p>
-            <div className="flex flex-wrap gap-3">
-              {project.tools.map((t, i) => (
-                <span key={i} className="text-xs text-foreground/70 border border-border px-3 py-1.5">{t}</span>
+            <p className="text-[11px] font-semibold text-muted-foreground tracking-[0.15em] uppercase mb-4">Tools & Methods</p>
+            <div className="flex flex-wrap gap-2">
+              {c.tools.map((t, i) => (
+                <span key={i} className="text-xs text-foreground/60 border border-border px-3 py-1.5">{t}</span>
               ))}
             </div>
           </div>
         )}
-
-        <button
-          onClick={onClose}
-          className="text-sm font-medium text-foreground border border-foreground px-8 py-3 hover:bg-foreground hover:text-background transition-all duration-300"
-        >
+        <button onClick={onClose} className="text-sm font-medium text-foreground border border-foreground px-8 py-3 hover:bg-foreground hover:text-background transition-all duration-300">
           Back to Portfolio
         </button>
       </div>
@@ -248,61 +207,63 @@ const ProjectModal = ({ project, onClose }: { project: CaseStudy | null; onClose
   );
 };
 
-// Variation A — Full-Bleed Hero
-const CaseHero = ({ c, onClick }: { c: CaseStudy; onClick: () => void }) => {
-  const fade = useFadeIn();
+// Hero case layout
+const HeroCase = ({ c, onClick }: { c: Case; onClick: () => void }) => {
+  const f = useFade();
   return (
-    <div ref={fade.ref} style={fade.style} className="cursor-pointer group" onClick={onClick}>
-      <div className="relative overflow-hidden">
-        <img
-          src={c.image}
-          alt={c.name}
-          className="w-full h-[32rem] md:h-[40rem] object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-          loading="lazy"
-        />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background/90 to-transparent" />
-        <div className="absolute bottom-8 left-6 md:left-10">
-          <p className="text-xs text-muted-foreground tracking-widest uppercase mb-2">{c.type}</p>
-          <h3 className="text-3xl md:text-4xl font-bold text-foreground">{c.name}</h3>
+    <div ref={f.ref} className={f.className}>
+      <div className="cursor-pointer group" onClick={onClick}>
+        <div className="relative overflow-hidden">
+          <img src={c.image} alt={c.name} className="w-full h-[28rem] md:h-[38rem] object-cover transition-transform duration-700 group-hover:scale-[1.015]" loading="lazy" />
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
         </div>
-      </div>
-      <div className="content-container mt-8">
-        <p className="text-base text-muted-foreground mb-8 max-w-xl">{c.context}</p>
-        <div className="space-y-4">
-          <NarrativeRow label="Challenge" text={c.challenge} />
-          <NarrativeRow label="Approach" text={c.approach} />
-          <NarrativeRow label="Impact" text={c.impact} />
+        <div className="content-container mt-8">
+          <div className="flex items-start justify-between gap-8 mb-8">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-2">{c.name}</h3>
+              <p className="text-sm text-muted-foreground max-w-lg">{c.descriptor}</p>
+            </div>
+            <div className="text-right shrink-0 hidden md:block">
+              <p className="text-2xl font-bold text-foreground">{c.metric.value}</p>
+              <p className="text-xs text-muted-foreground tracking-widest uppercase">{c.metric.label}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Block label="Challenge" text={c.challenge} />
+            <Block label="Approach" text={c.approach} />
+            <Block label="Outcome" text={c.outcome} />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// Variation B — Side-by-Side
-const CaseSide = ({ c, onClick }: { c: CaseStudy; onClick: () => void }) => {
-  const fade = useFadeIn();
+// Standard case layout
+const StandardCase = ({ c, onClick }: { c: Case; onClick: () => void }) => {
+  const f = useFade();
   return (
-    <div ref={fade.ref} style={fade.style} className="cursor-pointer group" onClick={onClick}>
-      <div className="content-container">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+    <div ref={f.ref} className={f.className}>
+      <div className="content-container cursor-pointer group" onClick={onClick}>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-8 md:gap-14">
           <div className="overflow-hidden">
-            <img
-              src={c.image}
-              alt={c.name}
-              className="w-full h-[24rem] md:h-[32rem] object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-              loading="lazy"
-            />
+            <img src={c.image} alt={c.name} className="w-full h-[22rem] md:h-[28rem] object-cover transition-transform duration-700 group-hover:scale-[1.015]" loading="lazy" />
           </div>
           <div className="flex flex-col justify-center">
-            <p className="text-xs text-muted-foreground tracking-widest uppercase mb-3">{c.type}</p>
-            <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4 relative inline-block">
-              {c.name}
-            </h3>
-            <p className="text-base text-muted-foreground mb-10">{c.context}</p>
-            <div className="space-y-4">
-              <NarrativeRow label="Challenge" text={c.challenge} />
-              <NarrativeRow label="Approach" text={c.approach} />
-              <NarrativeRow label="Impact" text={c.impact} />
+            <div className="flex items-start justify-between gap-6 mb-6">
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold tracking-tight text-foreground mb-2">{c.name}</h3>
+                <p className="text-sm text-muted-foreground">{c.descriptor}</p>
+              </div>
+              <div className="text-right shrink-0 hidden md:block">
+                <p className="text-xl font-bold text-foreground">{c.metric.value}</p>
+                <p className="text-[10px] text-muted-foreground tracking-widest uppercase">{c.metric.label}</p>
+              </div>
+            </div>
+            <div className="space-y-6">
+              <Block label="Challenge" text={c.challenge} />
+              <Block label="Approach" text={c.approach} />
+              <Block label="Outcome" text={c.outcome} />
             </div>
           </div>
         </div>
@@ -311,53 +272,8 @@ const CaseSide = ({ c, onClick }: { c: CaseStudy; onClick: () => void }) => {
   );
 };
 
-// Variation C — Grid
-const CaseGrid = ({ c, onClick }: { c: CaseStudy; onClick: () => void }) => {
-  const fade = useFadeIn();
-  return (
-    <div ref={fade.ref} style={fade.style} className="cursor-pointer group" onClick={onClick}>
-      <div className="content-container">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div className="overflow-hidden">
-            <img
-              src={c.image}
-              alt={c.name}
-              className="w-full h-[18rem] md:h-[24rem] object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
-              loading="lazy"
-            />
-          </div>
-          <div className="overflow-hidden">
-            <img
-              src={c.image}
-              alt={c.name}
-              className="w-full h-[18rem] md:h-[24rem] object-cover object-bottom transition-transform duration-700 group-hover:scale-[1.02]"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <p className="text-xs text-muted-foreground tracking-widest uppercase mb-3">{c.type}</p>
-        <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">{c.name}</h3>
-        <p className="text-base text-muted-foreground mb-10 max-w-xl">{c.context}</p>
-        <div className="space-y-4">
-          <NarrativeRow label="Challenge" text={c.challenge} />
-          <NarrativeRow label="Approach" text={c.approach} />
-          <NarrativeRow label="Impact" text={c.impact} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const CaseRenderer = ({ c, onClick }: { c: CaseStudy; onClick: () => void }) => {
-  switch (c.variant) {
-    case "hero": return <CaseHero c={c} onClick={onClick} />;
-    case "side": return <CaseSide c={c} onClick={onClick} />;
-    case "grid": return <CaseGrid c={c} onClick={onClick} />;
-  }
-};
-
 const Portfolio = () => {
-  const [selectedProject, setSelectedProject] = useState<CaseStudy | null>(null);
+  const [selected, setSelected] = useState<Case | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -366,38 +282,51 @@ const Portfolio = () => {
         {/* Title */}
         <section className="pt-32 md:pt-40 pb-20 md:pb-28">
           <div className="content-container">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6">
+            <h1 className="fade-up text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6">
               Portfolio
             </h1>
-            <p className="text-lg text-muted-foreground max-w-lg">
+            <p className="fade-up fade-up-delay-1 text-lg text-muted-foreground max-w-lg">
               Selected work that shows clarity, impact, and systems thinking.
             </p>
           </div>
         </section>
 
-        {/* Sections */}
-        {sections.map((section) => (
-          <section key={section.number} className="mb-24 md:mb-32">
+        {/* Pillar sections */}
+        {pillars.map((pillar) => (
+          <section
+            key={pillar.number}
+            className={`py-20 md:py-28 ${pillar.bg === "neutral" ? "bg-muted/30" : "bg-background"}`}
+          >
             {/* Section header */}
-            <div className="content-container mb-16">
-              <div className="flex items-baseline gap-6 mb-4">
-                <span className="text-5xl md:text-6xl font-bold text-border">{section.number}</span>
-                <h2 className="text-xl md:text-2xl font-semibold text-foreground">{section.category}</h2>
+            <div className="content-container mb-16 md:mb-20">
+              <div className="flex items-end gap-6">
+                <span className="text-[5rem] md:text-[7rem] font-bold leading-none text-border/60 -mb-2">
+                  {pillar.number}
+                </span>
+                <div className="pb-3">
+                  <h2 className="text-lg md:text-xl font-semibold text-foreground tracking-tight">
+                    {pillar.title}
+                  </h2>
+                </div>
               </div>
-              <div className="border-t border-border" />
+              <div className="border-t border-border mt-6" />
             </div>
 
             {/* Cases */}
             <div className="space-y-20 md:space-y-28">
-              {section.cases.map((c, ci) => (
-                <CaseRenderer key={ci} c={c} onClick={() => setSelectedProject(c)} />
-              ))}
+              {pillar.cases.map((c, ci) =>
+                c.hero ? (
+                  <HeroCase key={ci} c={c} onClick={() => setSelected(c)} />
+                ) : (
+                  <StandardCase key={ci} c={c} onClick={() => setSelected(c)} />
+                )
+              )}
             </div>
           </section>
         ))}
       </main>
       <Footer />
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <DetailModal c={selected} onClose={() => setSelected(null)} />
     </div>
   );
 };
