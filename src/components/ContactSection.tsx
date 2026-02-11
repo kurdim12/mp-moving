@@ -1,22 +1,20 @@
-import { Button } from "@/components/ui/button";
-
 const ContactSection = () => {
   return (
-    <section id="contact" className="section-padding bg-card">
+    <section id="contact" className="section-padding border-t border-border">
       <div className="content-container">
         <div className="max-w-xl">
-          <h2 className="section-headline text-foreground mb-6">
-            Start with alignment.
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
+            Let's build something meaningful.
           </h2>
-          <p className="body-large mb-4">
-            MP works selectively. If alignment exists, conversations start naturally.
+          <p className="text-base text-muted-foreground leading-relaxed mb-10">
+            We work selectively. If there's alignment, the conversation starts naturally.
           </p>
-          <p className="body-medium mb-10">
-            We'll know quickly if it makes sense.
-          </p>
-          <Button variant="contact" size="xl" asChild>
-            <a href="mailto:hello@movingpeople.studio">hello@movingpeople.studio</a>
-          </Button>
+          <a
+            href="mailto:hello@movingpeople.studio"
+            className="inline-block text-sm font-medium text-foreground border border-foreground px-8 py-3 hover:bg-foreground hover:text-background transition-all duration-300"
+          >
+            hello@movingpeople.studio
+          </a>
         </div>
       </div>
     </section>
