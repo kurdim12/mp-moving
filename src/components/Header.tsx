@@ -47,10 +47,10 @@ const Header = () => {
               Portfolio
             </a>
             <a
-              href="#contact"
+              href="/contact"
               className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
             >
-              Get in Touch
+              Contact
             </a>
           </div>
 
@@ -86,11 +86,11 @@ const Header = () => {
               Portfolio
             </a>
             <a
-              href="#contact"
+              href="/contact"
               className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
               onClick={() => setMenuOpen(false)}
             >
-              Get in Touch
+              Contact
             </a>
           </div>
         </div>
