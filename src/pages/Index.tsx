@@ -1,71 +1,58 @@
-import { Link } from "react-router-dom";
 import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import { VisualBreakFull } from "@/components/VisualBreak";
+import WhatMPIsSection from "@/components/WhatMPIsSection";
+import HowWeWorkSection from "@/components/HowWeWorkSection";
+import ServicesSection from "@/components/ServicesSection";
+import VenturesSection from "@/components/VenturesSection";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-const capabilities = [
-  {
-    title: "Brand & Positioning",
-    description: "Clarity before aesthetics. We define what matters and give teams language they can build with.",
-    href: "/what-we-build",
-  },
-  {
-    title: "Products, Platforms & Systems",
-    description: "Connected digital systems designed to scale with decisions, not just traffic.",
-    href: "/what-we-build",
-  },
-  {
-    title: "AI & Automation",
-    description: "Applied only where it removes friction, increases leverage, or changes how work gets done.",
-    href: "/what-we-build",
-  },
-  {
-    title: "Partnership & Co-Build",
-    description: "Long-term collaborations with shared ownership. Some start as builds. The right ones become ventures.",
-    href: "/ventures",
-  },
-];
+// Visual assets - flowing water/nature imagery
+import visualFlow1 from "@/assets/visual-flow-1.jpg";
+import visualFlow2 from "@/assets/visual-flow-2.jpg";
+import visualFlow3 from "@/assets/visual-flow-3.jpg";
+import visualFlow4 from "@/assets/visual-flow-4.jpg";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        {/* Hero */}
-        <section className="min-h-[85vh] flex flex-col justify-center pt-20">
-          <div className="content-container">
-            <div className="max-w-3xl">
-              <h1 className="fade-up text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] text-foreground mb-8">
-                Built with founders.<br />
-                Built for the long term.
-              </h1>
-              <p className="fade-up fade-up-delay-1 text-lg md:text-xl text-muted-foreground max-w-lg">
-                We design brands, systems, and ventures that move people forward.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Capabilities */}
-        <section className="section-padding border-t border-border">
-          <div className="content-container">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
-              {capabilities.map((cap, i) => (
-                <Link
-                  key={i}
-                  to={cap.href}
-                  className="bg-background p-8 md:p-12 group transition-colors duration-300 hover:bg-muted/30"
-                >
-                  <h3 className="text-base font-semibold text-foreground mb-3 relative inline-block after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1px] after:bg-foreground after:transition-all after:duration-300 group-hover:after:w-full">
-                    {cap.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {cap.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+        <HeroSection />
+        
+        {/* After hero: ocean waves meeting coast - momentum */}
+        <VisualBreakFull 
+          image={visualFlow1} 
+          alt="Ocean waves flowing against dark coastal rocks" 
+        />
+        
+        <WhatMPIsSection />
+        
+        {/* After what MP is: smooth water flow - clarity */}
+        <VisualBreakFull 
+          image={visualFlow2} 
+          alt="Silky flowing water over dark rocks" 
+        />
+        
+        <HowWeWorkSection />
+        
+        {/* Before what we build: glacial landscape - possibility */}
+        <VisualBreakFull 
+          image={visualFlow3} 
+          alt="Glacial ice and water landscape with soft mist" 
+        />
+        
+        <ServicesSection />
+        <VenturesSection />
+        
+        {/* Before contact: path through rocks - direction */}
+        <VisualBreakFull 
+          image={visualFlow4} 
+          alt="Flowing water carving a path through volcanic rock" 
+        />
+        
+        <ContactSection />
       </main>
       <Footer />
     </div>
