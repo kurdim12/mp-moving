@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { PortfolioItem } from "./PortfolioData";
 
 interface PortfolioCardProps {
@@ -32,22 +32,21 @@ function useScrollReveal(delay = 0) {
 }
 
 const PortfolioCard = ({ item, index, isExpanded, onToggle }: PortfolioCardProps) => {
-  const { ref, isVisible } = useScrollReveal(index * 60);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState(0);
+  const { ref, isVisible } = useScrollReveal(index * 50);
+  const expandRef = useRef<HTMLDivElement>(null);
+  const [expandHeight, setExpandHeight] = useState(0);
 
   useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
+    if (expandRef.current) {
+      setExpandHeight(expandRef.current.scrollHeight);
     }
   }, [isExpanded]);
 
-  // Scroll into view when expanded
   useEffect(() => {
     if (isExpanded && ref.current) {
       setTimeout(() => {
         ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+      }, 150);
     }
   }, [isExpanded]);
 
@@ -55,119 +54,133 @@ const PortfolioCard = ({ item, index, isExpanded, onToggle }: PortfolioCardProps
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 ease-out border-b border-border",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        "transition-all duration-700 ease-out",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+        isExpanded && "col-span-1 md:col-span-2 lg:col-span-3 row-span-1"
       )}
     >
-      {/* Collapsed row — clickable */}
+      {/* Card — collapsed state */}
       <div
         onClick={onToggle}
         className={cn(
-          "group cursor-pointer transition-all duration-500",
-          "py-6 md:py-8",
-          isExpanded && "pb-0 md:pb-0"
+          "group cursor-pointer h-full border border-border p-6 md:p-8 flex flex-col justify-between transition-all duration-500",
+          "hover:bg-foreground/[0.02]",
+          isExpanded && "bg-foreground text-background border-foreground"
         )}
       >
-        <div className="content-container">
-          <div className="flex items-center justify-between gap-4">
-            {/* Left: Initials + Name */}
-            <div className="flex items-center gap-5 md:gap-8 min-w-0">
-              <div
+        <div>
+          <div className="flex items-start justify-between gap-3 mb-4">
+            <h3
+              className={cn(
+                "text-lg md:text-xl font-medium tracking-tight leading-tight",
+                isExpanded ? "text-background" : "text-foreground"
+              )}
+            >
+              {item.name}
+            </h3>
+            <div
+              className={cn(
+                "w-6 h-6 flex items-center justify-center flex-shrink-0 transition-all duration-500",
+                "opacity-0 group-hover:opacity-100",
+                isExpanded && "opacity-100 rotate-45"
+              )}
+            >
+              <ArrowUpRight
                 className={cn(
-                  "w-12 h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0",
-                  "bg-foreground text-background rounded-sm",
-                  "text-sm md:text-base font-medium tracking-wide",
-                  "transition-transform duration-500 group-hover:scale-105",
-                  isExpanded && "scale-105"
+                  "w-4 h-4",
+                  isExpanded ? "text-background/60" : "text-muted-foreground"
                 )}
-              >
-                {item.initials}
-              </div>
-              <div className="min-w-0">
-                <h3
-                  className={cn(
-                    "text-lg md:text-xl lg:text-2xl font-medium tracking-tight text-foreground truncate",
-                    "transition-all duration-300 group-hover:opacity-70"
-                  )}
-                >
-                  {item.name}
-                </h3>
-                <p className="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mt-0.5 hidden sm:block">
-                  {item.category}
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Year + tagline + arrow */}
-            <div className="flex items-center gap-4 md:gap-8 flex-shrink-0">
-              <p className="text-sm text-muted-foreground hidden lg:block max-w-xs truncate">
-                {item.tagline}
-              </p>
-              <span className="text-xs text-muted-foreground hidden md:block">{item.year}</span>
-              <div
-                className={cn(
-                  "w-8 h-8 flex items-center justify-center transition-all duration-500",
-                  isExpanded ? "rotate-45" : "rotate-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                )}
-              >
-                {isExpanded ? (
-                  <X className="w-4 h-4 text-muted-foreground" />
-                ) : (
-                  <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
-                )}
-              </div>
+              />
             </div>
           </div>
+
+          <p
+            className={cn(
+              "text-sm leading-relaxed mb-6",
+              isExpanded ? "text-background/70" : "text-muted-foreground"
+            )}
+          >
+            {item.description}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <span
+            className={cn(
+              "text-[11px] font-medium tracking-[0.15em] uppercase",
+              isExpanded ? "text-background/50" : "text-muted-foreground"
+            )}
+          >
+            {item.category}
+          </span>
+          <span
+            className={cn(
+              "text-xs font-medium underline underline-offset-4 transition-colors",
+              isExpanded
+                ? "text-background/70 hover:text-background"
+                : "text-foreground hover:text-foreground/70"
+            )}
+          >
+            {isExpanded ? "Close" : "View case study"}
+          </span>
         </div>
       </div>
 
-      {/* Expanded content — smooth height animation */}
+      {/* Expanded detail panel */}
       <div
         style={{
-          maxHeight: isExpanded ? `${contentHeight}px` : "0px",
+          maxHeight: isExpanded ? `${expandHeight}px` : "0px",
           opacity: isExpanded ? 1 : 0,
         }}
         className="overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
       >
-        <div ref={contentRef}>
-          {/* Gradient visual block */}
-          <div className="content-container pt-4 pb-8">
+        <div ref={expandRef} className="border-x border-b border-border">
+          {/* Gradient hero */}
+          <div className="p-6 md:p-8">
             <div
               className={cn(
-                "w-full h-40 md:h-56 lg:h-64 bg-gradient-to-br rounded-sm relative overflow-hidden",
+                "w-full h-36 md:h-52 lg:h-64 bg-gradient-to-br rounded-sm relative overflow-hidden",
                 item.accentColor
               )}
             >
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[100px] md:text-[160px] lg:text-[200px] font-medium tracking-tight text-white/[0.06] leading-none select-none">
+                <span className="text-[80px] md:text-[140px] lg:text-[180px] font-medium tracking-tight text-white/[0.06] leading-none select-none">
                   {item.initials}
                 </span>
               </div>
               <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=')]" />
+              {/* Year badge */}
+              <div className="absolute top-4 right-4">
+                <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-white/40">
+                  {item.year}
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Description */}
-          <div className="content-container pb-10 md:pb-14">
-            <p className="text-lg md:text-xl leading-relaxed text-foreground/80 max-w-2xl mb-12 md:mb-16">
-              {item.description}
+          {/* Tagline */}
+          <div className="px-6 md:px-8 pb-6">
+            <p className="text-xl md:text-2xl font-medium tracking-tight text-foreground leading-snug max-w-xl">
+              {item.tagline}
             </p>
+          </div>
 
-            {/* Challenge + Outcome */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-12 md:mb-16">
+          {/* Challenge + Outcome */}
+          <div className="px-6 md:px-8 pb-10 md:pb-14">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 mb-10 md:mb-14">
               <div>
-                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
+                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">
                   The Challenge
                 </p>
-                <p className="text-base leading-relaxed text-foreground/70">
+                <p className="text-sm md:text-base leading-relaxed text-foreground/70">
                   {item.challenge}
                 </p>
               </div>
               <div>
-                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
+                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">
                   The Outcome
                 </p>
-                <p className="text-base leading-relaxed text-foreground/70">
+                <p className="text-sm md:text-base leading-relaxed text-foreground/70">
                   {item.outcome}
                 </p>
               </div>
@@ -175,14 +188,14 @@ const PortfolioCard = ({ item, index, isExpanded, onToggle }: PortfolioCardProps
 
             {/* Stats */}
             {item.stats && item.stats.length > 0 && (
-              <div className="border-t border-border pt-10 mb-12 md:mb-14">
+              <div className="border-t border-border pt-8 mb-10">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   {item.stats.map((stat) => (
                     <div key={stat.label}>
-                      <p className="text-3xl md:text-4xl font-medium tracking-tight text-foreground mb-1.5">
+                      <p className="text-2xl md:text-3xl font-medium tracking-tight text-foreground mb-1">
                         {stat.value}
                       </p>
-                      <p className="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground">
+                      <p className="text-[10px] font-medium tracking-[0.15em] uppercase text-muted-foreground">
                         {stat.label}
                       </p>
                     </div>
@@ -192,7 +205,7 @@ const PortfolioCard = ({ item, index, isExpanded, onToggle }: PortfolioCardProps
             )}
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-8">
               {item.tags.map((tag) => (
                 <span
                   key={tag}
@@ -204,7 +217,7 @@ const PortfolioCard = ({ item, index, isExpanded, onToggle }: PortfolioCardProps
             </div>
 
             {/* CTA */}
-            <div className="border-t border-border mt-10 pt-8 flex items-center justify-between">
+            <div className="border-t border-border pt-6 flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 Interested in building something like this?
               </p>
