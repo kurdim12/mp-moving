@@ -1,27 +1,17 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
-import PortfolioCard from "@/components/portfolio/PortfolioCard";
+import PortfolioGrid from "@/components/portfolio/PortfolioGrid";
 import { portfolioItems, categories } from "@/components/portfolio/PortfolioData";
 
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const filtered =
     activeCategory === "All"
       ? portfolioItems
       : portfolioItems.filter((i) => i.category === activeCategory);
-
-  const handleToggle = useCallback((index: number) => {
-    setExpandedIndex((prev) => (prev === index ? null : index));
-  }, []);
-
-  const handleCategoryChange = (cat: string) => {
-    setActiveCategory(cat);
-    setExpandedIndex(null);
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -53,7 +43,7 @@ const Portfolio = () => {
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => handleCategoryChange(cat)}
+                  onClick={() => setActiveCategory(cat)}
                   className={cn(
                     "text-[11px] md:text-xs font-medium tracking-[0.15em] uppercase px-4 py-2 transition-all duration-300",
                     activeCategory === cat
@@ -71,17 +61,7 @@ const Portfolio = () => {
         {/* Grid */}
         <section className="pb-24 md:pb-32">
           <div className="content-container">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-              {filtered.map((item, index) => (
-                <PortfolioCard
-                  key={item.name}
-                  item={item}
-                  index={index}
-                  isExpanded={expandedIndex === index}
-                  onToggle={() => handleToggle(index)}
-                />
-              ))}
-            </div>
+            <PortfolioGrid items={filtered} />
 
             {filtered.length === 0 && (
               <div className="border border-border py-24 text-center">
