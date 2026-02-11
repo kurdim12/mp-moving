@@ -25,8 +25,8 @@ function useScrollReveal(delay = 0) {
   return { ref, isVisible };
 }
 
-/* ─── Logo grid cell ─── */
-const LogoCell = ({
+/* ─── Portfolio card cell ─── */
+const PortfolioCard = ({
   item,
   index,
 }: {
@@ -34,34 +34,129 @@ const LogoCell = ({
   index: number;
 }) => {
   const { ref, isVisible } = useScrollReveal(index * 60);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Generate a color based on initials for visual interest
+  const getColorFromInitials = (initials: string) => {
+    const colors = [
+      "from-blue-500/20 to-purple-500/20",
+      "from-emerald-500/20 to-teal-500/20",
+      "from-orange-500/20 to-red-500/20",
+      "from-violet-500/20 to-fuchsia-500/20",
+      "from-cyan-500/20 to-blue-500/20",
+      "from-amber-500/20 to-orange-500/20",
+      "from-rose-500/20 to-pink-500/20",
+      "from-indigo-500/20 to-purple-500/20",
+      "from-lime-500/20 to-green-500/20",
+      "from-pink-500/20 to-rose-500/20",
+    ];
+    const charCode = initials.charCodeAt(0) + initials.charCodeAt(1);
+    return colors[charCode % colors.length];
+  };
 
   return (
     <div
       ref={ref}
       className={cn(
         "transition-all duration-700 ease-out",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >
       <Link
         to={`/portfolio/${item.slug}`}
-        className="group block text-center py-16 md:py-20 lg:py-24 px-6 hover:bg-muted/30 transition-colors duration-200"
+        className="group block relative overflow-hidden bg-card border border-border hover:border-foreground/20 transition-all duration-500 h-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Wordmark */}
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground/80 group-hover:text-foreground transition-colors duration-200 mb-4 leading-none">
-          {item.name}
-        </h3>
+        {/* Gradient background */}
+        <div
+          className={cn(
+            "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500",
+            getColorFromInitials(item.initials)
+          )}
+        />
 
-        {/* Descriptor */}
-        <p className="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">
-          {item.descriptor}
-        </p>
+        {/* Content */}
+        <div className="relative p-8 md:p-10 lg:p-12 h-full flex flex-col justify-between min-h-[400px]">
+          {/* Top section */}
+          <div>
+            {/* Category & Year */}
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-muted-foreground">
+                {item.category}
+              </span>
+              <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-muted-foreground">
+                {item.year}
+              </span>
+            </div>
 
-        {/* View Case link */}
-        <span className="inline-block text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground/60 group-hover:text-foreground transition-colors duration-200 relative">
-          View Case
-          <span className="absolute bottom-0 left-0 w-full h-px bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-        </span>
+            {/* Large initials as visual element */}
+            <div className="mb-6">
+              <div className="text-7xl md:text-8xl font-bold tracking-tighter text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 leading-none">
+                {item.initials}
+              </div>
+            </div>
+
+            {/* Project name */}
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-foreground mb-4 leading-tight">
+              {item.name}
+            </h3>
+
+            {/* Tagline */}
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4 group-hover:text-foreground/80 transition-colors duration-300">
+              {item.tagline}
+            </p>
+
+            {/* Micro signal (impact metric) */}
+            {item.microSignal && (
+              <div className="inline-block px-3 py-1.5 bg-foreground/5 group-hover:bg-foreground/10 transition-colors duration-300 mb-6">
+                <span className="text-xs font-medium tracking-wide text-foreground">
+                  {item.microSignal}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Bottom section - appears on hover */}
+          <div
+            className={cn(
+              "transition-all duration-500 ease-out",
+              isHovered
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            )}
+          >
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {item.tags.slice(0, 2).map((tag, i) => (
+                <span
+                  key={i}
+                  className="text-[10px] font-medium tracking-wider uppercase text-foreground/60 px-2 py-1 bg-foreground/5"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* View Case link */}
+            <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <span>View Case Study</span>
+              <svg
+                className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
       </Link>
     </div>
   );
@@ -119,12 +214,12 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* Logo grid */}
+        {/* Portfolio grid */}
         <section className="pb-24 md:pb-32">
           <div className="content-container">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {filtered.map((item, index) => (
-                <LogoCell key={item.slug} item={item} index={index} />
+                <PortfolioCard key={item.slug} item={item} index={index} />
               ))}
             </div>
 
