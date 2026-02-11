@@ -150,22 +150,10 @@ const Portfolio = () => {
 
       {/* ── Expanded full-size view ── */}
       {activePanel && ActiveComponent && (
-        <div className="fixed inset-0 z-40 bg-background overflow-y-auto animate-fade-in">
-          {/* Back bar */}
-          <div className="sticky top-0 z-50 bg-background border-b border-foreground/10">
-            <div className="px-6 md:px-12 h-16 flex items-center justify-between max-w-[1200px] mx-auto">
-              <h2 className="text-sm font-semibold tracking-tight text-foreground uppercase">
-                {activeData.title}
-              </h2>
-              <button
-                onClick={() => setActivePanel(null)}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
-              >
-                ← Back to overview
-              </button>
-            </div>
-            <div className="h-[2px] bg-destructive" />
-          </div>
+        <div
+          className="fixed inset-0 z-40 bg-background overflow-y-auto animate-fade-in cursor-pointer"
+          onClick={() => setActivePanel(null)}
+        >
 
           {/* Full-size page content */}
           <div className="max-w-[1200px] mx-auto">
