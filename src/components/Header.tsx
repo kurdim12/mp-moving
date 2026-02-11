@@ -32,12 +32,20 @@ const Header = () => {
           </a>
 
           {/* Right nav */}
-          <a
-            href="#contact"
-            className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
-          >
-            Get in Touch
-          </a>
+          <div className="flex items-center gap-6 md:gap-8">
+            <a
+              href="/portfolio"
+              className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
+            >
+              Portfolio
+            </a>
+            <a
+              href="#contact"
+              className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
+            >
+              Get in Touch
+            </a>
+          </div>
         </nav>
       </div>
     </header>
