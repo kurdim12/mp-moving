@@ -23,7 +23,7 @@ const Header = () => {
       <div className="content-container">
         <nav className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 group">
+          <a href="/" className="flex items-center gap-3 group">
             <img 
               src={mpLogo} 
               alt="MP Logo" 
