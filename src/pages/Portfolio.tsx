@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
-import CaseSpread from "@/components/portfolio/CaseSpread";
-import { portfolioItems, categories, type PortfolioItem } from "@/components/portfolio/PortfolioData";
+import { portfolioItems, categories } from "@/components/portfolio/PortfolioData";
 
 /* ─── Scroll reveal ─── */
 function useScrollReveal(delay = 0) {
@@ -25,18 +25,15 @@ function useScrollReveal(delay = 0) {
   return { ref, isVisible };
 }
 
-/* ─── Logo/wordmark cell ─── */
+/* ─── Logo grid cell ─── */
 const LogoCell = ({
   item,
   index,
-  onOpen,
 }: {
-  item: PortfolioItem;
+  item: (typeof portfolioItems)[0];
   index: number;
-  onOpen: (rect: DOMRect) => void;
 }) => {
   const { ref, isVisible } = useScrollReveal(index * 60);
-  const cellRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
@@ -46,34 +43,26 @@ const LogoCell = ({
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}
     >
-      <div
-        ref={cellRef}
-        onClick={() => {
-          if (cellRef.current) onOpen(cellRef.current.getBoundingClientRect());
-        }}
-        className="group cursor-pointer text-center py-10 md:py-14 lg:py-16 px-4"
-        style={{ cursor: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text y='18' font-size='14'>↗</text></svg>\") 12 12, pointer" }}
+      <Link
+        to={`/portfolio/${item.slug}`}
+        className="group block text-center py-16 md:py-20 lg:py-24 px-6 hover:bg-muted/30 transition-colors duration-200"
       >
         {/* Wordmark */}
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-foreground/80 group-hover:text-foreground transition-all duration-300 mb-3 leading-none">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground/80 group-hover:text-foreground transition-colors duration-200 mb-4 leading-none">
           {item.name}
         </h3>
 
         {/* Descriptor */}
-        <p className="text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2 relative inline-block">
-          <span className="relative">
-            {item.descriptor}
-            <span className="absolute bottom-0 left-0 w-full h-px bg-foreground/30 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-          </span>
+        <p className="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">
+          {item.descriptor}
         </p>
 
-        {/* Micro signal */}
-        {item.microSignal && (
-          <p className="text-[10px] tracking-[0.1em] text-muted-foreground/50 mt-1">
-            {item.microSignal}
-          </p>
-        )}
-      </div>
+        {/* View Case link */}
+        <span className="inline-block text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground/60 group-hover:text-foreground transition-colors duration-200 relative">
+          View Case
+          <span className="absolute bottom-0 left-0 w-full h-px bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+        </span>
+      </Link>
     </div>
   );
 };
@@ -81,16 +70,11 @@ const LogoCell = ({
 /* ─── Main portfolio page ─── */
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [expanded, setExpanded] = useState<{ item: PortfolioItem; rect: DOMRect } | null>(null);
 
   const filtered =
     activeCategory === "All"
       ? portfolioItems
       : portfolioItems.filter((i) => i.category === activeCategory);
-
-  const handleOpen = useCallback((item: PortfolioItem, rect: DOMRect) => {
-    setExpanded({ item, rect });
-  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,7 +106,7 @@ const Portfolio = () => {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={cn(
-                    "text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase px-4 py-2 transition-all duration-300",
+                    "text-[10px] md:text-[11px] font-medium tracking-[0.15em] uppercase px-4 py-2 transition-all duration-200",
                     activeCategory === cat
                       ? "bg-foreground text-background"
                       : "text-muted-foreground hover:text-foreground border border-border hover:border-foreground/30"
@@ -138,14 +122,9 @@ const Portfolio = () => {
         {/* Logo grid */}
         <section className="pb-24 md:pb-32">
           <div className="content-container">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {filtered.map((item, index) => (
-                <LogoCell
-                  key={item.name}
-                  item={item}
-                  index={index}
-                  onOpen={(rect) => handleOpen(item, rect)}
-                />
+                <LogoCell key={item.slug} item={item} index={index} />
               ))}
             </div>
 
@@ -178,15 +157,6 @@ const Portfolio = () => {
         </section>
       </main>
       <Footer />
-
-      {/* Case spread overlay */}
-      {expanded && (
-        <CaseSpread
-          item={expanded.item}
-          originRect={expanded.rect}
-          onClose={() => setExpanded(null)}
-        />
-      )}
     </div>
   );
 };
