@@ -202,23 +202,47 @@ const ExpandedPanel = ({
 
           {/* Body content */}
           <div className="content-container pb-16 md:pb-24">
-            <p className="text-lg md:text-xl leading-relaxed text-foreground/80 max-w-2xl mb-14 md:mb-18">
+            <p className="text-lg md:text-xl leading-relaxed text-foreground/80 max-w-2xl mb-16 md:mb-20">
               {item.description}
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-14 md:mb-18">
-              <div>
-                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
+            {/* Challenge */}
+            <div className="mb-14 md:mb-18">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-6 h-6 flex items-center justify-center bg-foreground text-background text-[10px] font-medium rounded-sm">01</span>
+                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground">
                   The Challenge
                 </p>
-                <p className="text-base leading-relaxed text-foreground/70">{item.challenge}</p>
               </div>
-              <div>
-                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
+              <p className="text-base md:text-lg leading-relaxed text-foreground/70 max-w-2xl">
+                {item.challenge}
+              </p>
+            </div>
+
+            {/* Process */}
+            <div className="mb-14 md:mb-18">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-6 h-6 flex items-center justify-center bg-foreground text-background text-[10px] font-medium rounded-sm">02</span>
+                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground">
+                  The Process
+                </p>
+              </div>
+              <p className="text-base md:text-lg leading-relaxed text-foreground/70 max-w-2xl">
+                {item.process}
+              </p>
+            </div>
+
+            {/* Outcome */}
+            <div className="mb-14 md:mb-18">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-6 h-6 flex items-center justify-center bg-foreground text-background text-[10px] font-medium rounded-sm">03</span>
+                <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground">
                   The Outcome
                 </p>
-                <p className="text-base leading-relaxed text-foreground/70">{item.outcome}</p>
               </div>
+              <p className="text-base md:text-lg leading-relaxed text-foreground/70 max-w-2xl">
+                {item.outcome}
+              </p>
             </div>
 
             {item.stats && item.stats.length > 0 && (
