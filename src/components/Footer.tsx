@@ -7,22 +7,10 @@ const Footer = () => {
             © MP Moving People 2026
           </p>
           <div className="flex gap-6">
-            <a
-              href="#"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300"
-            >
+            <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Privacy
             </a>
-            <a
-              href="#"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300"
-            >
-              Instagram
-            </a>
-            <a
-              href="#"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300"
-            >
+            <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               LinkedIn
             </a>
           </div>
