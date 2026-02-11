@@ -10,6 +10,7 @@ import PortfolioSection from "./pages/PortfolioSection";
 import NotFound from "./pages/NotFound";
 import BrandSystems from "./pages/BrandSystems";
 import WhatWeBuild from "./pages/WhatWeBuild";
+import ContactPage from "./pages/ContactPage";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/portfolio/:slug/:section" element={<PortfolioSection />} />
           <Route path="/what-we-build" element={<WhatWeBuild />} />
           <Route path="/what-we-build/brand-systems" element={<BrandSystems />} />
+          <Route path="/contact" element={<ContactPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
