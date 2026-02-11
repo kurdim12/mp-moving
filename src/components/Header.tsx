@@ -35,6 +35,12 @@ const Header = () => {
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             <a
+              href="/what-we-build"
+              className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
+            >
+              WWB
+            </a>
+            <a
               href="/portfolio"
               className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
             >
@@ -65,6 +71,13 @@ const Header = () => {
       {menuOpen && (
         <div className="md:hidden bg-background/98 backdrop-blur-sm border-b border-border animate-fade-in">
           <div className="content-container py-6 flex flex-col gap-5">
+            <a
+              href="/what-we-build"
+              className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
+              onClick={() => setMenuOpen(false)}
+            >
+              WWB
+            </a>
             <a
               href="/portfolio"
               className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import mpLogo from "@/assets/mp-logo.png";
 
-/* ─── helpers ─── */
-function useOnScreen(ref: React.RefObject<HTMLElement>, threshold = 0.25) {
+/* ─── Intersection hook ─── */
+function useOnScreen(ref: React.RefObject<HTMLElement>, threshold = 0.2) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (!ref.current) return;
@@ -17,34 +18,13 @@ function useOnScreen(ref: React.RefObject<HTMLElement>, threshold = 0.25) {
   return visible;
 }
 
-/* ─── Scene wrapper ─── */
-const Scene = ({
-  children,
-  className,
-  bg = "bg-white",
-}: {
-  children: React.ReactNode;
-  className?: string;
-  bg?: string;
-}) => {
+function useSceneVisibility(threshold = 0.2) {
   const ref = useRef<HTMLDivElement>(null);
-  const visible = useOnScreen(ref as React.RefObject<HTMLElement>, 0.15);
-  return (
-    <section
-      ref={ref}
-      className={cn(
-        "relative min-h-screen flex items-center transition-opacity duration-[400ms] ease-out",
-        bg,
-        visible ? "opacity-100" : "opacity-0",
-        className
-      )}
-    >
-      {children}
-    </section>
-  );
-};
+  const visible = useOnScreen(ref as React.RefObject<HTMLElement>, threshold);
+  return { ref, visible };
+}
 
-/* ─── Staggered child ─── */
+/* ─── Reveal ─── */
 const Reveal = ({
   children,
   delay = 0,
@@ -58,10 +38,8 @@ const Reveal = ({
 }) => (
   <div
     className={cn(
-      "transition-all duration-[400ms] ease-out",
-      visible
-        ? "opacity-100 translate-y-0"
-        : "opacity-0 translate-y-[10px]",
+      "transition-all duration-[350ms] ease-out",
+      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[8px]",
       className
     )}
     style={{ transitionDelay: `${delay}ms` }}
@@ -70,66 +48,60 @@ const Reveal = ({
   </div>
 );
 
-/* ─── Animated divider ─── */
+/* ─── Divider ─── */
 const Divider = ({ visible, delay = 0 }: { visible: boolean; delay?: number }) => (
   <div
     className={cn(
-      "h-px bg-black origin-left transition-transform duration-[400ms] ease-out",
+      "h-px bg-black origin-left transition-transform duration-[350ms] ease-out",
       visible ? "scale-x-100" : "scale-x-0"
     )}
     style={{ transitionDelay: `${delay}ms` }}
   />
 );
 
-/* ─── Scene hooks ─── */
-function useSceneVisibility() {
-  const ref = useRef<HTMLDivElement>(null);
-  const visible = useOnScreen(ref as React.RefObject<HTMLElement>, 0.2);
-  return { ref, visible };
-}
-
 /* ════════════════════════════════════════════
-   SCENES
+   SCENE 1 — Introduction
    ════════════════════════════════════════════ */
-
-const Scene1Entry = () => {
-  const { ref, visible } = useSceneVisibility();
-  const [scrollLocked, setScrollLocked] = useState(true);
+const Scene1 = () => {
+  const { ref, visible } = useSceneVisibility(0.3);
+  const [locked, setLocked] = useState(true);
 
   useEffect(() => {
-    if (scrollLocked) {
+    if (locked) {
       document.body.style.overflow = "hidden";
       const t = setTimeout(() => {
-        setScrollLocked(false);
+        setLocked(false);
         document.body.style.overflow = "";
-      }, 1200);
+      }, 1000);
       return () => { clearTimeout(t); document.body.style.overflow = ""; };
     }
-  }, [scrollLocked]);
+  }, [locked]);
 
   return (
-    <section
-      ref={ref}
-      className="relative min-h-screen flex items-center justify-center bg-white"
-    >
+    <section ref={ref} className="min-h-screen flex items-center justify-center bg-white relative">
+      {/* Top-left label */}
+      <Reveal visible={visible} delay={0} className="absolute top-8 left-6 md:left-12">
+        <p className="text-xs font-medium tracking-[0.2em] uppercase text-neutral-400">
+          Brand Systems
+        </p>
+      </Reveal>
+
       <div className="text-center max-w-3xl mx-auto px-6">
         <Reveal visible={visible} delay={100}>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-black leading-[1.08]">
-            Brand is not design.
-            <br />
-            It is structure.
+            Brand is structure.
           </h1>
         </Reveal>
 
-        <Reveal visible={visible} delay={300}>
+        <Reveal visible={visible} delay={250}>
           <div className="mt-8 mb-8">
-            <Divider visible={visible} delay={500} />
+            <Divider visible={visible} delay={350} />
           </div>
         </Reveal>
 
-        <Reveal visible={visible} delay={500}>
-          <p className="text-lg md:text-xl text-neutral-500 font-normal leading-relaxed">
-            We build brand systems engineered for scale.
+        <Reveal visible={visible} delay={350}>
+          <p className="text-lg md:text-xl text-neutral-500 font-normal leading-relaxed max-w-xl mx-auto">
+            We engineer positioning, identity, and systems designed to scale.
           </p>
         </Reveal>
       </div>
@@ -137,7 +109,10 @@ const Scene1Entry = () => {
   );
 };
 
-const Scene2Define = () => {
+/* ════════════════════════════════════════════
+   SCENE 2 — Define
+   ════════════════════════════════════════════ */
+const Scene2 = () => {
   const { ref, visible } = useSceneVisibility();
   const blocks = [
     { title: "Positioning Architecture", desc: "Where you stand and why it matters." },
@@ -146,19 +121,17 @@ const Scene2Define = () => {
   ];
 
   return (
-    <Scene bg="bg-white">
+    <section className="min-h-screen flex items-center bg-white">
       <div ref={ref} className="w-full max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-0">
         <div className="grid md:grid-cols-[200px_1fr] gap-12 md:gap-20 items-start">
-          {/* Number */}
           <Reveal visible={visible} delay={0}>
             <span className="text-[120px] md:text-[180px] font-bold leading-none text-neutral-100 select-none block">
               01
             </span>
           </Reveal>
 
-          {/* Content */}
           <div>
-            <Reveal visible={visible} delay={150}>
+            <Reveal visible={visible} delay={100}>
               <p className="text-xs font-medium tracking-[0.2em] uppercase text-neutral-400 mb-3">
                 Stage 01
               </p>
@@ -172,9 +145,9 @@ const Scene2Define = () => {
 
             <div className="space-y-0">
               {blocks.map((b, i) => (
-                <Reveal key={b.title} visible={visible} delay={300 + i * 100}>
+                <Reveal key={b.title} visible={visible} delay={250 + i * 100}>
                   <div>
-                    {i > 0 && <Divider visible={visible} delay={350 + i * 100} />}
+                    {i > 0 && <Divider visible={visible} delay={300 + i * 100} />}
                     <div className="py-6">
                       <h3 className="text-base font-semibold text-black mb-1">{b.title}</h3>
                       <p className="text-sm text-neutral-400">{b.desc}</p>
@@ -182,24 +155,26 @@ const Scene2Define = () => {
                   </div>
                 </Reveal>
               ))}
-              <Divider visible={visible} delay={700} />
+              <Divider visible={visible} delay={650} />
             </div>
           </div>
         </div>
       </div>
-    </Scene>
+    </section>
   );
 };
 
-const Scene3Structure = () => {
+/* ════════════════════════════════════════════
+   SCENE 3 — Structure
+   ════════════════════════════════════════════ */
+const Scene3 = () => {
   const { ref, visible } = useSceneVisibility();
   const bullets = ["Identity System", "Visual Language", "Component Logic", "Governance Rules"];
 
   return (
-    <Scene bg="bg-[#f7f7f7]">
+    <section className="min-h-screen flex items-center bg-[#f7f7f7]">
       <div ref={ref} className="w-full max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-0">
         <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
-          {/* Left */}
           <div>
             <Reveal visible={visible} delay={0}>
               <p className="text-xs font-medium tracking-[0.2em] uppercase text-neutral-400 mb-3">
@@ -225,8 +200,8 @@ const Scene3Structure = () => {
             </div>
           </div>
 
-          {/* Right — minimal diagram placeholder */}
-          <Reveal visible={visible} delay={300}>
+          {/* Minimal diagram */}
+          <Reveal visible={visible} delay={250}>
             <div className="aspect-square max-w-[400px] mx-auto w-full border border-neutral-200 p-8 flex flex-col justify-between">
               <div className="flex gap-4">
                 <div className="flex-1 h-16 border border-neutral-300" />
@@ -244,17 +219,20 @@ const Scene3Structure = () => {
           </Reveal>
         </div>
 
-        <Reveal visible={visible} delay={500}>
+        <Reveal visible={visible} delay={450}>
           <div className="mt-16">
-            <Divider visible={visible} delay={600} />
+            <Divider visible={visible} delay={500} />
           </div>
         </Reveal>
       </div>
-    </Scene>
+    </section>
   );
 };
 
-const Scene4Systemize = () => {
+/* ════════════════════════════════════════════
+   SCENE 4 — Systemize
+   ════════════════════════════════════════════ */
+const Scene4 = () => {
   const { ref, visible } = useSceneVisibility();
   const modules = [
     { title: "Design System", desc: "Scalable component library with governance." },
@@ -264,7 +242,7 @@ const Scene4Systemize = () => {
   ];
 
   return (
-    <Scene bg="bg-white">
+    <section className="min-h-screen flex items-center bg-white">
       <div ref={ref} className="w-full max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-0">
         <Reveal visible={visible} delay={0}>
           <p className="text-xs font-medium tracking-[0.2em] uppercase text-neutral-400 mb-3">
@@ -275,16 +253,16 @@ const Scene4Systemize = () => {
           </h2>
         </Reveal>
 
-        <div className="grid sm:grid-cols-2 gap-px bg-neutral-200">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-200">
           {modules.map((m, i) => (
-            <Reveal key={m.title} visible={visible} delay={200 + i * 100}>
-              <div className="bg-white p-8 md:p-10 relative">
+            <Reveal key={m.title} visible={visible} delay={150 + i * 100}>
+              <div className="bg-white p-8 md:p-10 relative min-h-[160px]">
                 <div
                   className={cn(
-                    "absolute top-0 left-0 right-0 h-px bg-black origin-left transition-transform duration-[400ms] ease-out",
+                    "absolute top-0 left-0 right-0 h-px bg-black origin-left transition-transform duration-[350ms] ease-out",
                     visible ? "scale-x-100" : "scale-x-0"
                   )}
-                  style={{ transitionDelay: `${300 + i * 100}ms` }}
+                  style={{ transitionDelay: `${250 + i * 100}ms` }}
                 />
                 <h3 className="text-base font-semibold text-black mb-2">{m.title}</h3>
                 <p className="text-sm text-neutral-400">{m.desc}</p>
@@ -293,20 +271,23 @@ const Scene4Systemize = () => {
           ))}
         </div>
       </div>
-    </Scene>
+    </section>
   );
 };
 
-const Scene5Scale = () => {
+/* ════════════════════════════════════════════
+   SCENE 5 — Scale
+   ════════════════════════════════════════════ */
+const Scene5 = () => {
   const { ref, visible } = useSceneVisibility();
   const impacts = [
-    "+40% brand clarity across touchpoints",
-    "Faster launch cycles",
-    "Consistent global rollout",
+    "Faster launches",
+    "Consistent execution",
+    "Long-term brand clarity",
   ];
 
   return (
-    <Scene bg="bg-white">
+    <section className="min-h-screen flex items-center bg-white">
       <div ref={ref} className="w-full max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-0 text-center">
         <Reveal visible={visible} delay={0}>
           <span className="text-[100px] md:text-[160px] font-bold leading-none text-neutral-100 select-none block mb-4">
@@ -314,21 +295,18 @@ const Scene5Scale = () => {
           </span>
         </Reveal>
 
-        <Reveal visible={visible} delay={150}>
+        <Reveal visible={visible} delay={100}>
           <p className="text-xs font-medium tracking-[0.2em] uppercase text-neutral-400 mb-3">
             Stage 04
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-6">
             SCALE
           </h2>
-          <p className="text-neutral-500 leading-relaxed max-w-lg mx-auto mb-16">
-            A brand system is only valuable if it compounds. We engineer for long-term consistency — across teams, markets, and time.
-          </p>
         </Reveal>
 
-        <div className="space-y-6">
+        <div className="space-y-5 mt-12">
           {impacts.map((line, i) => (
-            <Reveal key={i} visible={visible} delay={350 + i * 120}>
+            <Reveal key={i} visible={visible} delay={250 + i * 100}>
               <p className="text-xl md:text-2xl lg:text-3xl font-medium text-black">
                 {line}
               </p>
@@ -336,23 +314,22 @@ const Scene5Scale = () => {
           ))}
         </div>
 
-        <Reveal visible={visible} delay={800}>
+        <Reveal visible={visible} delay={600}>
           <div className="mt-20">
-            <Divider visible={visible} delay={900} />
+            <Divider visible={visible} delay={650} />
           </div>
           <p className="mt-10 text-sm text-neutral-400">
             This is how we build brand systems at MP.
           </p>
         </Reveal>
       </div>
-    </Scene>
+    </section>
   );
 };
 
 /* ════════════════════════════════════════════
    PAGE
    ════════════════════════════════════════════ */
-
 const BrandSystems = () => {
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
@@ -360,23 +337,23 @@ const BrandSystems = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-200">
         <div className="max-w-6xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
           <Link
-            to="/"
+            to="/what-we-build"
             className="text-sm font-medium text-neutral-400 hover:text-black transition-colors duration-200"
           >
-            ← Back to What We Build
+            ← WWB
           </Link>
           <span className="text-xs font-medium tracking-[0.15em] uppercase text-neutral-300">
-            Brand &amp; Systems
+            Brand Systems
           </span>
         </div>
       </nav>
 
       <main className="pt-14">
-        <Scene1Entry />
-        <Scene2Define />
-        <Scene3Structure />
-        <Scene4Systemize />
-        <Scene5Scale />
+        <Scene1 />
+        <Scene2 />
+        <Scene3 />
+        <Scene4 />
+        <Scene5 />
       </main>
     </div>
   );
