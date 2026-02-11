@@ -14,12 +14,9 @@ const Portfolio = () => {
       ? portfolioItems
       : portfolioItems.filter((i) => i.category === activeCategory);
 
-  const handleToggle = useCallback(
-    (index: number) => {
-      setExpandedIndex((prev) => (prev === index ? null : index));
-    },
-    []
-  );
+  const handleToggle = useCallback((index: number) => {
+    setExpandedIndex((prev) => (prev === index ? null : index));
+  }, []);
 
   const handleCategoryChange = (cat: string) => {
     setActiveCategory(cat);
@@ -33,22 +30,24 @@ const Portfolio = () => {
         {/* Hero */}
         <section className="pt-32 md:pt-40 pb-12 md:pb-16">
           <div className="content-container">
-            <div className="max-w-2xl">
-              <p className="fade-up text-sm font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6">
-                Portfolio
-              </p>
-              <h1 className="fade-up fade-up-delay-1 section-headline text-foreground mb-6">
-                What we've built alongside the people we believe in.
-              </h1>
-              <p className="fade-up fade-up-delay-2 body-large max-w-xl">
-                Selected partnerships and ventures. Each one chosen, not pitched.
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              <div className="max-w-xl">
+                <p className="fade-up text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground mb-5">
+                  Selected Work
+                </p>
+                <h1 className="fade-up fade-up-delay-1 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] text-foreground">
+                  What we've built alongside the people we believe in.
+                </h1>
+              </div>
+              <p className="fade-up fade-up-delay-2 text-base md:text-lg leading-relaxed text-muted-foreground max-w-sm md:text-right">
+                Each one chosen, not pitched.
               </p>
             </div>
           </div>
         </section>
 
         {/* Category filter */}
-        <section className="pb-10 md:pb-14">
+        <section className="pb-8 md:pb-12">
           <div className="content-container">
             <div className="flex flex-wrap gap-2 md:gap-3 fade-up fade-up-delay-3">
               {categories.map((cat) => (
@@ -69,27 +68,29 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* Project list */}
+        {/* Grid */}
         <section className="pb-24 md:pb-32">
-          <div className="border-t border-border">
-            {filtered.map((item, index) => (
-              <PortfolioCard
-                key={item.name}
-                item={item}
-                index={index}
-                isExpanded={expandedIndex === index}
-                onToggle={() => handleToggle(index)}
-              />
-            ))}
-          </div>
-
-          {filtered.length === 0 && (
-            <div className="content-container py-24 text-center">
-              <p className="text-muted-foreground text-sm">
-                No projects in this category yet.
-              </p>
+          <div className="content-container">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+              {filtered.map((item, index) => (
+                <PortfolioCard
+                  key={item.name}
+                  item={item}
+                  index={index}
+                  isExpanded={expandedIndex === index}
+                  onToggle={() => handleToggle(index)}
+                />
+              ))}
             </div>
-          )}
+
+            {filtered.length === 0 && (
+              <div className="border border-border py-24 text-center">
+                <p className="text-muted-foreground text-sm">
+                  No projects in this category yet.
+                </p>
+              </div>
+            )}
+          </div>
         </section>
 
         {/* Bottom signal */}
