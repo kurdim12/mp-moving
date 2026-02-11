@@ -1,16 +1,26 @@
+export interface ModuleItem {
+  name: string;
+  description: string;
+  deliverable: string;
+}
+
 export interface PortfolioItem {
   name: string;
   category: string;
   year: string;
   tagline: string;
-  description: string;
+  descriptor: string;
+  microSignal?: string;
   initials: string;
-  challenge: string;
-  process: string;
-  outcome: string;
-  stats?: { label: string; value: string }[];
+  // Page 1 — Overview
+  context: string;
   tags: string[];
-  accentColor: string;
+  // Page 2 — What We Built
+  modules: ModuleItem[];
+  // Page 3 — Outcome
+  impactStatements: string[];
+  deliverables: string[];
+  founderQuote?: string;
 }
 
 export const portfolioItems: PortfolioItem[] = [
@@ -19,171 +29,194 @@ export const portfolioItems: PortfolioItem[] = [
     category: "Partnership & Co-Building",
     year: "2023",
     tagline: "From concept to company in 14 months.",
-    description: "Co-founded construction tech platform connecting project teams, scheduling, and real-time field data into one system.",
+    descriptor: "Co-Build · Construction Tech",
+    microSignal: "Revenue in 11mo",
     initials: "BF",
-    challenge: "The construction industry ran on fragmented tools — spreadsheets, WhatsApp, phone calls. No single source of truth across teams, subcontractors, and clients.",
-    process: "Started with 6 weeks of field research across 12 construction sites. Built an MVP focused on the single biggest pain point: real-time project visibility. Iterated weekly with site managers. Hired the first 4 engineers together.",
-    outcome: "Built and co-own the platform from zero. Now serving 40+ construction firms with a 12-person team. Revenue-positive within the first year.",
-    stats: [
-      { label: "Firms onboarded", value: "40+" },
-      { label: "Team size", value: "12" },
-      { label: "Time to revenue", value: "11mo" },
-    ],
+    context:
+      "The construction industry ran on fragmented tools — spreadsheets, WhatsApp, phone calls. We co-founded Baseform to build a single source of truth for project teams, scheduling, and real-time field data.",
     tags: ["Co-Founded", "Equity Partnership", "Product & Engineering"],
-    accentColor: "from-stone-800 to-stone-600",
+    modules: [
+      { name: "Product Platform", description: "End-to-end project management for construction teams with real-time field visibility.", deliverable: "Full-stack platform" },
+      { name: "Operational Workflows", description: "Automated scheduling, subcontractor coordination, and progress tracking.", deliverable: "Workflow engine" },
+      { name: "Architecture & Infra", description: "Scalable multi-tenant system supporting 40+ firms and growing.", deliverable: "Cloud infrastructure" },
+    ],
+    impactStatements: ["40+ construction firms onboarded", "12-person team built from zero", "Revenue-positive within 11 months"],
+    deliverables: ["Full-stack platform", "Mobile field app", "Admin dashboard", "Reporting engine", "Hiring & team build"],
+    founderQuote: "They didn't just build the product — they built the company with us.",
   },
   {
     name: "Meridian",
     category: "Brand & Digital Identity",
     year: "2024",
     tagline: "Giving climate tech a voice that closes rounds.",
-    description: "End-to-end brand system and digital presence for a climate infrastructure company preparing for Series B.",
+    descriptor: "Brand System · Climate Tech",
+    microSignal: "Series B in 6mo",
     initials: "ME",
-    challenge: "Deep technology, no clear brand voice. Needed to speak credibly to both institutional investors and enterprise procurement teams.",
-    process: "Ran stakeholder interviews with the founding team, investors, and three target customers. Distilled the brand into a clear positioning framework. Built the visual system and website simultaneously — shipping the full identity in 10 weeks.",
-    outcome: "Complete brand identity, messaging framework, and digital platform. Contributed to closing their Series B within 6 months of launch.",
-    stats: [
-      { label: "Series B closed", value: "6mo" },
-      { label: "Brand touchpoints", value: "24" },
-    ],
+    context:
+      "Deep technology, no clear brand voice. Meridian needed to speak credibly to both institutional investors and enterprise procurement teams preparing for their Series B.",
     tags: ["Brand System", "Website", "Messaging Framework"],
-    accentColor: "from-emerald-900 to-emerald-700",
+    modules: [
+      { name: "Brand System", description: "Complete visual identity translating complex technology into investor-grade clarity.", deliverable: "Design system" },
+      { name: "Messaging Framework", description: "Positioning architecture for investor, enterprise, and public audiences.", deliverable: "Messaging playbook" },
+      { name: "Digital Platform", description: "High-conversion website built for fundraise and enterprise pipeline.", deliverable: "Marketing site" },
+    ],
+    impactStatements: ["Series B closed within 6 months of launch", "24 brand touchpoints delivered", "Enterprise pipeline activated"],
+    deliverables: ["Visual identity", "Brand guidelines", "Website", "Pitch deck system", "Messaging framework"],
   },
   {
     name: "Arcline",
     category: "Products & Platforms",
     year: "2023",
     tagline: "Replacing spreadsheets with real-time ops.",
-    description: "Custom operations platform connecting field teams, logistics, and real-time reporting across distributed locations.",
+    descriptor: "Product Platform · Operations",
+    microSignal: "−70% reporting time",
     initials: "AR",
-    challenge: "200+ field workers reporting through spreadsheets and phone calls. Zero visibility for management, constant data lag, missed deadlines.",
-    process: "Shadowed field teams for two weeks to map real workflows. Designed the system around how people actually work — not how management assumed they did. Rolled out in phases, one region at a time, with on-site training.",
-    outcome: "Designed and built a custom ops platform adopted by 200+ field workers. Reduced reporting time by 70% and eliminated manual data reconciliation.",
-    stats: [
-      { label: "Field workers", value: "200+" },
-      { label: "Reporting time", value: "−70%" },
-    ],
+    context:
+      "200+ field workers reporting through spreadsheets and phone calls. Zero visibility for management, constant data lag, missed deadlines across distributed locations.",
     tags: ["Platform Build", "UX Design", "System Integration"],
-    accentColor: "from-slate-800 to-slate-600",
+    modules: [
+      { name: "Product Platform", description: "Custom operations platform connecting field teams, logistics, and real-time reporting.", deliverable: "Ops platform" },
+      { name: "UX Design", description: "Interface designed around actual field workflows, not management assumptions.", deliverable: "Design system" },
+      { name: "System Integration", description: "Connected existing ERP, logistics, and communication tools into one flow.", deliverable: "API layer" },
+    ],
+    impactStatements: ["Adopted by 200+ field workers", "Reporting time reduced by 70%", "Manual data reconciliation eliminated"],
+    deliverables: ["Web platform", "Mobile app", "API integrations", "Training program", "Rollout strategy"],
+    founderQuote: "They built for how our people actually work, not how we assumed they did.",
   },
   {
     name: "Nørd Studio",
     category: "Strategy & Positioning",
     year: "2024",
     tagline: "Repositioned. Repriced. Respected.",
-    description: "Strategic repositioning and go-to-market framework for a Nordic design collective punching below their weight.",
+    descriptor: "Strategy · Design Collective",
+    microSignal: "3× project value",
     initials: "NØ",
-    challenge: "Talented collective winning projects through network alone, not strategy. Inconsistent positioning, underpriced, competing against juniors.",
-    process: "Audited their last 20 projects for patterns. Found that their strongest work came from a specific niche they'd never named. Built a positioning framework around it, restructured their pricing, and rewrote every client-facing asset.",
-    outcome: "Repositioned as a premium product design studio. New pricing model increased average project value by 3x. Pipeline shifted to inbound.",
-    stats: [
-      { label: "Avg. project value", value: "3×" },
-      { label: "Pipeline shift", value: "Inbound" },
-    ],
+    context:
+      "Talented Nordic design collective winning projects through network alone. Inconsistent positioning, underpriced, competing against juniors despite doing premium work.",
     tags: ["Strategy", "GTM", "Positioning"],
-    accentColor: "from-blue-900 to-blue-700",
+    modules: [
+      { name: "Positioning Framework", description: "Identified their strongest niche from 20 past projects and named it.", deliverable: "Positioning doc" },
+      { name: "Pricing Architecture", description: "New value-based pricing model replacing hourly rates.", deliverable: "Pricing model" },
+      { name: "Go-to-Market", description: "Rewrote every client-facing asset and rebuilt pipeline strategy.", deliverable: "GTM playbook" },
+    ],
+    impactStatements: ["Average project value increased 3×", "Pipeline shifted from outbound to inbound", "Positioned as premium product design studio"],
+    deliverables: ["Positioning framework", "Pricing model", "Website copy", "Case study templates", "Outreach playbook"],
   },
   {
     name: "Verra Health",
     category: "AI & Automation",
     year: "2024",
     tagline: "AI that actually reduces wait times.",
-    description: "Intelligent intake and triage system processing thousands of patients monthly across 12 clinics.",
+    descriptor: "AI Automation · Healthcare",
+    microSignal: "−40% wait times",
     initials: "VH",
-    challenge: "Manual patient intake created bottlenecks, misrouted cases, and frustrated both patients and staff across 12 clinics.",
-    process: "Mapped the entire intake flow across three clinics. Identified that 60% of triage decisions followed predictable patterns. Built an AI layer that handles the routine, escalates the exceptions, and learns from corrections.",
-    outcome: "AI-powered triage system now processing 2,000+ patients monthly. Wait times cut by 40%, staff redirected to higher-value care.",
-    stats: [
-      { label: "Patients/month", value: "2K+" },
-      { label: "Wait time reduction", value: "40%" },
-      { label: "Clinics", value: "12" },
-    ],
+    context:
+      "Manual patient intake created bottlenecks and misrouted cases across 12 clinics. Staff frustrated, patients waiting, and no systematic way to triage at scale.",
     tags: ["AI Integration", "Healthcare", "Workflow Automation"],
-    accentColor: "from-teal-900 to-teal-700",
+    modules: [
+      { name: "AI Triage Layer", description: "Intelligent intake system handling routine decisions, escalating exceptions.", deliverable: "ML pipeline" },
+      { name: "Workflow Automation", description: "Automated patient routing based on symptom patterns and urgency scoring.", deliverable: "Automation engine" },
+      { name: "Operational Dashboard", description: "Real-time visibility into triage performance and staff allocation.", deliverable: "Admin dashboard" },
+    ],
+    impactStatements: ["2,000+ patients processed monthly", "Wait times reduced by 40%", "Staff redirected to higher-value care"],
+    deliverables: ["AI triage system", "Patient intake flow", "Admin dashboard", "Integration layer", "Training docs"],
+    founderQuote: "First AI project that actually made our staff's lives easier.",
   },
   {
     name: "Halcyon Capital",
     category: "Brand & Digital Identity",
     year: "2023",
     tagline: "Institutional credibility from day one.",
-    description: "Visual identity and secure investor portal for an emerging markets private equity fund entering its first close.",
+    descriptor: "Brand · Private Equity",
+    microSignal: "$40M first close",
     initials: "HC",
-    challenge: "A new PE fund needed to project institutional credibility while standing apart from legacy firms — before having a track record.",
-    process: "Studied the visual language of top-tier PE firms. Designed a brand that felt established without being derivative. Built a secure portal with real-time fund reporting — the kind of infrastructure that signals seriousness to LPs.",
-    outcome: "Premium brand identity and secure investor portal. Helped attract $40M in first-close commitments from institutional LPs.",
-    stats: [
-      { label: "First close", value: "$40M" },
-    ],
+    context:
+      "A new PE fund needed to project institutional credibility while standing apart from legacy firms — before having a track record to point to.",
     tags: ["Visual Identity", "Investor Portal", "Finance"],
-    accentColor: "from-amber-900 to-amber-700",
+    modules: [
+      { name: "Brand System", description: "Visual identity that feels established without being derivative of legacy firms.", deliverable: "Brand guidelines" },
+      { name: "Investor Portal", description: "Secure platform with real-time fund reporting and LP communications.", deliverable: "Web application" },
+    ],
+    impactStatements: ["$40M attracted in first-close commitments", "Institutional LPs converted through brand credibility"],
+    deliverables: ["Visual identity", "Brand guidelines", "Investor portal", "Fund reporting dashboard", "LP communications"],
   },
   {
     name: "Kindra",
     category: "Products & Platforms",
     year: "2024",
     tagline: "Owned community, owned data.",
-    description: "Membership platform and community tools for a wellness brand scaling across Europe.",
+    descriptor: "Platform · Wellness",
+    microSignal: "8K+ members",
     initials: "KI",
-    challenge: "Growing wellness brand with fragmented community across Instagram and Facebook groups. No owned platform, no data, no retention strategy.",
-    process: "Interviewed 40 community members to understand what kept them engaged. Built a platform that replicated the best parts of social — without the algorithm. Launched with a migration plan that moved 3,000 members in the first week.",
-    outcome: "Built membership platform with integrated community tools. 8,000+ active members within 6 months. Churn cut in half.",
-    stats: [
-      { label: "Active members", value: "8K+" },
-      { label: "Time to scale", value: "6mo" },
-    ],
+    context:
+      "Growing wellness brand with a fragmented community across Instagram and Facebook groups. No owned platform, no data, no retention strategy — just rented audiences.",
     tags: ["Platform", "Community", "Membership"],
-    accentColor: "from-rose-900 to-rose-700",
+    modules: [
+      { name: "Membership Platform", description: "Custom community platform replacing fragmented social media groups.", deliverable: "Web platform" },
+      { name: "Community Tools", description: "Discussion, content, and event features designed for retention.", deliverable: "Feature suite" },
+      { name: "Migration Strategy", description: "Moved 3,000 members in the first week with a structured onboarding flow.", deliverable: "Migration plan" },
+    ],
+    impactStatements: ["8,000+ active members within 6 months", "Churn cut in half", "First-party data ownership established"],
+    deliverables: ["Membership platform", "Community features", "Mobile experience", "Analytics dashboard", "Migration playbook"],
   },
   {
     name: "Terrace",
     category: "Strategy & Positioning",
     year: "2023",
     tagline: "Validated before built.",
-    description: "Product-market fit validation and launch strategy for a proptech startup before writing a single line of code.",
+    descriptor: "Strategy · PropTech",
+    microSignal: "Pre-seed raised",
     initials: "TE",
-    challenge: "Pre-seed proptech with a strong thesis but untested assumptions. Investors wanted validation, founders wanted to build. We bridged both.",
-    process: "Ran 60+ user interviews across four customer segments. Tested willingness to pay through landing page experiments. Mapped competitive positioning and identified a gap no one was serving. Delivered a v1 roadmap backed by data, not instinct.",
-    outcome: "Validated core hypothesis through 60+ user interviews. Refined positioning led to successful pre-seed raise and a clear v1 roadmap.",
-    stats: [
-      { label: "User interviews", value: "60+" },
-      { label: "Pre-seed", value: "Raised" },
-    ],
+    context:
+      "Pre-seed proptech with a strong thesis but untested assumptions. Investors wanted validation, founders wanted to build. We bridged both before a line of code was written.",
     tags: ["PMF Validation", "User Research", "Launch Strategy"],
-    accentColor: "from-violet-900 to-violet-700",
+    modules: [
+      { name: "User Research", description: "60+ interviews across four customer segments to test core assumptions.", deliverable: "Research report" },
+      { name: "Market Validation", description: "Landing page experiments testing willingness to pay and positioning.", deliverable: "Validation data" },
+      { name: "Product Roadmap", description: "V1 roadmap backed by data, not instinct — ready for investor review.", deliverable: "Product spec" },
+    ],
+    impactStatements: ["Core hypothesis validated through 60+ interviews", "Pre-seed raise completed successfully", "Clear v1 roadmap delivered"],
+    deliverables: ["Research findings", "Competitive analysis", "Positioning framework", "Product roadmap", "Investor materials"],
   },
   {
     name: "Caspian",
     category: "AI & Automation",
     year: "2024",
     tagline: "Compliance on autopilot.",
-    description: "Internal knowledge engine automating compliance workflows for a regulated fintech firm.",
+    descriptor: "AI · Fintech Compliance",
+    microSignal: "80% automated",
     initials: "CA",
-    challenge: "Compliance team spending 30+ hours weekly on manual document review, regulatory cross-checks, and audit preparation.",
-    process: "Embedded with the compliance team for three weeks. Catalogued every recurring task. Built a knowledge engine that ingests regulatory updates, cross-references existing policies, and flags gaps — turning a reactive team into a proactive one.",
-    outcome: "Knowledge engine handles 80% of routine compliance checks. Team redirected from data entry to strategic risk assessment.",
-    stats: [
-      { label: "Automated checks", value: "80%" },
-      { label: "Hours saved/week", value: "30+" },
-    ],
+    context:
+      "Compliance team spending 30+ hours weekly on manual document review, regulatory cross-checks, and audit preparation. Reactive instead of strategic.",
     tags: ["AI", "Compliance", "Knowledge Management"],
-    accentColor: "from-cyan-900 to-cyan-700",
+    modules: [
+      { name: "Knowledge Engine", description: "Ingests regulatory updates, cross-references policies, and flags gaps automatically.", deliverable: "AI engine" },
+      { name: "Compliance Automation", description: "Routine checks handled by the system, exceptions escalated to humans.", deliverable: "Automation pipeline" },
+      { name: "Audit Preparation", description: "Automated audit trail and documentation generation.", deliverable: "Reporting layer" },
+    ],
+    impactStatements: ["80% of routine compliance checks automated", "30+ hours saved per week", "Team redirected to strategic risk assessment"],
+    deliverables: ["Knowledge engine", "Compliance automation", "Audit tools", "Admin dashboard", "Integration layer"],
+    founderQuote: "Our compliance team went from firefighting to actually thinking strategically.",
   },
   {
     name: "Outline Labs",
     category: "Partnership & Co-Building",
     year: "2024",
     tagline: "Built together. Growing independently.",
-    description: "Joint venture building developer tools. Equity partnership with shared roadmap and go-to-market.",
+    descriptor: "Co-Build · Developer Tools",
+    microSignal: "500+ users",
     initials: "OL",
-    challenge: "Technical founders with a strong product vision but no go-to-market muscle, brand presence, or distribution strategy.",
-    process: "Joined as co-builders with equity. Defined the brand, built the marketing site, designed the onboarding flow, and ran the first acquisition experiments. Stayed involved through the first 500 users, then handed over a playbook.",
-    outcome: "Joint venture with shared equity. Built brand, GTM engine, and acquired first 500 users. Now growing independently with clear momentum.",
-    stats: [
-      { label: "Users acquired", value: "500+" },
-      { label: "Partnership", value: "Equity" },
-    ],
+    context:
+      "Technical founders with a strong product vision but no go-to-market muscle, brand presence, or distribution strategy. Great product, zero traction.",
     tags: ["Co-Founded", "DevTools", "GTM"],
-    accentColor: "from-indigo-900 to-indigo-700",
+    modules: [
+      { name: "Brand & Identity", description: "Defined the brand from scratch — name, visual system, voice.", deliverable: "Brand system" },
+      { name: "Go-to-Market Engine", description: "Built the marketing site, onboarding flow, and first acquisition experiments.", deliverable: "GTM infrastructure" },
+      { name: "Growth Playbook", description: "Documented the acquisition strategy and handed over a repeatable playbook.", deliverable: "Growth playbook" },
+    ],
+    impactStatements: ["500+ users acquired in first phase", "Equity partnership with shared ownership", "Now growing independently with clear momentum"],
+    deliverables: ["Brand system", "Marketing site", "Onboarding flow", "Acquisition experiments", "Growth playbook"],
+    founderQuote: "They built the go-to-market we couldn't build ourselves — then taught us how to run it.",
   },
 ];
 
