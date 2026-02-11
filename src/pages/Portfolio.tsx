@@ -136,6 +136,9 @@ const Portfolio = () => {
 
   useEffect(() => setIsLoaded(true), []);
 
+  const activeData = activePanel ? panels.find((p) => p.id === activePanel) : null;
+  const ActiveComponent = activeData?.component;
+
   return (
     <div
       className={cn(
@@ -145,54 +148,66 @@ const Portfolio = () => {
     >
       <Header />
 
+      {/* ── Expanded full-size view ── */}
+      {activePanel && ActiveComponent && (
+        <div className="fixed inset-0 z-40 bg-background overflow-y-auto animate-fade-in">
+          {/* Back bar */}
+          <div className="sticky top-0 z-50 bg-background border-b border-foreground/10">
+            <div className="px-6 md:px-12 h-16 flex items-center justify-between max-w-[1200px] mx-auto">
+              <h2 className="text-sm font-semibold tracking-tight text-foreground uppercase">
+                {activeData.title}
+              </h2>
+              <button
+                onClick={() => setActivePanel(null)}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                ← Back to overview
+              </button>
+            </div>
+            <div className="h-[2px] bg-destructive" />
+          </div>
+
+          {/* Full-size page content */}
+          <div className="max-w-[1200px] mx-auto">
+            <div className="w-full">
+              <ActiveComponent />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Sitemap grid ── */}
       <main className="pt-24 md:pt-28 pb-16 md:pb-24">
         <div className="px-4 md:px-8 lg:px-12 max-w-[1500px] mx-auto">
-          {/* 2×3 grid of miniaturized preview cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {panels.map((panel) => {
-              const isActive = activePanel === panel.id;
               const PageComponent = panel.component;
 
               return (
                 <div
                   key={panel.id}
                   className="group cursor-pointer"
-                  onClick={() => setActivePanel(isActive ? null : panel.id)}
+                  onClick={() => setActivePanel(panel.id)}
                 >
                   {/* Panel title */}
                   <div className="flex items-center justify-between mb-2">
                     <h2 className="text-sm font-semibold tracking-tight text-foreground">
                       {panel.title}
                     </h2>
-                    <span className={cn(
-                      "w-2 h-2 rounded-full transition-colors duration-300",
-                      isActive ? "bg-destructive" : "bg-foreground/20"
-                    )} />
                   </div>
                   <div className={cn(
-                    "h-[2px] mb-0 transition-colors duration-300",
-                    isActive ? "bg-destructive" : panel.accent ? "bg-destructive" : "bg-foreground/10"
+                    "h-[2px] mb-0",
+                    panel.accent ? "bg-destructive" : "bg-foreground/10"
                   )} />
 
-                  {/* Miniaturized page preview — rendered at full size, then scaled down */}
+                  {/* Miniaturized page preview */}
                   <div
-                    className={cn(
-                      "overflow-hidden border transition-all duration-300",
-                      isActive
-                        ? "border-destructive/40 shadow-[0_4px_20px_rgba(0,0,0,0.12)]"
-                        : "border-foreground/8 shadow-[0_2px_8px_rgba(0,0,0,0.06)] group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)]"
-                    )}
-                    style={{
-                      height: "280px",
-                      position: "relative",
-                    }}
+                    className="overflow-hidden border border-foreground/8 shadow-[0_2px_8px_rgba(0,0,0,0.06)] group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)] group-hover:border-foreground/15 transition-all duration-300"
+                    style={{ height: "280px", position: "relative" }}
                   >
                     <div
                       className="origin-top-left pointer-events-none select-none"
-                      style={{
-                        transform: "scale(0.4)",
-                        width: "250%",  /* 1/0.4 = 2.5 → fills container width */
-                      }}
+                      style={{ transform: "scale(0.4)", width: "250%" }}
                     >
                       <PageComponent />
                     </div>
