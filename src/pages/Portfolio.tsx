@@ -11,12 +11,14 @@ const IntroductionPage = () => (
   <div className="bg-background w-full md:w-[900px] min-h-[500px] md:min-h-[700px] p-6 md:p-16">
     <div className="max-w-lg mt-6 md:mt-16 space-y-6 md:space-y-10">
       <h1 className="text-2xl md:text-5xl font-semibold tracking-tight leading-[1.1] text-foreground">
-        We solve complex problems through design & technology
+        Our portfolio is lean by design.
       </h1>
-      <p className="text-sm md:text-lg text-muted-foreground leading-relaxed italic">
-        "Each project chosen, not pitched. We partner with founders who believe in building something meaningful." — MP
+      <p className="text-sm md:text-lg text-muted-foreground leading-relaxed">
+        We work selectively, so each project we undertake gets our full attention and care. Rather than publishing glossy case studies, we focus on real outcomes and lessons learned with our partners.
       </p>
-      <span className="inline-block text-sm md:text-base text-destructive font-medium">Learn more</span>
+      <p className="text-xs md:text-sm text-muted-foreground italic">
+        Our partners are welcome to share details of what we've built together — word-of-mouth and direct experience are the strongest endorsements.
+      </p>
     </div>
   </div>
 );
