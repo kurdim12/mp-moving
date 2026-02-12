@@ -21,15 +21,15 @@ const VisualBreak = ({ image, alt, className }: VisualBreakProps) => {
   );
 };
 
-// Full-bleed variant for key moments
+// Content-aligned visual break with 400px height for editorial rhythm
 export const VisualBreakFull = ({ image, alt, className }: VisualBreakProps) => {
   return (
-    <div className={cn("w-full my-8 md:my-16", className)}>
+    <div className={cn("w-full my-12 md:my-20", className)}>
       <div className="content-container">
         <img
           src={image}
           alt={alt}
-          className="w-full h-72 md:h-96 lg:h-[32rem] object-cover"
+          className="w-full h-[300px] md:h-[400px] object-cover"
           loading="lazy"
         />
       </div>

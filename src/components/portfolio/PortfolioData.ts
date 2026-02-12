@@ -264,6 +264,31 @@ export const portfolioItems: PortfolioItem[] = [
     founderName: "Co-founder",
     founderRole: "Outline Labs",
   },
+  {
+    name: "Maranasi",
+    slug: "maranasi",
+    category: "Brand & Digital Identity",
+    year: "2025",
+    tagline: "Serious business. Stunning events.",
+    descriptor: "Brand · Luxury Events",
+    microSignal: "Premium launch",
+    initials: "MA",
+    context:
+      "A luxury events company needed to project world-class sophistication from its first public touchpoint. The brand had to signal exclusivity, precision, and an uncompromising standard before anyone walked through the door.",
+    tags: ["Brand System", "Visual Identity", "Digital Experience"],
+    process:
+      "Immersed in the luxury hospitality landscape. Studied 30+ leading event brands globally. Developed a visual identity rooted in restraint and material quality. Every detail — from typography to motion — was crafted to feel tactile and considered. Delivered the full brand system in 6 weeks.",
+    modules: [
+      { name: "Brand System", description: "Complete visual identity built for luxury positioning — restrained, material, unforgettable.", deliverable: "Brand guidelines" },
+      { name: "Digital Experience", description: "Website and digital touchpoints designed to feel like the event itself — immersive and precise.", deliverable: "Website" },
+      { name: "Event Collateral", description: "Print and digital assets carrying the brand across every guest interaction.", deliverable: "Collateral suite" },
+    ],
+    impactStatements: ["Brand positioned as premier luxury events firm", "Flagship launch event fully sold out", "Client acquisition through brand presence alone"],
+    deliverables: ["Visual identity", "Brand guidelines", "Website", "Event collateral", "Social presence"],
+    founderQuote: "They understood that luxury isn't about excess — it's about precision. Every detail was intentional.",
+    founderName: "Founder",
+    founderRole: "Maranasi",
+  },
 ];
 
 export const categories = [
