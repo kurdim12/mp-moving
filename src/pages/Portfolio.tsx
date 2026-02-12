@@ -33,51 +33,51 @@ const ClientsPage = () =>
       <img src={maransiLogo} alt="MaraNasi Logo" className="h-16 md:h-24 w-auto" />
     </div>
 
-    {/* Narrative */}
-    <div className="space-y-4 md:space-y-5 max-w-xl mb-8 md:mb-10">
-      <p className="text-sm md:text-base font-medium text-foreground">
-        Logo refinement and full digital facelift.
-      </p>
-      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-        MaraNasi had experience and market presence, but its identity and website did not reflect its scale or operational strength. The brand felt fragmented. The digital experience lacked structure.
-      </p>
-      <p className="text-xs md:text-sm text-foreground font-medium">We aligned both.</p>
-      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-        We refined the logo — strengthening typography, balance, and visual authority while preserving recognition. We rebuilt the website from the ground up — restructuring content, clarifying positioning, and designing a clean, controlled corporate experience.
-      </p>
-      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-        The result is a unified brand system that communicates precision, confidence, and destination-level ambition.
-      </p>
-      <p className="text-xs md:text-sm text-foreground font-medium italic">
-        MaraNasi no longer presents as an event planner. It now stands as a structured corporate experience partner.
-      </p>
-    </div>
+    {/* Content + Preview side by side */}
+    <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+      {/* Narrative */}
+      <div className="space-y-4 md:space-y-5 md:flex-1">
+        <p className="text-sm md:text-base font-medium text-foreground">
+          Logo refinement and full digital facelift.
+        </p>
+        <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+          MaraNasi had experience and market presence, but its identity and website did not reflect its scale or operational strength. The brand felt fragmented. The digital experience lacked structure.
+        </p>
+        <p className="text-xs md:text-sm text-foreground font-medium">We aligned both.</p>
+        <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+          We refined the logo — strengthening typography, balance, and visual authority while preserving recognition. We rebuilt the website from the ground up — restructuring content, clarifying positioning, and designing a clean, controlled corporate experience.
+        </p>
+        <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+          The result is a unified brand system that communicates precision, confidence, and destination-level ambition.
+        </p>
+        <p className="text-xs md:text-sm text-foreground font-medium italic">
+          MaraNasi no longer presents as an event planner. It now stands as a structured corporate experience partner.
+        </p>
+      </div>
 
-    {/* Website preview */}
-    <div className="border-t border-foreground/10 pt-6">
-      <p className="text-[10px] md:text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">Live Website</p>
-      <a
-      href="https://maranasi.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block overflow-hidden rounded-lg border border-foreground/10 hover:border-foreground/20 transition-all duration-300 group">
-
-        <div className="relative aspect-video bg-muted overflow-hidden">
-          <iframe
-          src="https://maranasi.com/"
-          title="MaraNasi Website Preview"
-          className="w-full h-full pointer-events-none scale-100 origin-top-left"
-          style={{ width: "100%", height: "100%", border: "none" }}
-          loading="lazy"
-          sandbox="allow-scripts allow-same-origin" />
-
-          
-        </div>
-        <div className="px-4 py-3 flex items-center justify-between bg-card">
-          <span className="text-xs text-muted-foreground">maranasi.com</span>
-          <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">↗</span>
-        </div>
-      </a>
+      {/* Website preview */}
+      <div className="md:flex-1">
+        <p className="text-[10px] md:text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">Live Website</p>
+        <a
+          href="https://maranasi.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block overflow-hidden rounded-lg border border-foreground/10 hover:border-foreground/20 transition-all duration-300 group">
+          <div className="relative aspect-video bg-muted overflow-hidden">
+            <iframe
+              src="https://maranasi.com/"
+              title="MaraNasi Website Preview"
+              className="w-full h-full pointer-events-none scale-100 origin-top-left"
+              style={{ width: "100%", height: "100%", border: "none" }}
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin" />
+          </div>
+          <div className="px-4 py-3 flex items-center justify-between bg-card">
+            <span className="text-xs text-muted-foreground">maranasi.com</span>
+            <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">↗</span>
+          </div>
+        </a>
+      </div>
     </div>
   </div>;
 
