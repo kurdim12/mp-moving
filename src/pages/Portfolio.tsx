@@ -10,29 +10,17 @@ import maransiLogo from "@/assets/maranasi-logo.svg";
 
 const IntroductionPage = () => (
   <div className="bg-background w-full md:w-[900px] min-h-[500px] md:min-h-[700px] p-6 md:p-16">
-    <h2 className="text-base md:text-lg font-medium tracking-[0.08em] uppercase text-muted-foreground mb-6 md:mb-8">MaraNasi — Live Preview</h2>
-    <a 
-      href="https://maranasi.com/" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="block overflow-hidden rounded-lg border border-foreground/10 hover:border-foreground/20 transition-all duration-300 group"
-    >
-      <div className="relative aspect-video bg-muted overflow-hidden">
-        <iframe 
-          src="https://maranasi.com/" 
-          title="MaraNasi Website Preview"
-          className="w-full h-full pointer-events-none"
-          style={{ border: "none" }}
-          loading="lazy"
-          sandbox="allow-scripts allow-same-origin"
-        />
-        <div className="absolute inset-0 bg-transparent group-hover:bg-foreground/5 transition-colors duration-300" />
-      </div>
-      <div className="px-4 py-3 flex items-center justify-between bg-card">
-        <span className="text-xs text-muted-foreground">maranasi.com</span>
-        <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">↗</span>
-      </div>
-    </a>
+    <div className="max-w-lg mt-6 md:mt-16 space-y-6 md:space-y-10">
+      <h1 className="text-2xl md:text-5xl font-semibold tracking-tight leading-[1.1] text-foreground">
+        Our portfolio is lean by design.
+      </h1>
+      <p className="text-sm md:text-lg text-muted-foreground leading-relaxed">
+        We work selectively, so each project we undertake gets our full attention and care. Rather than publishing glossy case studies, we focus on real outcomes and lessons learned with our partners.
+      </p>
+      <p className="text-xs md:text-sm text-muted-foreground italic">
+        Our partners are welcome to share details of what we've built together — word-of-mouth and direct experience are the strongest endorsements.
+      </p>
+    </div>
   </div>
 );
 
@@ -178,7 +166,7 @@ const LeadershipPage = () => (
 /* ── Panel config ── */
 
 const panels = [
-  { id: "intro", title: "MaraNasi — Live Preview", component: IntroductionPage, accent: true },
+  { id: "intro", title: "Introduction", component: IntroductionPage, accent: true },
   { id: "clients", title: "MaraNasi — Brand Rebirth", component: ClientsPage },
   { id: "expertise", title: "Expertise", component: ExpertisePage },
   { id: "outcomes", title: "Outcomes", component: OutcomesPage },
