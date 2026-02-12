@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { portfolioItems } from "@/components/portfolio/PortfolioData";
+import maransiLogo from "@/assets/maranasi-logo.svg";
 
 /* ── Mini-page content for each "preview card" ── */
 
@@ -26,16 +27,57 @@ const IntroductionPage = () => (
 const ClientsPage = () => (
   <div className="bg-background w-full md:w-[900px] min-h-[500px] md:min-h-[700px] p-6 md:p-16">
     <h2 className="text-base md:text-lg font-medium tracking-[0.08em] uppercase text-muted-foreground mb-6 md:mb-8">MaraNasi — Brand Rebirth</h2>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-0">
-      {portfolioItems.map((item) => (
-        <div key={item.slug} className="border-t border-foreground/10 pt-4 md:pt-5 pb-5 md:pb-6">
-          <h3 className="text-base md:text-xl font-semibold text-foreground mb-1 md:mb-2">{item.name}</h3>
-          <p className="text-xs md:text-sm text-muted-foreground leading-relaxed mb-2 md:mb-3">
-            {item.context.length > 90 ? item.context.slice(0, 90) + "…" : item.context}
-          </p>
-          <span className="text-xs md:text-sm text-destructive font-medium">View →</span>
+    
+    {/* Logo */}
+    <div className="mb-8 md:mb-10">
+      <img src={maransiLogo} alt="MaraNasi Logo" className="h-16 md:h-24 w-auto" />
+    </div>
+
+    {/* Narrative */}
+    <div className="space-y-4 md:space-y-5 max-w-xl mb-8 md:mb-10">
+      <p className="text-sm md:text-base font-medium text-foreground">
+        Logo refinement and full digital facelift.
+      </p>
+      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+        MaraNasi had experience and market presence, but its identity and website did not reflect its scale or operational strength. The brand felt fragmented. The digital experience lacked structure.
+      </p>
+      <p className="text-xs md:text-sm text-foreground font-medium">We aligned both.</p>
+      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+        We refined the logo — strengthening typography, balance, and visual authority while preserving recognition. We rebuilt the website from the ground up — restructuring content, clarifying positioning, and designing a clean, controlled corporate experience.
+      </p>
+      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+        The result is a unified brand system that communicates precision, confidence, and destination-level ambition.
+      </p>
+      <p className="text-xs md:text-sm text-foreground font-medium italic">
+        MaraNasi no longer presents as an event planner. It now stands as a structured corporate experience partner.
+      </p>
+    </div>
+
+    {/* Website preview */}
+    <div className="border-t border-foreground/10 pt-6">
+      <p className="text-[10px] md:text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">Live Website</p>
+      <a 
+        href="https://maranasi.com/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block overflow-hidden rounded-lg border border-foreground/10 hover:border-foreground/20 transition-all duration-300 group"
+      >
+        <div className="relative aspect-video bg-muted overflow-hidden">
+          <iframe 
+            src="https://maranasi.com/" 
+            title="MaraNasi Website Preview"
+            className="w-full h-full pointer-events-none scale-100 origin-top-left"
+            style={{ width: "100%", height: "100%", border: "none" }}
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin"
+          />
+          <div className="absolute inset-0 bg-transparent group-hover:bg-foreground/5 transition-colors duration-300" />
         </div>
-      ))}
+        <div className="px-4 py-3 flex items-center justify-between bg-card">
+          <span className="text-xs text-muted-foreground">maranasi.com</span>
+          <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">↗</span>
+        </div>
+      </a>
     </div>
   </div>
 );
