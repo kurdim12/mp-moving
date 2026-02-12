@@ -15,7 +15,7 @@ const sectionOrder = [
 
 const sectionLabels: Record<string, string> = {
   introduction: "Introduction",
-  clients: "Select Clients",
+  clients: "MaraNasi — Brand Rebirth",
   capabilities: "Expertise & Capabilities",
   outcomes: "Outcomes",
   process: "Process",
