@@ -25,7 +25,7 @@ const IntroductionPage = () => (
 
 const ClientsPage = () => (
   <div className="bg-background w-full md:w-[900px] min-h-[500px] md:min-h-[700px] p-6 md:p-16">
-    <h2 className="text-base md:text-lg font-medium tracking-[0.08em] uppercase text-muted-foreground mb-6 md:mb-8">Select Clients</h2>
+    <h2 className="text-base md:text-lg font-medium tracking-[0.08em] uppercase text-muted-foreground mb-6 md:mb-8">MaraNasi — Brand Rebirth</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-0">
       {portfolioItems.map((item) => (
         <div key={item.slug} className="border-t border-foreground/10 pt-4 md:pt-5 pb-5 md:pb-6">
@@ -125,7 +125,7 @@ const LeadershipPage = () => (
 
 const panels = [
   { id: "intro", title: "Introduction", component: IntroductionPage, accent: true },
-  { id: "clients", title: "Select Clients", component: ClientsPage },
+  { id: "clients", title: "MaraNasi — Brand Rebirth", component: ClientsPage },
   { id: "expertise", title: "Expertise", component: ExpertisePage },
   { id: "outcomes", title: "Outcomes", component: OutcomesPage },
   { id: "process", title: "Process", component: ProcessPage },
