@@ -25,19 +25,19 @@ const IntroductionPage = () =>
 
 
 const ClientsPage = () =>
-<div className="bg-background w-full md:w-[900px] min-h-[500px] md:min-h-[700px] p-6 md:p-16">
-    <h2 className="text-base md:text-lg font-medium tracking-[0.08em] uppercase text-muted-foreground mb-6 md:mb-8">MaraNasi — Brand Rebirth</h2>
+<div className="bg-background w-full md:w-[1100px] min-h-[500px] md:min-h-[700px] p-6 md:p-16">
+    <h2 className="text-[10px] md:text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-6 md:mb-8">MaraNasi — Brand Rebirth</h2>
     
     {/* Logo */}
-    <div className="mb-8 md:mb-10">
-      <img src={maransiLogo} alt="MaraNasi Logo" className="h-16 md:h-24 w-auto" />
+    <div className="mb-6 md:mb-8">
+      <img src={maransiLogo} alt="MaraNasi Logo" className="h-10 md:h-16 w-auto" />
     </div>
 
     {/* Content + Preview side by side */}
-    <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-16 items-start">
       {/* Narrative */}
-      <div className="space-y-4 md:space-y-5 md:flex-1">
-        <p className="text-sm md:text-base font-medium text-foreground">
+      <div className="space-y-4 md:space-y-5 md:w-[45%] md:shrink-0">
+        <p className="text-sm md:text-base font-medium text-foreground leading-snug">
           Logo refinement and full digital facelift.
         </p>
         <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
@@ -56,25 +56,25 @@ const ClientsPage = () =>
       </div>
 
       {/* Website preview */}
-      <div className="md:flex-1">
+      <div className="w-full md:flex-1">
         <p className="text-[10px] md:text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">Live Website</p>
         <a
           href="https://maranasi.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="block overflow-hidden rounded-lg border border-foreground/10 hover:border-foreground/20 transition-all duration-300 group">
-          <div className="relative aspect-video bg-muted overflow-hidden">
+          className="block overflow-hidden rounded-md border border-foreground/8 hover:border-foreground/15 transition-all duration-300 group">
+          <div className="relative aspect-[4/3] bg-muted overflow-hidden">
             <iframe
               src="https://maranasi.com/"
               title="MaraNasi Website Preview"
-              className="w-full h-full pointer-events-none scale-100 origin-top-left"
+              className="w-full h-full pointer-events-none origin-top-left"
               style={{ width: "100%", height: "100%", border: "none" }}
               loading="lazy"
               sandbox="allow-scripts allow-same-origin" />
           </div>
-          <div className="px-4 py-3 flex items-center justify-between bg-card">
-            <span className="text-xs text-muted-foreground">maranasi.com</span>
-            <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">↗</span>
+          <div className="px-3 py-2.5 flex items-center justify-between bg-card border-t border-foreground/5">
+            <span className="text-[10px] md:text-xs text-muted-foreground">maranasi.com</span>
+            <span className="text-[10px] md:text-xs text-muted-foreground group-hover:text-foreground transition-colors">↗</span>
           </div>
         </a>
       </div>
