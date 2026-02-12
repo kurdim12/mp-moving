@@ -112,8 +112,8 @@
     @apply border-border;
   }
 
-  html {
-    scroll-behavior: smooth;
+html {
+    scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
