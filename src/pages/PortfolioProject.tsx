@@ -5,7 +5,7 @@ import { portfolioItems } from "@/components/portfolio/PortfolioData";
 
 const sections = [
   { key: "introduction", label: "Introduction" },
-  { key: "clients", label: "Select Clients" },
+  { key: "clients", label: "MaraNasi — Brand Rebirth" },
   { key: "capabilities", label: "Expertise & Capabilities" },
   { key: "outcomes", label: "Outcomes" },
   { key: "process", label: "Process" },
