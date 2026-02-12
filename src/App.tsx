@@ -9,6 +9,9 @@ import PortfolioProject from "./pages/PortfolioProject";
 import PortfolioSection from "./pages/PortfolioSection";
 import NotFound from "./pages/NotFound";
 import BrandSystems from "./pages/BrandSystems";
+import ProductPlatforms from "./pages/ProductPlatforms";
+import AIAutomation from "./pages/AIAutomation";
+import CoBuild from "./pages/CoBuild";
 import WhatWeBuild from "./pages/WhatWeBuild";
 import ContactPage from "./pages/ContactPage";
 
@@ -27,6 +30,9 @@ const App = () => (
           <Route path="/portfolio/:slug/:section" element={<PortfolioSection />} />
           <Route path="/what-we-build" element={<WhatWeBuild />} />
           <Route path="/what-we-build/brand-systems" element={<BrandSystems />} />
+          <Route path="/what-we-build/product-platforms" element={<ProductPlatforms />} />
+          <Route path="/what-we-build/ai-automation" element={<AIAutomation />} />
+          <Route path="/what-we-build/co-build" element={<CoBuild />} />
           <Route path="/contact" element={<ContactPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
