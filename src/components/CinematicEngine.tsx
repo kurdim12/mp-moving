@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from "react";
+import heroVideo from "@/assets/hero-video.mp4";
 
 /* ─── palette ─── */
 const BG = "#0B0B0D";
@@ -213,11 +214,27 @@ const CinematicEngine = () => {
           opacity: progress > 0.96 ? lerp(1, 0, (progress - 0.96) / 0.04) : 1,
         }}
       >
+        {/* Video background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            zIndex: 0,
+            filter: "brightness(0.35)",
+            transform: `scale(${1 + progress * 0.1})`,
+          }}
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+
         {/* Particle canvas */}
         <canvas
           ref={canvasRef}
           className="absolute inset-0"
-          style={{ zIndex: 0 }}
+          style={{ zIndex: 1 }}
         />
 
         {/* Subtle grain overlay */}
