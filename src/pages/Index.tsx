@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import ParallaxHome from "@/components/ParallaxHome";
+import CinematicEngine from "@/components/CinematicEngine";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
 import AboutMPSection from "@/components/AboutMPSection";
 import VenturesSection from "@/components/VenturesSection";
@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <ParallaxHome />
+      <CinematicEngine />
       <div className="relative z-20 bg-background">
         <HowWeWorkSection />
         <AboutMPSection />
