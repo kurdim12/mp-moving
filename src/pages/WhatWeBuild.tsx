@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import mpLogo from "@/assets/mp-logo.png";
 import wwbBrand from "@/assets/wwb-brand.jpg";
@@ -17,22 +19,9 @@ const blocks = [
 const WhatWeBuild = () => {
   return (
     <div className="min-h-screen bg-background" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-      {/* Sticky nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <img src={mpLogo} alt="MP Logo" className="h-6 md:h-8 w-auto" />
-          </Link>
-          <Link
-            to="/#contact"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
-          >
-            Get in Touch
-          </Link>
-        </div>
-      </nav>
+      <Header />
 
-      <main className="pt-14">
+      <main className="pt-16 md:pt-20">
         {/* Header */}
         <div className="max-w-6xl mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-12 md:pb-16">
           <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
@@ -52,6 +41,7 @@ const WhatWeBuild = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

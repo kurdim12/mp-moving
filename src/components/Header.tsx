@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import mpLogo from "@/assets/mp-logo.png";
 
 const Header = () => {
@@ -22,36 +23,36 @@ const Header = () => {
       }`}
     >
       <div className="content-container">
-        <nav className="flex items-center justify-between h-16 md:h-24">
+        <nav className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3 group">
-            <img 
-              src={mpLogo} 
-              alt="MP Logo" 
-              className="h-7 md:h-10 w-auto transition-opacity duration-300 group-hover:opacity-70"
+          <Link to="/" className="flex items-center gap-3 group">
+            <img
+              src={mpLogo}
+              alt="MP Logo"
+              className="h-6 md:h-8 w-auto transition-opacity duration-300 group-hover:opacity-70"
             />
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
-            <a
-              href="/what-we-build"
-              className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
+            <Link
+              to="/what-we-build"
+              className="text-[13px] font-medium tracking-wide text-foreground/60 hover:text-foreground transition-colors duration-300"
             >
               WWB
-            </a>
-            <a
-              href="/portfolio"
-              className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
+            </Link>
+            <Link
+              to="/portfolio"
+              className="text-[13px] font-medium tracking-wide text-foreground/60 hover:text-foreground transition-colors duration-300"
             >
               Portfolio
-            </a>
-            <a
-              href="/contact"
-              className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
+            </Link>
+            <Link
+              to="/contact"
+              className="text-[13px] font-medium tracking-wide text-foreground/60 hover:text-foreground transition-colors duration-300"
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Mobile hamburger */}
@@ -71,27 +72,27 @@ const Header = () => {
       {menuOpen && (
         <div className="md:hidden bg-background/98 backdrop-blur-sm border-b border-border animate-fade-in">
           <div className="content-container py-6 flex flex-col gap-5">
-            <a
-              href="/what-we-build"
+            <Link
+              to="/what-we-build"
               className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               WWB
-            </a>
-            <a
-              href="/portfolio"
+            </Link>
+            <Link
+              to="/portfolio"
               className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               Portfolio
-            </a>
-            <a
-              href="/contact"
+            </Link>
+            <Link
+              to="/contact"
               className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       )}

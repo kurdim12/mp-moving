@@ -1,20 +1,31 @@
+import { RevealGroup, Reveal, RevealDivider } from "@/components/RevealOnScroll";
+
 const WhatMPIsSection = () => {
   return (
     <section className="section-padding">
       <div className="content-container">
-        <div className="max-w-2xl">
-          <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6">
-            What MP Is
-          </p>
-          <p className="text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed text-foreground mb-8">
-            MP is a partnership-led build studio.
-          </p>
-          <p className="body-large">
-            We work alongside founders and teams — thinking, building, and deciding together. 
-            Through shared responsibility, clear thinking, and disciplined execution. 
-            When we commit, we commit as owners.
-          </p>
-        </div>
+        <RevealGroup className="max-w-2xl">
+          <Reveal>
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-8">
+              Alignment
+            </p>
+          </Reveal>
+          <Reveal delay={100}>
+            <p className="text-2xl md:text-3xl lg:text-4xl font-medium leading-[1.2] text-foreground mb-8">
+              People create possibilities.
+            </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="body-large mb-6">
+              We exist to align people around what truly matters.
+            </p>
+          </Reveal>
+          <Reveal delay={300}>
+            <p className="body-medium">
+              When alignment is clear, momentum becomes natural.
+            </p>
+          </Reveal>
+        </RevealGroup>
       </div>
     </section>
   );
