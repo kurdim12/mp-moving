@@ -2,7 +2,7 @@ import { RevealGroup, Reveal } from "@/components/RevealOnScroll";
 
 const VenturesSection = () => {
   return (
-    <section className="py-20 md:py-28">
+    <section className="section-padding">
       <div className="content-container">
         <RevealGroup className="max-w-2xl mb-16">
           <Reveal>

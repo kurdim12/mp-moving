@@ -25,7 +25,7 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="w-full py-20 md:py-28">
+    <section className="w-full py-12 md:py-16">
       <div className="content-container">
         <RevealGroup className="bg-primary text-primary-foreground rounded-2xl p-8 md:p-12 lg:p-16">
           <Reveal className="mb-12 md:mb-16">
