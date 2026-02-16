@@ -231,8 +231,8 @@ const Scene4 = () => {
           <Reveal visible={visible} delay={150}>
             <div>
               <p className="text-xs font-medium tracking-[0.15em] uppercase text-neutral-400 mb-3">Email</p>
-              <a href="mailto:hello@movingpeople.studio" className="text-base text-black hover:text-neutral-600 transition-colors duration-200">
-                hello@movingpeople.studio
+              <a href="mailto:inmotion@movingp.com" className="text-base text-black hover:text-neutral-600 transition-colors duration-200">
+                inmotion@movingp.com
               </a>
             </div>
           </Reveal>
