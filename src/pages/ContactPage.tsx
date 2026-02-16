@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import mpLogo from "@/assets/mp-logo.png";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 /* ─── Intersection hook ─── */
 function useOnScreen(ref: React.RefObject<HTMLElement>, threshold = 0.2) {
@@ -262,21 +264,14 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-200">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <img src={mpLogo} alt="MP Logo" className="h-6 md:h-8 w-auto" />
-          </Link>
-          <span className="text-xs font-medium tracking-[0.15em] uppercase text-neutral-300">Contact</span>
-        </div>
-      </nav>
-
-      <main className="pt-14">
+      <Header />
+      <main className="pt-16 md:pt-20">
         <Scene1 />
         <Scene2 selected={selectedQualification} onSelect={setSelectedQualification} />
         <Scene3 />
         <Scene4 />
       </main>
+      <Footer />
     </div>
   );
 };

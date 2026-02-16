@@ -7,26 +7,28 @@ const HeroSection = () => {
         <div className="max-w-3xl">
           {/* Logo mark */}
           <div className="fade-up mb-10">
-            <img 
-              src={mpLogo} 
-              alt="MP — Moving People" 
-              className="h-14 md:h-16 lg:h-20 w-auto"
+            <img
+              src={mpLogo}
+              alt="MP — Moving People"
+              className="h-12 md:h-14 lg:h-16 w-auto"
             />
           </div>
 
           {/* Tagline */}
-          <p className="fade-up fade-up-delay-1 text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6">
+          <p className="fade-up fade-up-delay-1 text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-8">
             Moving People
           </p>
 
           {/* Main headline */}
           <h1 className="fade-up fade-up-delay-1 display-headline mb-8 text-foreground">
-            MP exists to move people forward.
+            We exist to move
+            <br />
+            people forward.
           </h1>
 
           {/* Subtext */}
           <p className="fade-up fade-up-delay-2 body-large max-w-xl">
-            We partner with people to build products, systems, and companies that create momentum.
+            Moving People is a partnership-driven build group. We work with people and teams to create clarity, structure, and momentum that compounds.
           </p>
         </div>
       </div>

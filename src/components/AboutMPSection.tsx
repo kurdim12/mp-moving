@@ -1,39 +1,65 @@
+import { RevealGroup, Reveal, RevealDivider } from "@/components/RevealOnScroll";
+
 const AboutMPSection = () => {
   return (
     <section className="section-padding">
       <div className="content-container">
-        <div className="max-w-2xl">
-          <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6">
-            About Moving People
-          </p>
-          <p className="text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed text-foreground mb-8">
-            A global, remote-first design and build studio.
-          </p>
-          <p className="body-large mb-10">
-            We were founded on the principle that partnerships, not transactions, drive success. 
-            Our small team is spread around the world, bringing diverse perspectives but united by a common ethos.
-          </p>
+        <RevealGroup className="max-w-2xl">
+          <Reveal>
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-8">
+              About
+            </p>
+          </Reveal>
+          <Reveal delay={100}>
+            <p className="text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed text-foreground mb-8">
+              Moving People is a globally connected, remote-first build group.
+            </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="body-large mb-8">
+              We were founded on a simple belief: partnership drives lasting impact.
+            </p>
+          </Reveal>
+          <Reveal delay={300}>
+            <p className="body-medium mb-10">
+              Our team operates across disciplines and geographies, but is united by one ethos.
+            </p>
+          </Reveal>
 
-          <div className="space-y-6 border-t border-border pt-8">
-            <div>
-              <h3 className="text-base font-medium text-foreground mb-1">Ownership Mindset</h3>
-              <p className="body-medium">We think and act like owners in every project.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-medium text-foreground mb-1">Remote-First Culture</h3>
-              <p className="body-medium">We collaborate across time zones seamlessly, using the best tools and processes to stay in sync.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-medium text-foreground mb-1">Values</h3>
-              <p className="body-medium">Partnership over services. Ownership over output. Momentum over noise.</p>
-            </div>
+          <RevealDivider delay={350} />
+
+          <div className="pt-8 space-y-5">
+            <Reveal delay={400}>
+              <p className="text-lg md:text-xl font-medium text-foreground">
+                Clarity before scale.
+              </p>
+            </Reveal>
+            <Reveal delay={450}>
+              <p className="text-lg md:text-xl font-medium text-foreground">
+                Structure before speed.
+              </p>
+            </Reveal>
+            <Reveal delay={500}>
+              <p className="text-lg md:text-xl font-medium text-foreground">
+                Ownership before optics.
+              </p>
+            </Reveal>
           </div>
 
-          <p className="body-medium mt-10">
-            Our mission is to help visionary founders and teams create momentum in their businesses. 
-            The name "Moving People" reflects exactly that — moving individuals and companies forward, together.
-          </p>
-        </div>
+          <Reveal delay={600}>
+            <p className="body-medium mt-12">
+              We work with founders who think long-term. We build with people who value alignment. We move deliberately.
+            </p>
+          </Reveal>
+
+          <Reveal delay={700}>
+            <p className="text-xl md:text-2xl font-medium text-foreground mt-12 leading-relaxed">
+              We move people.
+              <br />
+              <span className="text-muted-foreground">And people move possibilities.</span>
+            </p>
+          </Reveal>
+        </RevealGroup>
       </div>
     </section>
   );
