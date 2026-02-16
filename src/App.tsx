@@ -15,7 +15,6 @@ import AIAutomation from "./pages/AIAutomation";
 import CoBuild from "./pages/CoBuild";
 import WhatWeBuild from "./pages/WhatWeBuild";
 import ContactPage from "./pages/ContactPage";
-import CursorFollower from "@/components/CursorFollower";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +25,6 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <SmoothScroll>
-          <CursorFollower />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/portfolio" element={<Portfolio />} />

@@ -15,10 +15,10 @@ const Footer = () => {
               Globally connected
             </p>
             <a 
-              href="mailto:inmotion@movingp.com" 
+              href="mailto:hello@movingpeople.studio" 
               className="text-sm text-foreground hover:text-muted-foreground transition-colors"
             >
-              inmotion@movingp.com
+              hello@movingpeople.studio
             </a>
           </div>
 
