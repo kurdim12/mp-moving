@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useReveal } from "@/components/RevealOnScroll";
 
 interface VisualBreakProps {
   image: string;
@@ -21,18 +22,25 @@ const VisualBreak = ({ image, alt, className }: VisualBreakProps) => {
   );
 };
 
-// Content-aligned visual break with 400px height for editorial rhythm
+/* Full-width cinematic break with parallax-like fixed attachment */
 export const VisualBreakFull = ({ image, alt, className }: VisualBreakProps) => {
+  const { ref, visible } = useReveal(0.1);
+
   return (
-    <div className={cn("w-full my-12 md:my-20", className)}>
-      <div className="content-container">
-        <img
-          src={image}
-          alt={alt}
-          className="w-full h-[300px] md:h-[400px] object-cover"
-          loading="lazy"
-        />
-      </div>
+    <div
+      ref={ref}
+      className={cn("w-full overflow-hidden", className)}
+    >
+      <div
+        className="w-full h-[40vh] md:h-[50vh] lg:h-[60vh] bg-cover bg-center bg-fixed"
+        style={{
+          backgroundImage: `url(${image})`,
+          opacity: visible ? 1 : 0,
+          transition: "opacity 1.2s ease-out",
+        }}
+        role="img"
+        aria-label={alt}
+      />
     </div>
   );
 };
