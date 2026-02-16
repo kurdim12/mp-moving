@@ -9,7 +9,6 @@ import VenturesSection from "@/components/VenturesSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-import visualFlow1 from "@/assets/visual-flow-1.jpg";
 import visualFlow2 from "@/assets/visual-flow-2.jpg";
 import visualFlow3 from "@/assets/visual-flow-3.jpg";
 import visualFlow4 from "@/assets/visual-flow-4.jpg";
@@ -20,11 +19,6 @@ const Index = () => {
       <Header />
       <main className="flex flex-col items-center">
         <HeroSection />
-        
-        <VisualBreakFull 
-          image={visualFlow1} 
-          alt="Ocean waves flowing against dark coastal rocks" 
-        />
         
         <WhatMPIsSection />
         
