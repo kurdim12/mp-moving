@@ -1,14 +1,20 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { VisualBreakFull } from "@/components/VisualBreak";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useSceneVisibility, SceneReveal, SceneDivider } from "@/components/SceneReveal";
 
+import visualPlatformConnect from "@/assets/visual-platform-connect.jpg";
+import visualArchitecture from "@/assets/visual-architecture-1.jpg";
+import visualLines from "@/assets/visual-lines-2.jpg";
+
+/* ═══ SCENE 1 — Opening ═══ */
 const Scene1 = () => {
   const { ref, visible } = useSceneVisibility(0.3);
   return (
     <section ref={ref} className="min-h-screen flex items-center justify-center bg-background relative">
       <SceneReveal visible={visible} delay={0} className="absolute top-8 left-6 md:left-12">
-        <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground">Products, Platforms & Systems</p>
+        <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground">Products & Platforms</p>
       </SceneReveal>
       <div className="text-center max-w-3xl mx-auto px-6">
         <SceneReveal visible={visible} delay={100}>
@@ -19,7 +25,7 @@ const Scene1 = () => {
         </SceneReveal>
         <SceneReveal visible={visible} delay={350}>
           <p className="body-large max-w-xl mx-auto">
-            We design and build digital products, internal tools, and workflows as connected systems that scale with decision-making.
+            A website isn't a website. A dashboard isn't a dashboard. Every product is a node in a larger system. We design them that way from the start.
           </p>
         </SceneReveal>
       </div>
@@ -27,12 +33,13 @@ const Scene1 = () => {
   );
 };
 
+/* ═══ SCENE 2 — Build ═══ */
 const Scene2 = () => {
   const { ref, visible } = useSceneVisibility();
   const blocks = [
-    { title: "Websites & Apps", desc: "From landing pages to full web applications, built with clear navigation and purpose." },
-    { title: "Dashboards & Internal Tools", desc: "Back-end systems and admin interfaces that make decision-making seamless and data-driven." },
-    { title: "Integrated Workflows", desc: "Automated, linked systems via APIs, CRMs, and analytics — reducing friction as you scale." },
+    { title: "Websites & Applications", desc: "Purposeful interfaces that earn attention. Not pages — systems that guide decisions." },
+    { title: "Dashboards & Internal Tools", desc: "The infrastructure your team actually lives in. Clear, fast, built for real workflows." },
+    { title: "Integrated Workflows", desc: "APIs, CRMs, analytics — connected so data flows where it needs to, without manual intervention." },
   ];
 
   return (
@@ -44,10 +51,10 @@ const Scene2 = () => {
           </SceneReveal>
           <div>
             <SceneReveal visible={visible} delay={100}>
-              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">What We Build</p>
-              <h2 className="section-headline mb-6">BUILD</h2>
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">What we make</p>
+              <h2 className="section-headline mb-6">Build</h2>
               <p className="text-muted-foreground leading-relaxed max-w-lg mb-12">
-                Every digital product and workflow is part of a bigger system. We design architecture that grows with your organization — aligning design with business goals.
+                We don't build features. We build systems that grow with your organization — where every component has a reason, and every interface serves a decision that matters.
               </p>
             </SceneReveal>
             <div className="space-y-0">
@@ -71,6 +78,7 @@ const Scene2 = () => {
   );
 };
 
+/* ═══ SCENE 3 — Scale ═══ */
 const Scene3 = () => {
   const { ref, visible } = useSceneVisibility();
   const bullets = ["Modular Architecture", "Clear Boundaries", "Independent Teams", "Predictable Growth"];
@@ -81,10 +89,10 @@ const Scene3 = () => {
         <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
           <div>
             <SceneReveal visible={visible} delay={0}>
-              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Stage 02</p>
-              <h2 className="section-headline mb-6">SCALE</h2>
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">How it grows</p>
+              <h2 className="section-headline mb-6">Scale</h2>
               <p className="text-muted-foreground leading-relaxed max-w-md mb-10">
-                By enforcing clear boundaries and ownership of each component, we make future growth predictable. Teams can move independently and innovate in parallel.
+                Scaling isn't about adding more. It's about designing boundaries so clear that teams can move independently without breaking what already works. We build that clarity into every system.
               </p>
             </SceneReveal>
             <div className="space-y-3">
@@ -120,6 +128,7 @@ const Scene3 = () => {
   );
 };
 
+/* ═══ SCENE 4 — Outcome ═══ */
 const Scene4 = () => {
   const { ref, visible } = useSceneVisibility();
   const impacts = ["Scalable product strategy", "Systemized design", "Safe iteration and expansion"];
@@ -131,7 +140,7 @@ const Scene4 = () => {
           <span className="text-[100px] md:text-[160px] font-bold leading-none text-muted/50 select-none block mb-4 font-body">02</span>
         </SceneReveal>
         <SceneReveal visible={visible} delay={100}>
-          <h2 className="section-headline mb-6">OUTCOME</h2>
+          <h2 className="section-headline mb-6">Outcome</h2>
         </SceneReveal>
         <div className="space-y-5 mt-12">
           {impacts.map((line, i) => (
@@ -142,13 +151,14 @@ const Scene4 = () => {
         </div>
         <SceneReveal visible={visible} delay={600}>
           <div className="mt-20"><SceneDivider visible={visible} delay={650} /></div>
-          <p className="mt-10 text-sm text-muted-foreground">This is how we build products, platforms & systems at MP.</p>
+          <p className="mt-10 text-sm text-muted-foreground">This is how we build products and platforms at MP.</p>
         </SceneReveal>
       </div>
     </section>
   );
 };
 
+/* ═══ PAGE ═══ */
 const ProductPlatforms = () => {
   useDocumentTitle("Product Platforms — MP");
   return (
@@ -156,8 +166,26 @@ const ProductPlatforms = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <Scene1 />
+
+        <VisualBreakFull
+          image={visualPlatformConnect}
+          alt="Connected network nodes — systems that grow together"
+        />
+
         <Scene2 />
+
+        <VisualBreakFull
+          image={visualArchitecture}
+          alt="Architectural lines — modular systems at scale"
+        />
+
         <Scene3 />
+
+        <VisualBreakFull
+          image={visualLines}
+          alt="Clean geometric lines — clarity in complexity"
+        />
+
         <Scene4 />
       </main>
       <Footer />
