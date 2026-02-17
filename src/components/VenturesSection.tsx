@@ -22,31 +22,28 @@ const VenturesSection = () => {
           </Reveal>
         </RevealGroup>
 
-        <div className="border-t border-border">
-          <div className="grid md:grid-cols-2">
-            <Reveal delay={0}>
-              <div className="p-8 md:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-border">
-                <h3 className="text-lg md:text-xl font-medium text-foreground mb-4">
-                  MP Build
-                </h3>
-                <p className="body-medium">
-                  We originate and fully own these projects. We generate the idea and use MP's resources to develop it from scratch.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={120}>
-              <div className="p-8 md:p-10 lg:p-12">
-                <h3 className="text-lg md:text-xl font-medium text-foreground mb-4">
-                  MP Co-Build
-                </h3>
-                <p className="body-medium">
-                  Co-founded projects with external partners. We collaborate from the ground up — shaping the concept, sharing equity, and executing jointly.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-          <div className="border-t border-border" />
-        </div>
+        <RevealGroup className="grid md:grid-cols-2 gap-px bg-border">
+          <Reveal delay={0}>
+            <div className="bg-background p-8 md:p-10 lg:p-12">
+              <h3 className="text-lg md:text-xl font-medium text-foreground mb-4">
+                MP Build
+              </h3>
+              <p className="body-medium">
+                We originate and fully own these projects. We generate the idea and use MP's resources to develop it from scratch.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="bg-background p-8 md:p-10 lg:p-12">
+              <h3 className="text-lg md:text-xl font-medium text-foreground mb-4">
+                MP Co-Build
+              </h3>
+              <p className="body-medium">
+                Co-founded projects with external partners. We collaborate from the ground up — shaping the concept, sharing equity, and executing jointly.
+              </p>
+            </div>
+          </Reveal>
+        </RevealGroup>
       </div>
     </section>
   );
