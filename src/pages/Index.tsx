@@ -7,13 +7,13 @@ import AboutMPSection from "@/components/AboutMPSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ParticleField from "@/components/ParticleField";
-import StrideFigure from "@/components/StrideFigure";
+import StrideFigure3D from "@/components/StrideFigure3D";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <ParticleField />
-      <StrideFigure />
+      <StrideFigure3D />
       <Header />
       <main className="relative z-10 flex flex-col items-center">
         <HeroSection />
