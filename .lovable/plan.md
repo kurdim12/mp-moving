@@ -1,169 +1,121 @@
 
+# Production Readiness Plan
 
-# MP Website Alignment Plan
-
-This plan brings the current website copy and structure into alignment with the refined PDF document. The PDF represents a more decisive, streamlined version of the messaging.
-
----
-
-## Overview
-
-The PDF establishes a cleaner narrative structure:
-1. **Hero** - "MP exists to move people forward"
-2. **What MP Is** - Partnership-led build studio definition
-3. **How We Work** - Three constraints (Partnership, Ownership, Momentum)
-4. **What We Build** - Four service categories with refined descriptions
-5. **Ventures** - Co-ownership statement
-6. **Selectivity/Contact** - "Start with alignment"
-7. **Footer** - Email, location, copyright
+This plan addresses every gap between the current state and a polished, production-ready website that matches MP's tone: calm, confident, architectural, world-class.
 
 ---
 
-## Changes Required
+## 1. Design System Consistency (High Priority)
 
-### 1. Hero Section Update
-**File:** `src/components/HeroSection.tsx`
+**Problem**: Every sub-page (Brand Systems, Product Platforms, AI & Automation, Co-Build, Contact, What We Build) hardcodes `style={{ fontFamily: "'Inter', system-ui, sans-serif" }}`, `bg-white`, `text-black`, and `text-neutral-*` -- completely bypassing the design system. Headlines use `font-bold` (Inter) instead of the Cormorant Garamond display font established on the homepage.
 
-Current:
-- Headline: "Ideas become momentum."
-- Subtext: "MP partners with founders and teams to build what matters..."
+**Fix**:
+- Remove all inline `fontFamily` overrides from sub-pages
+- Replace all hardcoded colors (`bg-white`, `text-black`, `text-neutral-400/500`) with design tokens (`bg-background`, `text-foreground`, `text-muted-foreground`, `bg-card`)
+- Apply `font-display` (Cormorant Garamond) to all `h1`/`h2` headlines across sub-pages
+- Update `tailwind.config.ts` font-family `display` to match the CSS variable (`Cormorant Garamond` instead of `Inter`)
 
-Updated to match PDF:
-- **New tagline:** "Moving People"
-- **New headline:** "MP exists to move people forward."
-- **New subtext:** "We partner with people to build products, systems, and companies that create momentum."
-
-### 2. New "What MP Is" Section
-**File:** Create `src/components/WhatMPIsSection.tsx`
-
-Add a new section after the hero with:
-- Headline: "What MP Is"
-- Text: "MP is a partnership-led build studio. We work alongside founders and teams — thinking, building, and deciding together. Through shared responsibility, clear thinking, and disciplined execution. When we commit, we commit as owners."
-
-### 3. How We Work Section Update
-**File:** `src/components/HowWeWorkSection.tsx`
-
-Restructure with the three constraints from PDF:
-- "Partnership over services"
-- "Ownership over output"  
-- "Momentum over noise"
-- Add: "These aren't values we market. They're constraints we operate under."
-
-### 4. Services Section Update
-**File:** `src/components/ServicesSection.tsx`
-
-Rename from "Systems, not services" to "What We Build" and update the four categories with PDF copy:
-
-| Service | Updated Description |
-|---------|-------------------|
-| Brand & Positioning | "Clarity before aesthetics. We define what matters, remove what doesn't, and give teams language they can build with." |
-| Products, Platforms & Systems | "We design and build digital products, internal tools, and workflows as connected systems. Everything we build is meant to scale with decision-making, not just traffic." |
-| AI & Automation | "Applied selectively. Only where it removes friction, increases leverage, or fundamentally changes how work gets done. No experiments for the sake of trend." |
-| Partnership & Co-Building | "Long-term collaborations with shared ownership and responsibility. Some partnerships start as build work. The right ones evolve into ventures." |
-
-### 5. Ventures Section Update
-**File:** `src/components/VenturesSection.tsx`
-
-Update copy to PDF version:
-- "Beyond partnerships, MP builds and co-owns ventures we believe in. We put our time, capital, and reputation behind ideas we're willing to own."
-- Headline: "We build and co-own what we believe in."
-
-### 6. Contact Section Update
-**File:** `src/components/ContactSection.tsx`
-
-Update to match PDF's selectivity messaging:
-- Headline: "Start with alignment."
-- Subtext: "MP works selectively. If alignment exists, conversations start naturally. We'll know quickly if it makes sense."
-- Add email: `hello@movingpeople.studio`
-
-### 7. Footer Update
-**File:** `src/components/Footer.tsx`
-
-Update to include:
-- "Globally connected" text
-- Email: `hello@movingpeople.studio`
-- Copyright: "Moving People © 2026 MP Studio. All rights reserved."
-
-### 8. Sections to Remove or Simplify
-The following sections can be removed or consolidated as they're not in the PDF:
-- **ProblemSection** - Remove (content now implied in "What MP Is")
-- **AgitationSection** - Remove
-- **SolutionSection** - Remove (replaced by "What MP Is")
-- **WhoWeWorkWithSection** - Remove (selectivity is now in contact section)
-- **DigitalPresenceSection** - Remove (not in PDF)
-- **EngagementSection** - Remove (process is simplified)
-- **FAQSection** - Remove (not in PDF)
-
-### 9. Page Structure Update
-**File:** `src/pages/Index.tsx`
-
-New simplified structure:
-```text
-Header
-└── Hero Section
-    └── Visual Break
-        └── What MP Is Section (new)
-            └── How We Work Section
-                └── Visual Break
-                    └── What We Build (Services)
-                        └── Ventures Section
-                            └── Contact Section
-                                └── Footer
-```
+**Pages affected**: BrandSystems, ProductPlatforms, AIAutomation, CoBuild, ContactPage, WhatWeBuild
 
 ---
 
-## Technical Details
+## 2. Eliminate Duplicated Code (High Priority)
 
-### New Component: WhatMPIsSection.tsx
-```tsx
-// Partnership-led build studio definition
-// Clean two-paragraph layout
-// Max-width constraint for readability
-```
+**Problem**: `useOnScreen`, `useSceneVisibility`, `Reveal`, and `Divider` are copy-pasted into 5 separate page files. Any animation change requires editing all 5 files.
 
-### Updated Services Layout
-The PDF shows a table layout. Consider:
-- 2x2 grid on desktop
-- Stacked cards on mobile
-- Each card has title + two-line description
-
-### Footer Enhancements
-- Add email as a clickable mailto link
-- Add "Globally connected" location text
-- Update copyright format
+**Fix**:
+- Refactor all sub-pages to import from the shared `RevealOnScroll.tsx` component
+- Add a `SceneReveal` wrapper variant to `RevealOnScroll.tsx` for the scene-based pattern used in sub-pages
+- Remove all local `useOnScreen`, `useSceneVisibility`, `Reveal`, and `Divider` definitions from individual pages
 
 ---
 
-## Summary of Files to Modify
+## 3. Content & Data Fixes (High Priority)
 
-| File | Action |
-|------|--------|
-| `src/components/HeroSection.tsx` | Update copy |
-| `src/components/HowWeWorkSection.tsx` | Complete rewrite |
-| `src/components/ServicesSection.tsx` | Update headline, descriptions, layout |
-| `src/components/VenturesSection.tsx` | Update copy |
-| `src/components/ContactSection.tsx` | Update copy, add email |
-| `src/components/Footer.tsx` | Add email, location, update copyright |
-| `src/pages/Index.tsx` | Remove 6 sections, add 1 new section |
-| `src/components/WhatMPIsSection.tsx` | **Create new** |
+**Problem**: Several content inconsistencies that would undermine credibility:
 
-### Files to Delete
-- `src/components/ProblemSection.tsx`
-- `src/components/AgitationSection.tsx`
-- `src/components/SolutionSection.tsx`
-- `src/components/WhoWeWorkWithSection.tsx`
-- `src/components/DigitalPresenceSection.tsx`
-- `src/components/EngagementSection.tsx`
-- `src/components/FAQSection.tsx`
+| Issue | Current | Correct |
+|-------|---------|---------|
+| Contact page email (Scene 4) | `hello@movingpeople.studio` | `inmotion@movingp.com` |
+| LinkedIn link | `https://linkedin.com` (placeholder) | Actual MP LinkedIn URL or remove |
+| Footer copyright | `Moving People. All rights reserved.` | `Moving People. MP Studio. All rights reserved.` |
+| OG image | `lovable.dev/opengraph-image-p98pqg.png` | Custom branded OG image |
+| Canonical URL | `movingpeople.studio` | Verify this is the correct production domain |
+
+**Fix**: Update all incorrect content to match the brand's official details.
 
 ---
 
-## Result
+## 4. SEO & Meta Tags (Medium Priority)
 
-The website will be significantly streamlined:
-- **Before:** 13 content sections
-- **After:** 6 content sections + 2 visual breaks
+**Problem**: Only `index.html` has meta tags. Route changes don't update the page title or description. No structured data.
 
-This creates a tighter, more decisive narrative that matches the PDF's intent — calm, selective, and founder-level.
+**Fix**:
+- Add a `useDocumentTitle` hook that updates `document.title` per route
+- Add page-specific titles: "Brand Systems | MP", "Portfolio | MP", "Contact | MP", etc.
+- Move `<link rel="icon">` inside `<head>` (currently outside it in index.html)
 
+---
+
+## 5. Scroll-to-Top on Navigation (Medium Priority)
+
+**Problem**: When navigating between routes, the scroll position is preserved from the previous page, causing users to land mid-page.
+
+**Fix**:
+- Add a `ScrollToTop` component inside `BrowserRouter` that calls `window.scrollTo(0, 0)` on route changes
+
+---
+
+## 6. 404 Page (Medium Priority)
+
+**Problem**: The NotFound page uses generic styling ("Oops! Page not found") that doesn't match the brand's minimal, architectural tone.
+
+**Fix**:
+- Restyle with Cormorant Garamond headline, minimal layout, and a quiet "Return home" link -- matching the brand's voice
+
+---
+
+## 7. Contact Form Functionality (Medium Priority)
+
+**Problem**: The contact form on `/contact` only sets `submitted = true` client-side. No data is actually sent anywhere.
+
+**Fix**:
+- Wire the form to send data via `mailto:` link or a Supabase edge function
+- At minimum, construct a `mailto:` link with form data so submissions reach `inmotion@movingp.com`
+
+---
+
+## 8. Accessibility Polish (Lower Priority)
+
+**Fix**:
+- Add a skip-to-content link in the Header
+- Ensure all interactive elements have proper focus states
+- Add `aria-label` to the mobile hamburger menu overlay
+- Ensure color contrast meets WCAG AA on all text over images (hero section)
+
+---
+
+## 9. Performance (Lower Priority)
+
+**Fix**:
+- Add `loading="lazy"` to all off-screen images (some already have it, ensure consistency)
+- Preload the hero background image in `index.html` for faster LCP
+- Add `font-display: swap` to the Google Fonts import URL
+
+---
+
+## Technical Summary
+
+| Category | Files to modify |
+|----------|----------------|
+| Design tokens & typography | 6 page files + `tailwind.config.ts` |
+| Shared components | `RevealOnScroll.tsx` (extend), 5 page files (refactor) |
+| Content fixes | `ContactPage.tsx`, `Footer.tsx`, `index.html` |
+| SEO | New `useDocumentTitle` hook, all page files |
+| Navigation | New `ScrollToTop` component, `App.tsx` |
+| 404 | `NotFound.tsx` |
+| Contact form | `ContactPage.tsx` |
+| Accessibility | `Header.tsx`, `HeroSection.tsx` |
+| Performance | `index.html` |
+
+Estimated scope: ~15 files modified, 2 new utility files created.
