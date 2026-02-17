@@ -1,121 +1,51 @@
 
-# Production Readiness Plan
 
-This plan addresses every gap between the current state and a polished, production-ready website that matches MP's tone: calm, confident, architectural, world-class.
+# Interactive Background: "Alignment Field"
 
----
+A full-page, fixed canvas background showing flowing particles (nodes) that drift, connect, and align — representing the brand's core idea: *people finding alignment creates momentum*.
 
-## 1. Design System Consistency (High Priority)
+## What It Will Look and Feel Like
 
-**Problem**: Every sub-page (Brand Systems, Product Platforms, AI & Automation, Co-Build, Contact, What We Build) hardcodes `style={{ fontFamily: "'Inter', system-ui, sans-serif" }}`, `bg-white`, `text-black`, and `text-neutral-*` -- completely bypassing the design system. Headlines use `font-bold` (Inter) instead of the Cormorant Garamond display font established on the homepage.
+- **Persistent canvas** fixed behind all content, visible on every section as you scroll
+- **~80 small dots** (particles) floating slowly across the screen in gentle, organic motion
+- **Connection lines** appear between nearby particles — faint, architectural, representing alignment
+- **Mouse interaction**: particles near the cursor gently attract toward it, creating a subtle "magnetic pull" (people aligning around a point)
+- **Scroll interaction**: as the user scrolls deeper, particles gradually move from scattered/random positions toward more ordered, aligned formations — mirroring the brand journey from chaos to clarity
+- **Color**: particles and lines use the existing foreground color at low opacity (black dots/lines on the warm gray background), keeping the minimal Mantis-like aesthetic
 
-**Fix**:
-- Remove all inline `fontFamily` overrides from sub-pages
-- Replace all hardcoded colors (`bg-white`, `text-black`, `text-neutral-400/500`) with design tokens (`bg-background`, `text-foreground`, `text-muted-foreground`, `bg-card`)
-- Apply `font-display` (Cormorant Garamond) to all `h1`/`h2` headlines across sub-pages
-- Update `tailwind.config.ts` font-family `display` to match the CSS variable (`Cormorant Garamond` instead of `Inter`)
+## Technical Approach
 
-**Pages affected**: BrandSystems, ProductPlatforms, AIAutomation, CoBuild, ContactPage, WhatWeBuild
+### 1. New Component: `ParticleField.tsx`
+- Pure HTML Canvas (no extra libraries needed)
+- Uses `requestAnimationFrame` for smooth 60fps rendering
+- Tracks mouse position for interactive attraction
+- Integrates with GSAP ScrollTrigger to shift particle behavior on scroll progress (0-1)
+- Renders behind all content using `fixed inset-0 z-0` positioning
 
----
+### 2. Particle Behavior
+- Each particle has position, velocity, and a "home" position (for alignment on scroll)
+- At scroll 0%: particles drift freely, loosely connected
+- At scroll 100%: particles settle into a subtle grid/convergence pattern
+- Mouse proximity (within ~150px) creates gentle pull — particles ease toward cursor then drift back
+- Lines drawn between particles within ~120px distance, opacity fading with distance
 
-## 2. Eliminate Duplicated Code (High Priority)
+### 3. Integration
+- Added to `Index.tsx` as the first child, behind all sections
+- All existing sections get `relative z-10` to layer above the canvas
+- Existing GSAP animations remain untouched
 
-**Problem**: `useOnScreen`, `useSceneVisibility`, `Reveal`, and `Divider` are copy-pasted into 5 separate page files. Any animation change requires editing all 5 files.
+### 4. Performance
+- Canvas-based (not DOM elements), extremely lightweight
+- ~80 particles with simple math — no GPU strain
+- `will-change: transform` not needed since it's a single canvas element
+- Automatically pauses when tab is not visible
 
-**Fix**:
-- Refactor all sub-pages to import from the shared `RevealOnScroll.tsx` component
-- Add a `SceneReveal` wrapper variant to `RevealOnScroll.tsx` for the scene-based pattern used in sub-pages
-- Remove all local `useOnScreen`, `useSceneVisibility`, `Reveal`, and `Divider` definitions from individual pages
+## Files Changed
 
----
+| File | Change |
+|------|--------|
+| `src/components/ParticleField.tsx` | **New** -- full canvas particle system |
+| `src/pages/Index.tsx` | Add ParticleField behind content, adjust z-index layering |
 
-## 3. Content & Data Fixes (High Priority)
+No new dependencies required.
 
-**Problem**: Several content inconsistencies that would undermine credibility:
-
-| Issue | Current | Correct |
-|-------|---------|---------|
-| Contact page email (Scene 4) | `hello@movingpeople.studio` | `inmotion@movingp.com` |
-| LinkedIn link | `https://linkedin.com` (placeholder) | Actual MP LinkedIn URL or remove |
-| Footer copyright | `Moving People. All rights reserved.` | `Moving People. MP Studio. All rights reserved.` |
-| OG image | `lovable.dev/opengraph-image-p98pqg.png` | Custom branded OG image |
-| Canonical URL | `movingpeople.studio` | Verify this is the correct production domain |
-
-**Fix**: Update all incorrect content to match the brand's official details.
-
----
-
-## 4. SEO & Meta Tags (Medium Priority)
-
-**Problem**: Only `index.html` has meta tags. Route changes don't update the page title or description. No structured data.
-
-**Fix**:
-- Add a `useDocumentTitle` hook that updates `document.title` per route
-- Add page-specific titles: "Brand Systems | MP", "Portfolio | MP", "Contact | MP", etc.
-- Move `<link rel="icon">` inside `<head>` (currently outside it in index.html)
-
----
-
-## 5. Scroll-to-Top on Navigation (Medium Priority)
-
-**Problem**: When navigating between routes, the scroll position is preserved from the previous page, causing users to land mid-page.
-
-**Fix**:
-- Add a `ScrollToTop` component inside `BrowserRouter` that calls `window.scrollTo(0, 0)` on route changes
-
----
-
-## 6. 404 Page (Medium Priority)
-
-**Problem**: The NotFound page uses generic styling ("Oops! Page not found") that doesn't match the brand's minimal, architectural tone.
-
-**Fix**:
-- Restyle with Cormorant Garamond headline, minimal layout, and a quiet "Return home" link -- matching the brand's voice
-
----
-
-## 7. Contact Form Functionality (Medium Priority)
-
-**Problem**: The contact form on `/contact` only sets `submitted = true` client-side. No data is actually sent anywhere.
-
-**Fix**:
-- Wire the form to send data via `mailto:` link or a Supabase edge function
-- At minimum, construct a `mailto:` link with form data so submissions reach `inmotion@movingp.com`
-
----
-
-## 8. Accessibility Polish (Lower Priority)
-
-**Fix**:
-- Add a skip-to-content link in the Header
-- Ensure all interactive elements have proper focus states
-- Add `aria-label` to the mobile hamburger menu overlay
-- Ensure color contrast meets WCAG AA on all text over images (hero section)
-
----
-
-## 9. Performance (Lower Priority)
-
-**Fix**:
-- Add `loading="lazy"` to all off-screen images (some already have it, ensure consistency)
-- Preload the hero background image in `index.html` for faster LCP
-- Add `font-display: swap` to the Google Fonts import URL
-
----
-
-## Technical Summary
-
-| Category | Files to modify |
-|----------|----------------|
-| Design tokens & typography | 6 page files + `tailwind.config.ts` |
-| Shared components | `RevealOnScroll.tsx` (extend), 5 page files (refactor) |
-| Content fixes | `ContactPage.tsx`, `Footer.tsx`, `index.html` |
-| SEO | New `useDocumentTitle` hook, all page files |
-| Navigation | New `ScrollToTop` component, `App.tsx` |
-| 404 | `NotFound.tsx` |
-| Contact form | `ContactPage.tsx` |
-| Accessibility | `Header.tsx`, `HeroSection.tsx` |
-| Performance | `index.html` |
-
-Estimated scope: ~15 files modified, 2 new utility files created.
