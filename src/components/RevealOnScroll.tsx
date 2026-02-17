@@ -77,6 +77,44 @@ export const Reveal = ({
   );
 };
 
+/* Staggered word reveal */
+export const RevealWords = ({
+  text,
+  delay = 0,
+  stagger = 60,
+  className,
+}: {
+  text: string;
+  delay?: number;
+  stagger?: number;
+  className?: string;
+}) => {
+  const parentVisible = useContext(VisibilityContext);
+  const words = text.split(" ");
+
+  return (
+    <span className={className}>
+      {words.map((word, i) => (
+        <span
+          key={i}
+          className={cn(
+            "inline-block transition-all ease-out mr-[0.3em]",
+            parentVisible
+              ? "opacity-100 translate-y-0 blur-0"
+              : "opacity-0 translate-y-3 blur-[2px]"
+          )}
+          style={{
+            transitionDuration: "600ms",
+            transitionDelay: `${delay + i * stagger}ms`,
+          }}
+        >
+          {word}
+        </span>
+      ))}
+    </span>
+  );
+};
+
 /* Animated horizontal divider */
 export const RevealDivider = ({
   delay = 0,
