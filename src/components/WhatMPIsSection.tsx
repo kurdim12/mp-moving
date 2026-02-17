@@ -1,30 +1,29 @@
-import { RevealGroup, Reveal, RevealDivider } from "@/components/RevealOnScroll";
+import { RevealGroup, Reveal } from "@/components/RevealOnScroll";
 
 const WhatMPIsSection = () => {
   return (
     <section className="section-padding">
       <div className="content-container">
-        <RevealGroup className="max-w-2xl">
-          <Reveal>
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-8">
-              Alignment
-            </p>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-medium leading-[1.2] text-foreground mb-8">
-              People create possibilities.
-            </p>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="body-large mb-6">
-              We exist to align people around what truly matters.
-            </p>
-          </Reveal>
-          <Reveal delay={300}>
-            <p className="body-medium">
-              When alignment is clear, momentum becomes natural.
-            </p>
-          </Reveal>
+        <RevealGroup>
+          <div className="max-w-3xl">
+            <Reveal>
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-8">
+                Moving People
+              </p>
+            </Reveal>
+            <Reveal delay={100}>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-[1.2] text-foreground mb-8 tracking-tight">
+                People create possibilities.
+                <br />
+                We exist to align people around what truly matters.
+              </p>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="body-large max-w-lg">
+                When alignment is clear, momentum becomes natural. We move people — and people move possibilities.
+              </p>
+            </Reveal>
+          </div>
         </RevealGroup>
       </div>
     </section>
