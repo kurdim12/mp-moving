@@ -95,18 +95,7 @@ const HeroSection = () => {
   }
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background">
-      {/* Background video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-      >
-        <source src="/videos/black_watercolor_trail.webm" type="video/webm" />
-      </video>
-
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Counter */}
       <div ref={counterRef} className="absolute top-24 left-6 md:left-10 lg:left-16 z-20">
         <span className="text-6xl md:text-8xl font-bold text-foreground/15 tabular-nums">
