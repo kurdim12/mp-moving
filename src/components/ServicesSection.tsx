@@ -37,13 +37,17 @@ const ServicesSection = () => {
             </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-2">
+          <div className="relative grid md:grid-cols-2">
+            {/* Grid lines */}
+            <div className="hidden md:block absolute left-1/2 top-6 bottom-6 w-px bg-primary-foreground/10" />
+            <div className="hidden md:block absolute top-1/2 left-6 right-6 h-px bg-primary-foreground/10" />
+            <div className="md:hidden absolute left-6 right-6 top-1/4 h-px bg-primary-foreground/10" />
+            <div className="md:hidden absolute left-6 right-6 top-2/4 h-px bg-primary-foreground/10" />
+            <div className="md:hidden absolute left-6 right-6 top-3/4 h-px bg-primary-foreground/10" />
+
             {services.map((service, index) => (
               <Reveal key={index} delay={100 + index * 120}>
-                <div className={`p-6 md:p-8 lg:p-10 border-primary-foreground/10
-                  ${index < 2 ? "border-b" : ""}
-                  ${index % 2 === 0 ? "md:border-r" : ""}
-                `}>
+                <div className="p-6 md:p-8 lg:p-10">
                   <h3 className="text-lg md:text-xl font-medium text-primary-foreground mb-4">
                     {service.title}
                   </h3>
