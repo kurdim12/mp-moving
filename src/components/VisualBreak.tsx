@@ -22,25 +22,39 @@ const VisualBreak = ({ image, alt, className }: VisualBreakProps) => {
   );
 };
 
-/* Full-width cinematic break with parallax-like fixed attachment */
+/* Architectural letterbox strip — a narrow, cinematic visual breath
+   between narrative sections. Contained width, not full-bleed,
+   to feel intentional and editorial rather than decorative. */
 export const VisualBreakFull = ({ image, alt, className }: VisualBreakProps) => {
-  const { ref, visible } = useReveal(0.1);
+  const { ref, visible } = useReveal(0.05);
 
   return (
     <div
       ref={ref}
-      className={cn("w-full overflow-hidden", className)}
+      className={cn("w-full py-4 md:py-8", className)}
     >
-      <div
-        className="w-full h-[40vh] md:h-[50vh] lg:h-[60vh] bg-cover bg-center bg-fixed"
-        style={{
-          backgroundImage: `url(${image})`,
-          opacity: visible ? 1 : 0,
-          transition: "opacity 1.2s ease-out",
-        }}
-        role="img"
-        aria-label={alt}
-      />
+      <div className="content-container">
+        <div
+          className="w-full h-[20vh] md:h-[25vh] lg:h-[30vh] overflow-hidden"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "scaleY(1)" : "scaleY(0.92)",
+            transformOrigin: "center",
+            transition: "opacity 1.4s ease-out, transform 1.4s cubic-bezier(0.25, 0.1, 0.25, 1)",
+          }}
+        >
+          <img
+            src={image}
+            alt={alt}
+            className="w-full h-full object-cover"
+            style={{
+              transform: visible ? "scale(1)" : "scale(1.06)",
+              transition: "transform 2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s",
+            }}
+            loading="lazy"
+          />
+        </div>
+      </div>
     </div>
   );
 };
