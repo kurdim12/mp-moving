@@ -59,7 +59,7 @@ const Header = () => {
           <button
             className="md:hidden flex flex-col gap-[5px] p-2 -mr-2"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
           >
             <span className={`block w-5 h-[1.5px] bg-foreground transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
             <span className={`block w-5 h-[1.5px] bg-foreground transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
@@ -70,7 +70,7 @@ const Header = () => {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-background/98 backdrop-blur-sm border-b border-border animate-fade-in">
+        <div className="md:hidden bg-background/98 backdrop-blur-sm border-b border-border animate-fade-in" role="navigation" aria-label="Mobile navigation">
           <div className="content-container py-6 flex flex-col gap-5">
             <Link
               to="/what-we-build"

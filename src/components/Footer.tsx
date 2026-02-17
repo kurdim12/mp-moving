@@ -23,7 +23,7 @@ const Footer = () => {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            © 2026 Moving People. All rights reserved.
+            © 2026 Moving People. MP Studio. All rights reserved.
           </p>
         </div>
       </div>

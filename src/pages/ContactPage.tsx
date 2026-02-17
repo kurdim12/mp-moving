@@ -1,87 +1,37 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import mpLogo from "@/assets/mp-logo.png";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { useSceneVisibility, SceneReveal, SceneDivider } from "@/components/SceneReveal";
+import { cn } from "@/lib/utils";
 
-/* ─── Intersection hook ─── */
-function useOnScreen(ref: React.RefObject<HTMLElement>, threshold = 0.2) {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true); },
-      { threshold }
-    );
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [ref, threshold]);
-  return visible;
-}
-
-function useSceneVisibility(threshold = 0.2) {
-  const ref = useRef<HTMLDivElement>(null);
-  const visible = useOnScreen(ref as React.RefObject<HTMLElement>, threshold);
-  return { ref, visible };
-}
-
-const Reveal = ({
-  children, delay = 0, visible, className,
-}: {
-  children: React.ReactNode; delay?: number; visible: boolean; className?: string;
-}) => (
-  <div
-    className={cn(
-      "transition-all duration-[300ms] ease-out",
-      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[8px]",
-      className
-    )}
-    style={{ transitionDelay: `${delay}ms` }}
-  >
-    {children}
-  </div>
-);
-
-const Divider = ({ visible, delay = 0 }: { visible: boolean; delay?: number }) => (
-  <div
-    className={cn(
-      "h-px bg-black origin-left transition-transform duration-[300ms] ease-out",
-      visible ? "scale-x-100" : "scale-x-0"
-    )}
-    style={{ transitionDelay: `${delay}ms` }}
-  />
-);
-
-/* ── SCENE 1 ── */
 const Scene1 = () => {
   const { ref, visible } = useSceneVisibility(0.3);
   return (
-    <section ref={ref} className="min-h-screen flex items-center justify-center bg-white">
+    <section ref={ref} className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center max-w-3xl mx-auto px-6">
-        <Reveal visible={visible} delay={100}>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-black leading-[1.08]">
+        <SceneReveal visible={visible} delay={100}>
+          <h1 className="display-headline">
             Let's build something
             <br />
             that matters.
           </h1>
-        </Reveal>
-        <Reveal visible={visible} delay={250}>
-          <p className="text-lg md:text-xl text-neutral-500 font-normal leading-relaxed max-w-xl mx-auto mt-8">
+        </SceneReveal>
+        <SceneReveal visible={visible} delay={250}>
+          <p className="body-large max-w-xl mx-auto mt-8">
             We partner with founders and teams building long-term systems.
           </p>
-        </Reveal>
-        <Reveal visible={visible} delay={350}>
+        </SceneReveal>
+        <SceneReveal visible={visible} delay={350}>
           <div className="mt-10 max-w-md mx-auto">
-            <Divider visible={visible} delay={450} />
+            <SceneDivider visible={visible} delay={450} />
           </div>
-        </Reveal>
+        </SceneReveal>
       </div>
     </section>
   );
 };
 
-/* ── SCENE 2 — Qualification ── */
 const qualificationOptions = [
   "I am a founder building something new",
   "We are scaling an existing product",
@@ -91,35 +41,33 @@ const qualificationOptions = [
 const Scene2 = ({ selected, onSelect }: { selected: number | null; onSelect: (i: number) => void }) => {
   const { ref, visible } = useSceneVisibility();
   return (
-    <section className="min-h-screen flex items-center bg-white">
+    <section className="min-h-screen flex items-center bg-background">
       <div ref={ref} className="w-full max-w-2xl mx-auto px-6 py-24">
-        <Reveal visible={visible} delay={0}>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-black mb-12">
-            Before we begin.
-          </h2>
-        </Reveal>
+        <SceneReveal visible={visible} delay={0}>
+          <h2 className="section-headline mb-12">Before we begin.</h2>
+        </SceneReveal>
         <div className="space-y-4">
           {qualificationOptions.map((option, i) => (
-            <Reveal key={i} visible={visible} delay={150 + i * 80}>
+            <SceneReveal key={i} visible={visible} delay={150 + i * 80}>
               <button
                 type="button"
                 onClick={() => onSelect(i)}
                 className={cn(
                   "w-full text-left border px-6 py-5 md:px-8 md:py-6 transition-colors duration-200 ease-out",
                   selected === i
-                    ? "border-black bg-neutral-50"
-                    : "border-neutral-200 bg-white hover:bg-neutral-50"
+                    ? "border-foreground bg-secondary"
+                    : "border-border bg-background hover:bg-secondary"
                 )}
               >
                 <div className="flex items-center gap-4">
                   <span className={cn(
                     "w-4 h-4 border flex-shrink-0 transition-colors duration-200",
-                    selected === i ? "border-black bg-black" : "border-neutral-300"
+                    selected === i ? "border-foreground bg-foreground" : "border-border"
                   )} />
-                  <span className="text-base md:text-lg font-medium text-black">{option}</span>
+                  <span className="text-base md:text-lg font-medium text-foreground font-body">{option}</span>
                 </div>
               </button>
-            </Reveal>
+            </SceneReveal>
           ))}
         </div>
       </div>
@@ -127,7 +75,6 @@ const Scene2 = ({ selected, onSelect }: { selected: number | null; onSelect: (i:
   );
 };
 
-/* ── SCENE 3 — Form ── */
 const stages = ["Idea", "Pre-seed", "Seed", "Growth", "Established"];
 
 const Scene3 = () => {
@@ -136,83 +83,95 @@ const Scene3 = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const name = data.get("name") as string;
+    const company = data.get("company") as string;
+    const email = data.get("email") as string;
+    const website = data.get("website") as string;
+    const stage = data.get("stage") as string;
+    const message = data.get("message") as string;
+
+    const subject = encodeURIComponent(`New inquiry from ${name} — ${company}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nCompany: ${company}\nEmail: ${email}\nWebsite: ${website || "N/A"}\nStage: ${stage}\n\n${message}`
+    );
+    window.location.href = `mailto:inmotion@movingp.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 
   return (
-    <section className="min-h-screen flex items-center bg-white">
+    <section className="min-h-screen flex items-center bg-background">
       <div ref={ref} className="w-full max-w-6xl mx-auto px-6 md:px-12 py-24">
         <div className="grid md:grid-cols-[1fr_340px] gap-16 md:gap-20">
           <div>
-            <Reveal visible={visible} delay={0}>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-black mb-10">
-                Tell us about your project.
-              </h2>
-            </Reveal>
+            <SceneReveal visible={visible} delay={0}>
+              <h2 className="section-headline mb-10">Tell us about your project.</h2>
+            </SceneReveal>
 
             {submitted ? (
-              <Reveal visible={true} delay={0}>
+              <SceneReveal visible={true} delay={0}>
                 <div className="py-16 text-center">
-                  <p className="text-xl font-medium text-black mb-3">Received.</p>
-                  <p className="text-neutral-500">If alignment exists, we'll respond within 48 hours.</p>
+                  <p className="text-xl font-medium text-foreground mb-3">Received.</p>
+                  <p className="text-muted-foreground">If alignment exists, we'll respond within 48 hours.</p>
                 </div>
-              </Reveal>
+              </SceneReveal>
             ) : (
-              <Reveal visible={visible} delay={100}>
+              <SceneReveal visible={visible} delay={100}>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-neutral-400 mb-2">Full Name</label>
-                      <input type="text" required maxLength={100} className="w-full border-b border-neutral-300 bg-transparent py-3 text-base text-black placeholder-neutral-300 focus:outline-none focus:border-black transition-colors duration-200" placeholder="Your name" />
+                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground mb-2">Full Name</label>
+                      <input name="name" type="text" required maxLength={100} className="w-full border-b border-border bg-transparent py-3 text-base text-foreground placeholder-muted-foreground/40 focus:outline-none focus:border-foreground transition-colors duration-200" placeholder="Your name" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-neutral-400 mb-2">Company</label>
-                      <input type="text" required maxLength={100} className="w-full border-b border-neutral-300 bg-transparent py-3 text-base text-black placeholder-neutral-300 focus:outline-none focus:border-black transition-colors duration-200" placeholder="Company name" />
+                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground mb-2">Company</label>
+                      <input name="company" type="text" required maxLength={100} className="w-full border-b border-border bg-transparent py-3 text-base text-foreground placeholder-muted-foreground/40 focus:outline-none focus:border-foreground transition-colors duration-200" placeholder="Company name" />
                     </div>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-neutral-400 mb-2">Email</label>
-                      <input type="email" required maxLength={255} className="w-full border-b border-neutral-300 bg-transparent py-3 text-base text-black placeholder-neutral-300 focus:outline-none focus:border-black transition-colors duration-200" placeholder="you@company.com" />
+                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground mb-2">Email</label>
+                      <input name="email" type="email" required maxLength={255} className="w-full border-b border-border bg-transparent py-3 text-base text-foreground placeholder-muted-foreground/40 focus:outline-none focus:border-foreground transition-colors duration-200" placeholder="you@company.com" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-neutral-400 mb-2">
-                        Website <span className="text-neutral-300 ml-1 normal-case tracking-normal">(optional)</span>
+                      <label className="block text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground mb-2">
+                        Website <span className="text-muted-foreground/40 ml-1 normal-case tracking-normal">(optional)</span>
                       </label>
-                      <input type="url" maxLength={255} className="w-full border-b border-neutral-300 bg-transparent py-3 text-base text-black placeholder-neutral-300 focus:outline-none focus:border-black transition-colors duration-200" placeholder="https://" />
+                      <input name="website" type="url" maxLength={255} className="w-full border-b border-border bg-transparent py-3 text-base text-foreground placeholder-muted-foreground/40 focus:outline-none focus:border-foreground transition-colors duration-200" placeholder="https://" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium tracking-[0.1em] uppercase text-neutral-400 mb-2">Stage</label>
-                    <select required className="w-full border-b border-neutral-300 bg-transparent py-3 text-base text-black focus:outline-none focus:border-black transition-colors duration-200 appearance-none cursor-pointer" defaultValue="">
-                      <option value="" disabled className="text-neutral-300">Select stage</option>
+                    <label className="block text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground mb-2">Stage</label>
+                    <select name="stage" required className="w-full border-b border-border bg-transparent py-3 text-base text-foreground focus:outline-none focus:border-foreground transition-colors duration-200 appearance-none cursor-pointer" defaultValue="">
+                      <option value="" disabled className="text-muted-foreground">Select stage</option>
                       {stages.map((s) => (<option key={s} value={s}>{s}</option>))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium tracking-[0.1em] uppercase text-neutral-400 mb-2">Message</label>
-                    <textarea required maxLength={2000} rows={5} className="w-full border-b border-neutral-300 bg-transparent py-3 text-base text-black placeholder-neutral-300 focus:outline-none focus:border-black transition-colors duration-200 resize-none" placeholder="Tell us what you're building and where you need help." />
+                    <label className="block text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground mb-2">Message</label>
+                    <textarea name="message" required maxLength={2000} rows={5} className="w-full border-b border-border bg-transparent py-3 text-base text-foreground placeholder-muted-foreground/40 focus:outline-none focus:border-foreground transition-colors duration-200 resize-none" placeholder="Tell us what you're building and where you need help." />
                   </div>
                   <div className="pt-4">
-                    <button type="submit" className="bg-black text-white text-sm font-medium tracking-[0.05em] uppercase px-10 py-4 hover:bg-neutral-800 transition-colors duration-200">
+                    <button type="submit" className="bg-foreground text-background text-sm font-medium tracking-[0.05em] uppercase px-10 py-4 hover:opacity-80 transition-opacity duration-200">
                       Submit Inquiry
                     </button>
                   </div>
                 </form>
-              </Reveal>
+              </SceneReveal>
             )}
           </div>
 
           <div className="hidden md:block">
-            <Reveal visible={visible} delay={200}>
+            <SceneReveal visible={visible} delay={200}>
               <div className="pt-[52px]">
-                <div className="space-y-6 text-sm text-neutral-400 leading-relaxed">
+                <div className="space-y-6 text-sm text-muted-foreground leading-relaxed">
                   <p>MP engages selectively.</p>
                   <p>We focus on long-term partnerships where ownership and momentum are shared.</p>
                   <p>If alignment exists, we respond within 48 hours.</p>
                 </div>
               </div>
-            </Reveal>
+            </SceneReveal>
           </div>
         </div>
       </div>
@@ -220,50 +179,41 @@ const Scene3 = () => {
   );
 };
 
-/* ── SCENE 4 — Direct Contact ── */
 const Scene4 = () => {
   const { ref, visible } = useSceneVisibility();
   return (
-    <section className="bg-white pb-24">
+    <section className="bg-background pb-24">
       <div ref={ref} className="w-full max-w-6xl mx-auto px-6 md:px-12">
-        <Reveal visible={visible} delay={0}>
-          <Divider visible={visible} delay={100} />
-        </Reveal>
-        <div className="pt-16 grid sm:grid-cols-3 gap-12">
-          <Reveal visible={visible} delay={150}>
+        <SceneReveal visible={visible} delay={0}>
+          <SceneDivider visible={visible} delay={100} />
+        </SceneReveal>
+        <div className="pt-16 grid sm:grid-cols-2 gap-12">
+          <SceneReveal visible={visible} delay={150}>
             <div>
-              <p className="text-xs font-medium tracking-[0.15em] uppercase text-neutral-400 mb-3">Email</p>
-              <a href="mailto:hello@movingpeople.studio" className="text-base text-black hover:text-neutral-600 transition-colors duration-200">
-                hello@movingpeople.studio
+              <p className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">Email</p>
+              <a href="mailto:inmotion@movingp.com" className="text-base text-foreground hover:text-muted-foreground transition-colors duration-200">
+                inmotion@movingp.com
               </a>
             </div>
-          </Reveal>
-          <Reveal visible={visible} delay={250}>
+          </SceneReveal>
+          <SceneReveal visible={visible} delay={250}>
             <div>
-              <p className="text-xs font-medium tracking-[0.15em] uppercase text-neutral-400 mb-3">Location</p>
-              <p className="text-base text-black">Globally connected</p>
+              <p className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-3">Location</p>
+              <p className="text-base text-foreground">Globally connected</p>
             </div>
-          </Reveal>
-          <Reveal visible={visible} delay={350}>
-            <div>
-              <p className="text-xs font-medium tracking-[0.15em] uppercase text-neutral-400 mb-3">LinkedIn</p>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-base text-black hover:text-neutral-600 transition-colors duration-200">
-                Connect on LinkedIn →
-              </a>
-            </div>
-          </Reveal>
+          </SceneReveal>
         </div>
       </div>
     </section>
   );
 };
 
-/* ── PAGE ── */
 const ContactPage = () => {
   const [selectedQualification, setSelectedQualification] = useState<number | null>(null);
+  useDocumentTitle("Contact — MP");
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div className="min-h-screen bg-background">
       <Header />
       <main className="pt-16 md:pt-20">
         <Scene1 />
