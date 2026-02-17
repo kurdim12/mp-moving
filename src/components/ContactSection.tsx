@@ -1,8 +1,8 @@
-import { useGsapReveal, useGsapClipReveal, useGsapLineReveal } from "@/hooks/useGsap";
+import { useGsapSplitText, useGsapReveal, useGsapLineReveal } from "@/hooks/useGsap";
 
 const ContactSection = () => {
   const lineRef = useGsapLineReveal();
-  const clipRef = useGsapClipReveal();
+  const splitRef = useGsapSplitText({ type: "chars", stagger: 0.03, y: 50, ease: "back.out(1.4)" });
   const bodyRef = useGsapReveal({ stagger: 0.12 });
 
   return (
@@ -10,12 +10,10 @@ const ContactSection = () => {
       <div className="content-container">
         <div ref={lineRef} className="h-px bg-foreground/15" />
         <div className="pt-16 md:pt-20">
-          <div ref={clipRef}>
-            <div className="overflow-hidden">
-              <h2 data-clip className="display-headline text-foreground mb-8">
-                Start with alignment.
-              </h2>
-            </div>
+          <div ref={splitRef} style={{ perspective: "600px" }}>
+            <h2 data-split className="display-headline text-foreground mb-8">
+              Start with alignment.
+            </h2>
           </div>
           <div ref={bodyRef}>
             <p data-gsap className="body-large max-w-lg mb-4">

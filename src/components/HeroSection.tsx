@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText);
 
 const HeroSection = () => {
   const [counter, setCounter] = useState(0);
@@ -9,9 +12,9 @@ const HeroSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
 
-  // Set initial hidden state via GSAP (not inline styles)
+  // Set initial hidden state
   useEffect(() => {
-    gsap.set([line1Ref.current, line2Ref.current], { yPercent: 120, scale: 0.9 });
+    gsap.set([line1Ref.current, line2Ref.current], { opacity: 1 });
     gsap.set(scrollRef.current, { opacity: 0, y: 20 });
   }, []);
 
@@ -45,19 +48,43 @@ const HeroSection = () => {
       ease: "power2.in",
     });
 
-    // Pop in line 1 with bounce
-    tl.to(
-      line1Ref.current,
-      { yPercent: 0, scale: 1, duration: 1.1, ease: "back.out(1.4)" },
-      "-=0.1"
-    );
+    // SplitText on line 1
+    if (line1Ref.current) {
+      const split1 = SplitText.create(line1Ref.current, { type: "chars" });
+      gsap.set(split1.chars, { opacity: 0, y: 80, rotateX: 25, scale: 0.8 });
+      tl.to(
+        split1.chars,
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          duration: 1,
+          ease: "back.out(1.4)",
+          stagger: 0.04,
+        },
+        "-=0.1"
+      );
+    }
 
-    // Pop in line 2 with bounce (overlapping)
-    tl.to(
-      line2Ref.current,
-      { yPercent: 0, scale: 1, duration: 1.1, ease: "back.out(1.4)" },
-      "-=0.8"
-    );
+    // SplitText on line 2
+    if (line2Ref.current) {
+      const split2 = SplitText.create(line2Ref.current, { type: "chars" });
+      gsap.set(split2.chars, { opacity: 0, y: 80, rotateX: 25, scale: 0.8 });
+      tl.to(
+        split2.chars,
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          duration: 1,
+          ease: "back.out(1.4)",
+          stagger: 0.04,
+        },
+        "-=0.7"
+      );
+    }
 
     // Scroll indicator fades in
     tl.to(
@@ -77,17 +104,13 @@ const HeroSection = () => {
       </div>
 
       {/* Headline */}
-      <div className="relative z-10 w-full content-container">
-        <div className="overflow-hidden">
-          <h1 ref={line1Ref} className="display-massive text-foreground text-center">
-            we move people
-          </h1>
-        </div>
-        <div className="overflow-hidden">
-          <h1 ref={line2Ref} className="display-massive text-foreground text-center">
-            forward.
-          </h1>
-        </div>
+      <div className="relative z-10 w-full content-container" style={{ perspective: "600px" }}>
+        <h1 ref={line1Ref} className="display-massive text-foreground text-center" style={{ opacity: 0 }}>
+          we move people
+        </h1>
+        <h1 ref={line2Ref} className="display-massive text-foreground text-center" style={{ opacity: 0 }}>
+          forward.
+        </h1>
       </div>
 
       {/* Scroll indicator */}
