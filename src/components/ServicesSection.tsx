@@ -1,69 +1,158 @@
-import { RevealGroup, Reveal, RevealDivider, RevealWords } from "@/components/RevealOnScroll";
+import { useState } from "react";
+import { RevealGroup, Reveal } from "@/components/RevealOnScroll";
+import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 
 const services = [
   {
     title: "Brand & Positioning",
-    description: "Clarity before aesthetics. We define what matters. We remove what does not. We shape language teams can build with.",
-    philosophy: "A brand is not a logo. It is shared understanding. It is direction made visible. When positioning is precise, trust compounds.",
+    description:
+      "Clarity before aesthetics. We define what matters. We remove what does not. We shape language teams can build with. A brand is not a logo — it is shared understanding made visible.",
+    related: [
+      "Positioning & Narrative",
+      "Visual Identity Systems",
+      "Naming & Language",
+      "Brand Architecture",
+      "Guidelines & Codification",
+    ],
   },
   {
     title: "Products, Platforms & Systems",
-    description: "Architecture before interface. We design and build digital products, internal tools, and workflows as connected systems.",
-    philosophy: "Speed without structure creates fragility. Systems create stability. Stability creates growth.",
+    description:
+      "Architecture before interface. We design and build digital products, internal tools, and workflows as connected systems. Speed without structure creates fragility. Systems create stability.",
+    related: [
+      "Web Design & Development",
+      "Product Strategy",
+      "Internal Tools & Dashboards",
+      "Design Systems",
+      "Workflow Architecture",
+    ],
   },
   {
     title: "AI & Automation",
-    description: "Applied selectively. We use AI where it removes friction, increases leverage, or fundamentally changes how work gets done.",
-    philosophy: "No automation without direction. Technology is only powerful when aligned with judgment.",
+    description:
+      "Applied selectively. We use AI where it removes friction, increases leverage, or fundamentally changes how work gets done. No automation without direction.",
+    related: [
+      "Process Automation",
+      "AI Integration & Strategy",
+      "Custom AI Tools",
+      "Data Workflows",
+      "Intelligent Interfaces",
+    ],
   },
   {
     title: "Partnership & Co-Building",
-    description: "Ownership over output. We do not operate as a transactional vendor. We operate as a long-term partner.",
-    philosophy: "Momentum requires shared responsibility. Alignment requires trust. Selectively.",
+    description:
+      "Ownership over output. We don't operate as a transactional vendor. We operate as a long-term partner. Momentum requires shared responsibility. Alignment requires trust.",
+    related: [
+      "Equity Partnerships",
+      "Venture Co-Building",
+      "Strategic Advisory",
+      "Ongoing Collaboration",
+      "Shared Ownership Models",
+    ],
   },
 ];
 
 const ServicesSection = () => {
   return (
-    <section className="w-full py-12 md:py-16">
-      <div className="content-container">
-        <RevealGroup className="bg-primary text-primary-foreground rounded-2xl p-8 md:p-12 lg:p-16">
-          <Reveal className="mb-12 md:mb-16">
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-primary-foreground/50 mb-4">
-              What We Build
-            </p>
-            <p className="text-xl md:text-2xl font-medium text-primary-foreground/80 max-w-lg">
-              <RevealWords text="Partnership with purpose." delay={200} stagger={80} />
-            </p>
+    <section className="w-full">
+      {/* Section statement */}
+      <RevealGroup className="section-padding">
+        <div className="content-container">
+          <Reveal>
+            <h2 className="display-massive text-foreground">
+              we build
+              <span className="inline-block mx-[0.4em] text-muted-foreground">momentum.</span>
+            </h2>
           </Reveal>
+        </div>
+      </RevealGroup>
 
-          <div className="relative grid md:grid-cols-2">
-            {/* Grid lines */}
-            <div className="hidden md:block absolute left-1/2 top-6 bottom-6 w-px bg-primary-foreground/10" />
-            <div className="hidden md:block absolute top-1/2 left-6 right-6 h-px bg-primary-foreground/10" />
-            <div className="md:hidden absolute left-6 right-6 top-1/4 h-px bg-primary-foreground/10" />
-            <div className="md:hidden absolute left-6 right-6 top-2/4 h-px bg-primary-foreground/10" />
-            <div className="md:hidden absolute left-6 right-6 top-3/4 h-px bg-primary-foreground/10" />
-
-            {services.map((service, index) => (
-              <Reveal key={index} delay={100 + index * 120}>
-                <div className="p-6 md:p-8 lg:p-10">
-                  <h3 className="text-lg md:text-xl font-medium text-primary-foreground mb-4">
-                    {service.title}
-                  </h3>
-                  <p className="text-primary-foreground/70 leading-relaxed mb-4 text-[15px]">
-                    {service.description}
-                  </p>
-                  <p className="text-primary-foreground/40 leading-relaxed text-sm italic">
-                    {service.philosophy}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+      {/* Services accordion */}
+      <div className="content-container pb-24 md:pb-32">
+        <RevealGroup>
+          <Reveal>
+            <div className="border-t border-foreground/15">
+              {services.map((service, index) => (
+                <ServiceAccordion key={index} service={service} index={index} />
+              ))}
+            </div>
+          </Reveal>
         </RevealGroup>
       </div>
     </section>
+  );
+};
+
+const ServiceAccordion = ({
+  service,
+  index,
+}: {
+  service: (typeof services)[0];
+  index: number;
+}) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-foreground/15">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-6 md:py-8 text-left group"
+      >
+        <div className="flex items-center gap-6 md:gap-10">
+          <span className="text-sm text-muted-foreground font-medium tabular-nums">
+            0{index + 1}
+          </span>
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground group-hover:text-muted-foreground transition-colors duration-300">
+            {service.title}
+          </h3>
+        </div>
+        <ChevronDown
+          className={cn(
+            "w-5 h-5 text-muted-foreground transition-transform duration-500",
+            open && "rotate-180"
+          )}
+        />
+      </button>
+
+      <div
+        className={cn(
+          "grid transition-all duration-500 ease-out",
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="pb-8 md:pb-12 pl-10 md:pl-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+              <p className="text-muted-foreground leading-[1.7] text-base md:text-lg max-w-md">
+                {service.description}
+              </p>
+              <div>
+                <p className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground mb-4">
+                  Related Services
+                </p>
+                <ul className="space-y-2">
+                  {service.related.map((item) => (
+                    <li key={item} className="text-foreground/70 text-sm md:text-base">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="mt-8">
+              <a
+                href="mailto:inmotion@movingp.com"
+                className="inline-flex items-center gap-2 text-sm font-medium text-foreground border border-foreground/20 rounded-full px-5 py-2.5 hover:bg-foreground hover:text-background transition-all duration-300"
+              >
+                Get in touch
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

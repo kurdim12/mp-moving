@@ -18,7 +18,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-sm border-b border-border"
+          ? "bg-background/95 backdrop-blur-sm border-b border-foreground/10"
           : "bg-transparent"
       }`}
     >
@@ -58,7 +58,7 @@ const Header = () => {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-background/98 backdrop-blur-sm border-b border-border animate-fade-in" role="navigation" aria-label="Mobile navigation">
+        <div className="md:hidden bg-background/98 backdrop-blur-sm border-b border-foreground/10 animate-fade-in" role="navigation" aria-label="Mobile navigation">
           <div className="content-container py-6 flex flex-col gap-5">
             <Link
               to="/contact"

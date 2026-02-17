@@ -3,56 +3,54 @@
 @tailwind utilities;
 
 /* MP — Moving People Design System
-   Minimal, Editorial, Premium
+   Bold, Typographic, Minimal — inspired by Mantis aesthetic
    All colors in HSL
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
-
 @layer base {
   :root {
-    /* Core palette - warm off-white and deep charcoal */
-    --background: 40 20% 98%;
-    --foreground: 0 0% 8%;
+    /* Core palette - light warm gray and deep black */
+    --background: 0 0% 85%;
+    --foreground: 0 0% 5%;
 
-    --card: 40 15% 96%;
-    --card-foreground: 0 0% 8%;
+    --card: 0 0% 82%;
+    --card-foreground: 0 0% 5%;
 
-    --popover: 40 20% 98%;
-    --popover-foreground: 0 0% 8%;
+    --popover: 0 0% 85%;
+    --popover-foreground: 0 0% 5%;
 
-    /* Primary - deep charcoal */
-    --primary: 0 0% 8%;
-    --primary-foreground: 40 20% 98%;
+    /* Primary - pure black */
+    --primary: 0 0% 5%;
+    --primary-foreground: 0 0% 85%;
 
-    /* Secondary - warm gray */
-    --secondary: 40 10% 92%;
-    --secondary-foreground: 0 0% 15%;
+    /* Secondary - darker gray */
+    --secondary: 0 0% 78%;
+    --secondary-foreground: 0 0% 10%;
 
     /* Muted - for subtle text */
-    --muted: 40 10% 90%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 0 0% 75%;
+    --muted-foreground: 0 0% 35%;
 
     /* Accent */
-    --accent: 40 10% 94%;
-    --accent-foreground: 0 0% 8%;
+    --accent: 0 0% 80%;
+    --accent-foreground: 0 0% 5%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 40 10% 88%;
-    --input: 40 10% 88%;
-    --ring: 0 0% 8%;
+    --border: 0 0% 75%;
+    --input: 0 0% 75%;
+    --ring: 0 0% 5%;
 
-    --radius: 0.125rem;
+    --radius: 0.5rem;
 
-    /* Typography scale */
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Inter', system-ui, sans-serif;
+    /* Typography */
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Space Grotesk', system-ui, sans-serif;
     
-    /* Spacing scale — tighter, more intentional */
-    --section-padding: clamp(4rem, 8vw, 7rem);
-    --content-max-width: 1120px;
+    /* Spacing */
+    --section-padding: clamp(5rem, 10vw, 10rem);
+    --content-max-width: 1400px;
     
     /* Animation */
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -69,32 +67,32 @@
 
   .dark {
     --background: 0 0% 6%;
-    --foreground: 40 20% 96%;
+    --foreground: 0 0% 90%;
 
     --card: 0 0% 8%;
-    --card-foreground: 40 20% 96%;
+    --card-foreground: 0 0% 90%;
 
     --popover: 0 0% 8%;
-    --popover-foreground: 40 20% 96%;
+    --popover-foreground: 0 0% 90%;
 
-    --primary: 40 20% 96%;
-    --primary-foreground: 0 0% 8%;
+    --primary: 0 0% 90%;
+    --primary-foreground: 0 0% 6%;
 
     --secondary: 0 0% 12%;
-    --secondary-foreground: 40 20% 96%;
+    --secondary-foreground: 0 0% 90%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
 
     --accent: 0 0% 15%;
-    --accent-foreground: 40 20% 96%;
+    --accent-foreground: 0 0% 90%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 0 0% 18%;
     --input: 0 0% 18%;
-    --ring: 40 20% 80%;
+    --ring: 0 0% 80%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -112,7 +110,7 @@
     @apply border-border;
   }
 
-html {
+  html {
     scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -121,23 +119,20 @@ html {
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-weight: 400;
   }
 
-  /* Typography */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    @apply tracking-tight font-normal;
+    @apply tracking-tight font-bold;
   }
 
-  /* Selection */
   ::selection {
-    @apply bg-primary text-primary-foreground;
+    @apply bg-foreground text-background;
   }
 }
 
 @layer components {
-  /* Section layouts */
   .section-padding {
     padding-top: var(--section-padding);
     padding-bottom: var(--section-padding);
@@ -145,16 +140,23 @@ html {
 
   .content-container {
     max-width: var(--content-max-width);
-    @apply mx-auto px-6 md:px-8 lg:px-12;
+    @apply mx-auto px-6 md:px-10 lg:px-16;
   }
 
-  /* Typography components */
+  /* Mantis-style massive headline */
+  .display-massive {
+    font-family: var(--font-display);
+    @apply text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.95] tracking-[-0.03em];
+  }
+
   .display-headline {
-    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight;
+    font-family: var(--font-display);
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.0] tracking-[-0.03em];
   }
 
   .section-headline {
-    @apply text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.1] tracking-tight;
+    font-family: var(--font-display);
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.05] tracking-[-0.02em];
   }
 
   .body-large {
@@ -165,61 +167,48 @@ html {
     @apply text-base md:text-lg leading-relaxed text-muted-foreground;
   }
 
+  /* Section divider */
+  .section-divider {
+    @apply border-t border-border;
+  }
+
   /* Fade-in animation */
   .fade-up {
     animation: fadeUp 0.8s var(--transition-smooth) forwards;
     opacity: 0;
   }
 
-  .fade-up-delay-1 {
-    animation-delay: 0.1s;
-  }
-
-  .fade-up-delay-2 {
-    animation-delay: 0.2s;
-  }
-
-  .fade-up-delay-3 {
-    animation-delay: 0.3s;
-  }
-
-  .fade-up-delay-4 {
-    animation-delay: 0.4s;
-  }
-
-  /* Divider */
-  .section-divider {
-    @apply border-t border-border;
-  }
+  .fade-up-delay-1 { animation-delay: 0.1s; }
+  .fade-up-delay-2 { animation-delay: 0.2s; }
+  .fade-up-delay-3 { animation-delay: 0.3s; }
+  .fade-up-delay-4 { animation-delay: 0.4s; }
 }
 
 @layer utilities {
-  /* Hover states */
   .hover-lift {
     @apply transition-transform duration-300;
   }
-  
   .hover-lift:hover {
     @apply -translate-y-0.5;
   }
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Marquee for scrolling content */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
