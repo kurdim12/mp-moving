@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { VisualBreakFull } from "@/components/VisualBreak";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useSceneVisibility, SceneReveal, SceneDivider } from "@/components/SceneReveal";
 
+import visualBrandDefine from "@/assets/visual-brand-define.jpg";
+import visualStructure from "@/assets/visual-structure-4.jpg";
+import visualFramework from "@/assets/visual-framework.jpg";
+
+/* ═══ SCENE 1 — Opening statement ═══ */
 const Scene1 = () => {
   const { ref, visible } = useSceneVisibility(0.3);
   const [locked, setLocked] = useState(true);
@@ -33,7 +39,7 @@ const Scene1 = () => {
         </SceneReveal>
         <SceneReveal visible={visible} delay={350}>
           <p className="body-large max-w-xl mx-auto">
-            We engineer positioning, identity, and systems designed to scale.
+            Not a logo. Not a color palette. Brand is the architecture beneath every decision your company makes. We build that architecture.
           </p>
         </SceneReveal>
       </div>
@@ -41,12 +47,13 @@ const Scene1 = () => {
   );
 };
 
+/* ═══ SCENE 2 — Define ═══ */
 const Scene2 = () => {
   const { ref, visible } = useSceneVisibility();
   const blocks = [
-    { title: "Positioning Architecture", desc: "Where you stand and why it matters." },
-    { title: "Messaging Framework", desc: "Language that compounds across every touchpoint." },
-    { title: "Audience Definition", desc: "Precision over personas." },
+    { title: "Positioning Architecture", desc: "Where you stand in the market — clarified with surgical precision so nothing downstream is wasted." },
+    { title: "Messaging Framework", desc: "Language that compounds. Every touchpoint reinforces the same truth." },
+    { title: "Audience Definition", desc: "Not personas. Precision. Who moves when you speak, and why." },
   ];
 
   return (
@@ -58,10 +65,10 @@ const Scene2 = () => {
           </SceneReveal>
           <div>
             <SceneReveal visible={visible} delay={100}>
-              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Stage 01</p>
-              <h2 className="section-headline mb-6">DEFINE</h2>
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Before design, clarity</p>
+              <h2 className="section-headline mb-6">Define</h2>
               <p className="text-muted-foreground leading-relaxed max-w-lg mb-12">
-                Before anything is designed, everything is clarified. Positioning, language, and audience — defined with surgical precision so nothing downstream is wasted.
+                Most brands start designing before they know what they stand for. We start with the harder question: what are you, and what are you not? The answer becomes the foundation everything else is built on.
               </p>
             </SceneReveal>
             <div className="space-y-0">
@@ -85,6 +92,7 @@ const Scene2 = () => {
   );
 };
 
+/* ═══ SCENE 3 — Structure ═══ */
 const Scene3 = () => {
   const { ref, visible } = useSceneVisibility();
   const bullets = ["Identity System", "Visual Language", "Component Logic", "Governance Rules"];
@@ -95,10 +103,10 @@ const Scene3 = () => {
         <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
           <div>
             <SceneReveal visible={visible} delay={0}>
-              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Stage 02</p>
-              <h2 className="section-headline mb-6">STRUCTURE</h2>
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">From decisions to systems</p>
+              <h2 className="section-headline mb-6">Structure</h2>
               <p className="text-muted-foreground leading-relaxed max-w-md mb-10">
-                Every identity decision is systematized. Typography, color, spacing, and component logic — codified into rules that hold at any scale.
+                Every identity decision gets codified. Typography, color, spacing, component logic — turned into rules that hold whether you're a team of five or five hundred. The system protects the brand when you're not in the room.
               </p>
             </SceneReveal>
             <div className="space-y-3">
@@ -137,21 +145,22 @@ const Scene3 = () => {
   );
 };
 
+/* ═══ SCENE 4 — Systemize ═══ */
 const Scene4 = () => {
   const { ref, visible } = useSceneVisibility();
   const modules = [
-    { title: "Design System", desc: "Scalable component library with governance." },
-    { title: "Digital Templates", desc: "Production-ready assets across all channels." },
-    { title: "Automation Layer", desc: "Workflows that eliminate manual brand work." },
-    { title: "Asset Governance", desc: "Control, versioning, and distribution at scale." },
+    { title: "Design System", desc: "A living library of components. Governed, versioned, scalable." },
+    { title: "Digital Templates", desc: "Production-ready assets across every channel. No reinvention." },
+    { title: "Automation Layer", desc: "Workflows that eliminate the manual work nobody should be doing." },
+    { title: "Asset Governance", desc: "Control and distribution at scale. One source of truth." },
   ];
 
   return (
     <section className="min-h-screen flex items-center bg-background">
       <div ref={ref} className="w-full max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-0">
         <SceneReveal visible={visible} delay={0}>
-          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Stage 03</p>
-          <h2 className="section-headline mb-16">SYSTEMIZE</h2>
+          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">From structure to infrastructure</p>
+          <h2 className="section-headline mb-16">Systemize</h2>
         </SceneReveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
           {modules.map((m, i) => (
@@ -172,6 +181,7 @@ const Scene4 = () => {
   );
 };
 
+/* ═══ SCENE 5 — Scale ═══ */
 const Scene5 = () => {
   const { ref, visible } = useSceneVisibility();
   const impacts = ["Faster launches", "Consistent execution", "Long-term brand clarity"];
@@ -183,8 +193,8 @@ const Scene5 = () => {
           <span className="text-[100px] md:text-[160px] font-bold leading-none text-muted/50 select-none block mb-4 font-body">04</span>
         </SceneReveal>
         <SceneReveal visible={visible} delay={100}>
-          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Stage 04</p>
-          <h2 className="section-headline mb-6">SCALE</h2>
+          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">The result</p>
+          <h2 className="section-headline mb-6">Scale</h2>
         </SceneReveal>
         <div className="space-y-5 mt-12">
           {impacts.map((line, i) => (
@@ -195,13 +205,16 @@ const Scene5 = () => {
         </div>
         <SceneReveal visible={visible} delay={600}>
           <div className="mt-20"><SceneDivider visible={visible} delay={650} /></div>
-          <p className="mt-10 text-sm text-muted-foreground">This is how we build brand systems at MP.</p>
+          <p className="mt-10 text-sm text-muted-foreground">
+            This is how we build brand systems at MP.
+          </p>
         </SceneReveal>
       </div>
     </section>
   );
 };
 
+/* ═══ PAGE ═══ */
 const BrandSystems = () => {
   useDocumentTitle("Brand Systems — MP");
   return (
@@ -209,9 +222,27 @@ const BrandSystems = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <Scene1 />
+
+        <VisualBreakFull
+          image={visualBrandDefine}
+          alt="Architectural blueprint geometry — the precision behind identity"
+        />
+
         <Scene2 />
+
+        <VisualBreakFull
+          image={visualStructure}
+          alt="Structural grid — codified systems at scale"
+        />
+
         <Scene3 />
         <Scene4 />
+
+        <VisualBreakFull
+          image={visualFramework}
+          alt="Framework lines — from structure to infrastructure"
+        />
+
         <Scene5 />
       </main>
       <Footer />

@@ -1,8 +1,14 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { VisualBreakFull } from "@/components/VisualBreak";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useSceneVisibility, SceneReveal, SceneDivider } from "@/components/SceneReveal";
 
+import visualCobuild from "@/assets/visual-cobuild-together.jpg";
+import visualFlow1 from "@/assets/visual-flow-1.jpg";
+import visualFlow3 from "@/assets/visual-flow-3.jpg";
+
+/* ═══ SCENE 1 — Opening ═══ */
 const Scene1 = () => {
   const { ref, visible } = useSceneVisibility(0.3);
   return (
@@ -19,7 +25,7 @@ const Scene1 = () => {
         </SceneReveal>
         <SceneReveal visible={visible} delay={350}>
           <p className="body-large max-w-xl mx-auto">
-            Long-term collaborations with shared ownership and responsibility. We don't just deliver projects and leave — we build ventures with our partners.
+            Some projects don't need a vendor. They need a co-founder. Shared conviction, shared risk, shared upside. That's where the best work happens.
           </p>
         </SceneReveal>
       </div>
@@ -27,12 +33,13 @@ const Scene1 = () => {
   );
 };
 
+/* ═══ SCENE 2 — Partner ═══ */
 const Scene2 = () => {
   const { ref, visible } = useSceneVisibility();
   const blocks = [
-    { title: "Long-term Commitment", desc: "We're in it for the journey, not the quick win." },
-    { title: "Shared Equity & Rewards", desc: "We put skin in the game, sharing ownership and upside with founders." },
-    { title: "Hands-On Support", desc: "Our team provides expertise in strategy, design, development — effectively expanding your capabilities." },
+    { title: "Long-term Commitment", desc: "We're in it for the journey. Quick wins are for consultants. We build what lasts." },
+    { title: "Shared Equity & Rewards", desc: "Skin in the game. We invest effort and ownership alongside founders because alignment only works when it's mutual." },
+    { title: "Hands-On Capability", desc: "Strategy, design, engineering — we don't advise from the sidelines. We're in the codebase, in the pitch, in the room." },
   ];
 
   return (
@@ -44,10 +51,10 @@ const Scene2 = () => {
           </SceneReveal>
           <div>
             <SceneReveal visible={visible} delay={100}>
-              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">How We Partner</p>
-              <h2 className="section-headline mb-6">PARTNER</h2>
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">How we show up</p>
+              <h2 className="section-headline mb-6">Partner</h2>
               <p className="text-muted-foreground leading-relaxed max-w-lg mb-12">
-                Our engagements start with a shared vision and mutual conviction. From day one, we act as co-founders, investing effort and equity alongside you.
+                Every engagement starts with shared vision and mutual conviction. From day one, we act as co-founders — investing effort and equity alongside you. If we don't believe in it, we don't do it.
               </p>
             </SceneReveal>
             <div className="space-y-0">
@@ -71,24 +78,25 @@ const Scene2 = () => {
   );
 };
 
+/* ═══ SCENE 3 — Evolve ═══ */
 const Scene3 = () => {
   const { ref, visible } = useSceneVisibility();
   return (
     <section className="min-h-screen flex items-center bg-secondary">
       <div ref={ref} className="w-full max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-0">
         <SceneReveal visible={visible} delay={0}>
-          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Evolution</p>
-          <h2 className="section-headline mb-8">EVOLVE</h2>
+          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">What happens next</p>
+          <h2 className="section-headline mb-10">Evolve</h2>
         </SceneReveal>
         <SceneReveal visible={visible} delay={150}>
-          <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed mb-8">
-            When the partnership proves successful, some collaborations naturally evolve into a new venture.
+          <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed mb-8 font-display">
+            When a partnership proves successful, some collaborations naturally evolve into something new.
           </p>
         </SceneReveal>
         <SceneReveal visible={visible} delay={300}>
           <p className="text-muted-foreground leading-relaxed max-w-xl mb-8">
-            At that point, we shift from service to co-ownership, formalizing a joint company or product.
-            We measure success not by hours billed but by how much momentum we've created together.
+            At that point, we shift from service to co-ownership — formalizing a joint company or product.
+            We don't measure success by hours billed. We measure it by momentum created together.
           </p>
         </SceneReveal>
         <SceneReveal visible={visible} delay={400}>
@@ -100,6 +108,7 @@ const Scene3 = () => {
   );
 };
 
+/* ═══ PAGE ═══ */
 const CoBuild = () => {
   useDocumentTitle("Co-Build Partnerships — MP");
   return (
@@ -107,7 +116,19 @@ const CoBuild = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <Scene1 />
+
+        <VisualBreakFull
+          image={visualCobuild}
+          alt="Hands shaping clay together — partnership in motion"
+        />
+
         <Scene2 />
+
+        <VisualBreakFull
+          image={visualFlow1}
+          alt="Water flowing — natural momentum between partners"
+        />
+
         <Scene3 />
       </main>
       <Footer />

@@ -1,8 +1,14 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { VisualBreakFull } from "@/components/VisualBreak";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useSceneVisibility, SceneReveal, SceneDivider } from "@/components/SceneReveal";
 
+import visualAiLeverage from "@/assets/visual-ai-leverage.jpg";
+import visualLightSpace from "@/assets/visual-light-space.jpg";
+import visualThreshold from "@/assets/visual-threshold.jpg";
+
+/* ═══ SCENE 1 — Opening ═══ */
 const Scene1 = () => {
   const { ref, visible } = useSceneVisibility(0.3);
   return (
@@ -19,7 +25,7 @@ const Scene1 = () => {
         </SceneReveal>
         <SceneReveal visible={visible} delay={350}>
           <p className="body-large max-w-xl mx-auto">
-            Applied selectively. Only where it removes friction, increases leverage, or fundamentally changes how work gets done.
+            We don't chase trends. We apply AI where it removes friction, multiplies capability, or fundamentally changes the economics of how work gets done. Nowhere else.
           </p>
         </SceneReveal>
       </div>
@@ -27,12 +33,13 @@ const Scene1 = () => {
   );
 };
 
+/* ═══ SCENE 2 — Apply ═══ */
 const Scene2 = () => {
   const { ref, visible } = useSceneVisibility();
   const blocks = [
-    { title: "AI Agents", desc: "AI assistants and ML models for data analysis, content generation, and personalized experiences — speeding up workflows without sacrificing quality." },
-    { title: "Automation Workflows", desc: "End-to-end automation pipelines for marketing, operations, and data processing that run reliably in the background." },
-    { title: "Human Oversight", desc: "At every step, we ensure transparency and review. AI augments your team's judgment, rather than dictating actions." },
+    { title: "AI Agents", desc: "Intelligent systems for analysis, generation, and decision support — amplifying your team's judgment, never replacing it." },
+    { title: "Automation Pipelines", desc: "End-to-end workflows for operations, marketing, and data processing. They run reliably in the background so your team can focus on what matters." },
+    { title: "Human Oversight", desc: "Every system we build has a human in the loop. AI augments capability. Humans retain control." },
   ];
 
   return (
@@ -44,10 +51,10 @@ const Scene2 = () => {
           </SceneReveal>
           <div>
             <SceneReveal visible={visible} delay={100}>
-              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">How We Apply</p>
-              <h2 className="section-headline mb-6">APPLY</h2>
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Where we apply it</p>
+              <h2 className="section-headline mb-6">Apply</h2>
               <p className="text-muted-foreground leading-relaxed max-w-lg mb-12">
-                We harness AI and automation to amplify human work, not replace it. We identify repeatable tasks or high-complexity problems and automate them intelligently.
+                Most companies adopt AI because it's available. We adopt it because it's necessary. We identify the exact points where automation creates disproportionate value — and leave everything else alone.
               </p>
             </SceneReveal>
             <div className="space-y-0">
@@ -71,24 +78,24 @@ const Scene2 = () => {
   );
 };
 
+/* ═══ SCENE 3 — Principle ═══ */
 const Scene3 = () => {
   const { ref, visible } = useSceneVisibility();
   return (
     <section className="min-h-screen flex items-center bg-secondary">
       <div ref={ref} className="w-full max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-0">
         <SceneReveal visible={visible} delay={0}>
-          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Philosophy</p>
-          <h2 className="section-headline mb-8">PRINCIPLE</h2>
+          <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Our conviction</p>
+          <h2 className="section-headline mb-10">Principle</h2>
         </SceneReveal>
         <SceneReveal visible={visible} delay={150}>
-          <blockquote className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground leading-[1.2] mb-8 font-display">
-            "AI isn't here to replace — it's here to multiply leverage."
+          <blockquote className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground leading-[1.2] mb-10 font-display italic">
+            "AI isn't here to replace. It's here to multiply leverage."
           </blockquote>
         </SceneReveal>
         <SceneReveal visible={visible} delay={300}>
           <p className="text-muted-foreground leading-relaxed max-w-xl">
-            We apply AI as a force multiplier — not a shortcut — focusing on sustainable systems rather than hype.
-            We only implement AI when it truly enhances capabilities and aligns with long-term goals. No experiments for the sake of trend.
+            We treat AI as a force multiplier — not a shortcut. Sustainable systems over hype cycles. We only implement when it genuinely enhances capability and aligns with where you're going long-term. No experiments for the sake of trend.
           </p>
         </SceneReveal>
         <SceneReveal visible={visible} delay={400}>
@@ -100,6 +107,7 @@ const Scene3 = () => {
   );
 };
 
+/* ═══ PAGE ═══ */
 const AIAutomation = () => {
   useDocumentTitle("AI & Automation — MP");
   return (
@@ -107,7 +115,19 @@ const AIAutomation = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <Scene1 />
+
+        <VisualBreakFull
+          image={visualAiLeverage}
+          alt="Converging light — focused leverage through AI"
+        />
+
         <Scene2 />
+
+        <VisualBreakFull
+          image={visualLightSpace}
+          alt="Light in space — clarity over complexity"
+        />
+
         <Scene3 />
       </main>
       <Footer />
