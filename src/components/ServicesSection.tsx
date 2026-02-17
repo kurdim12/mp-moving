@@ -1,4 +1,4 @@
-import { RevealGroup, Reveal, RevealDivider } from "@/components/RevealOnScroll";
+import { RevealGroup, Reveal, RevealDivider, RevealWords } from "@/components/RevealOnScroll";
 
 const services = [
   {
@@ -33,7 +33,7 @@ const ServicesSection = () => {
               What We Build
             </p>
             <p className="text-xl md:text-2xl font-medium text-primary-foreground/80 max-w-lg">
-              Partnership with purpose.
+              <RevealWords text="Partnership with purpose." delay={200} stagger={80} />
             </p>
           </Reveal>
 
