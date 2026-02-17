@@ -16,7 +16,6 @@ import AIAutomation from "./pages/AIAutomation";
 import CoBuild from "./pages/CoBuild";
 import WhatWeBuild from "./pages/WhatWeBuild";
 import ContactPage from "./pages/ContactPage";
-import ScrollStory from "./pages/ScrollStory";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +29,6 @@ const App = () => (
         <SmoothScroll>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/story" element={<ScrollStory />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioProject />} />
             <Route path="/portfolio/:slug/:section" element={<PortfolioSection />} />
