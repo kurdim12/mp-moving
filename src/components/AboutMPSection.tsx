@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { useGsapClipReveal, useGsapReveal, useGsapParallax, useGsapLineReveal } from "@/hooks/useGsap";
+import { useGsapSplitText, useGsapReveal, useGsapParallax, useGsapLineReveal, useGsapDrawSVG, useGsapMorphSVG } from "@/hooks/useGsap";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import visualPartnership from "@/assets/wwb-partnerships.jpg";
@@ -7,17 +7,34 @@ import visualPartnership from "@/assets/wwb-partnerships.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const SectionStatement = () => {
-  const ref = useGsapClipReveal();
+  const ref = useGsapSplitText({ type: "chars", stagger: 0.03, y: 60, ease: "back.out(1.6)" });
   return (
-    <div ref={ref} className="section-padding">
+    <div ref={ref} className="section-padding" style={{ perspective: "600px" }}>
       <div className="content-container">
-        <div className="overflow-hidden">
-          <h2 data-clip className="display-massive text-foreground">we grow</h2>
-        </div>
-        <div className="overflow-hidden">
-          <h2 data-clip className="display-massive text-muted-foreground">together.</h2>
-        </div>
+        <h2 data-split className="display-massive text-foreground">we grow</h2>
+        <h2 data-split className="display-massive text-muted-foreground">together.</h2>
       </div>
+    </div>
+  );
+};
+
+/* MorphSVG decorative element — circle morphs into diamond */
+const MorphShape = () => {
+  const pathRef = useGsapMorphSVG(
+    "M60 10 L110 60 L60 110 L10 60 Z",
+    { duration: 2, ease: "elastic.out(1, 0.5)" }
+  );
+  return (
+    <div className="flex justify-center py-12">
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          ref={pathRef}
+          d="M60 10 A50 50 0 1 1 59.99 10 Z"
+          stroke="hsl(var(--foreground) / 0.2)"
+          strokeWidth="1.5"
+          fill="none"
+        />
+      </svg>
     </div>
   );
 };
@@ -85,6 +102,9 @@ const AboutMPSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Morph shape divider */}
+      <MorphShape />
 
       {/* Ventures */}
       <div className="content-container pb-24 md:pb-32">

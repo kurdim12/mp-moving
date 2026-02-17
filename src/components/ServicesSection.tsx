@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useGsapClipReveal, useGsapReveal, useGsapLineReveal } from "@/hooks/useGsap";
+import { useGsapSplitText, useGsapReveal, useGsapLineReveal, useGsapDrawSVG } from "@/hooks/useGsap";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
@@ -59,24 +59,41 @@ const services = [
 ];
 
 const SectionStatement = () => {
-  const ref = useGsapClipReveal();
+  const ref = useGsapSplitText({ type: "chars", stagger: 0.03, y: 60, ease: "back.out(1.6)" });
   return (
-    <div ref={ref} className="section-padding">
+    <div ref={ref} className="section-padding" style={{ perspective: "600px" }}>
       <div className="content-container">
-        <div className="overflow-hidden">
-          <h2 data-clip className="display-massive text-foreground">we build</h2>
-        </div>
-        <div className="overflow-hidden">
-          <h2 data-clip className="display-massive text-muted-foreground">momentum.</h2>
-        </div>
+        <h2 data-split className="display-massive text-foreground">we build</h2>
+        <h2 data-split className="display-massive text-muted-foreground">momentum.</h2>
       </div>
+    </div>
+  );
+};
+
+/* Decorative DrawSVG divider between sections */
+const DrawSVGDivider = () => {
+  const svgRef = useGsapDrawSVG({ duration: 2, ease: "power3.inOut" });
+  return (
+    <div className="content-container py-4">
+      <svg
+        ref={svgRef}
+        viewBox="0 0 1200 2"
+        className="w-full h-[2px]"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 1 L1200 1"
+          stroke="hsl(var(--foreground) / 0.15)"
+          strokeWidth="2"
+        />
+      </svg>
     </div>
   );
 };
 
 const ServicesSection = () => {
   const listRef = useRef<HTMLDivElement>(null);
-  const lineRef = useGsapLineReveal();
 
   useEffect(() => {
     if (!listRef.current) return;
@@ -109,7 +126,7 @@ const ServicesSection = () => {
     <section className="w-full">
       <SectionStatement />
       <div className="content-container pb-24 md:pb-32">
-        <div ref={lineRef} className="h-px bg-foreground/15 mb-0" />
+        <DrawSVGDivider />
         <div ref={listRef}>
           {services.map((service, index) => (
             <ServiceAccordion key={index} service={service} index={index} />
@@ -142,7 +159,6 @@ const ServiceAccordion = ({
         { height: 0, opacity: 0 },
         { height: h, opacity: 1, duration: 0.5, ease: "power3.out" }
       );
-      // Pop in inner content
       const children = inner.querySelectorAll("[data-pop]");
       gsap.fromTo(
         children,

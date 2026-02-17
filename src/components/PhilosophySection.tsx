@@ -1,4 +1,4 @@
-import { useGsapClipReveal, useGsapReveal, useGsapParallax } from "@/hooks/useGsap";
+import { useGsapSplitText, useGsapReveal, useGsapParallax } from "@/hooks/useGsap";
 import visualBrand from "@/assets/wwb-brand.jpg";
 import visualPlatform from "@/assets/wwb-platform.jpg";
 import visualAi from "@/assets/wwb-ai.jpg";
@@ -22,20 +22,16 @@ const blocks = [
 ];
 
 const SectionStatement = () => {
-  const ref = useGsapClipReveal();
+  const ref = useGsapSplitText({ type: "chars", stagger: 0.03, y: 60, ease: "back.out(1.6)" });
   return (
-    <div ref={ref} className="section-padding">
+    <div ref={ref} className="section-padding" style={{ perspective: "600px" }}>
       <div className="content-container">
-        <div className="overflow-hidden">
-          <h2 data-clip className="display-massive text-foreground">
-            we create
-          </h2>
-        </div>
-        <div className="overflow-hidden">
-          <h2 data-clip className="display-massive text-muted-foreground">
-            alignment.
-          </h2>
-        </div>
+        <h2 data-split className="display-massive text-foreground">
+          we create
+        </h2>
+        <h2 data-split className="display-massive text-muted-foreground">
+          alignment.
+        </h2>
       </div>
     </div>
   );
