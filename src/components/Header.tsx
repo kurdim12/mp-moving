@@ -36,18 +36,6 @@ const Header = () => {
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             <Link
-              to="/what-we-build"
-              className="text-[13px] font-medium tracking-wide text-foreground/60 hover:text-foreground transition-colors duration-300"
-            >
-              WWB
-            </Link>
-            <Link
-              to="/portfolio"
-              className="text-[13px] font-medium tracking-wide text-foreground/60 hover:text-foreground transition-colors duration-300"
-            >
-              Portfolio
-            </Link>
-            <Link
               to="/contact"
               className="text-[13px] font-medium tracking-wide text-foreground/60 hover:text-foreground transition-colors duration-300"
             >
@@ -72,20 +60,6 @@ const Header = () => {
       {menuOpen && (
         <div className="md:hidden bg-background/98 backdrop-blur-sm border-b border-border animate-fade-in" role="navigation" aria-label="Mobile navigation">
           <div className="content-container py-6 flex flex-col gap-5">
-            <Link
-              to="/what-we-build"
-              className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              WWB
-            </Link>
-            <Link
-              to="/portfolio"
-              className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              Portfolio
-            </Link>
             <Link
               to="/contact"
               className="text-base font-medium text-foreground/80 hover:text-foreground transition-colors"

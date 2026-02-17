@@ -65,9 +65,7 @@ const WhatWeBuild = () => {
             </p>
           </Reveal>
           <Reveal delay={300}>
-            <div className="mt-12">
-              <RevealDivider delay={400} />
-            </div>
+            <RevealDivider delay={400} />
           </Reveal>
         </RevealGroup>
 
