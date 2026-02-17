@@ -55,7 +55,7 @@ const HeroSection = () => {
             <h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] leading-[1.08] tracking-tight mb-8 md:mb-10"
               style={{
-                fontFamily: "'Instrument Serif', Georgia, serif",
+                fontFamily: "var(--font-display)",
                 color: "rgba(255,255,255,0.95)",
                 opacity: loaded ? 1 : 0,
                 transform: loaded ? "translateY(0)" : "translateY(24px)",
